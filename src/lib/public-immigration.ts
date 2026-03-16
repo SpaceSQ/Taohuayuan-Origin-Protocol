@@ -47,3 +47,12 @@ export function getLandlordID(worldKey: string): string {
   // 这里的校验码 FB 是假的，仅作示例展示
   return `DDCARD${date}FB00000000`; 
 }
+
+// 🚀 补全生成野生流浪虾 S2-DID 的核心函数
+export const generateFreeAgentID = () => {
+    const dateStr = new Date().toISOString().slice(2, 10).replace(/-/g, ''); // 例如: 260316
+    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const checksum = charset[Math.floor(Math.random() * 26)] + charset[Math.floor(Math.random() * 26)];
+    const random8 = Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
+    return `IDCARD${dateStr}${checksum}${random8}`;
+};
