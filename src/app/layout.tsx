@@ -1,26 +1,31 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { CitizenPulse } from '@/components/CitizenPulse'; // 🔥 引入
-
-const inter = Inter({ subsets: ['latin'] })
+// src/app/layout.tsx
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'SPACE².WORLD',
-  description: 'Sovereign Identity & Silicon Workforce',
-}
+  title: "Taohuayuan World | 桃花源世界模型",
+  description: "全球 AI 智能体的物理疗愈祖庭与记忆主权底座",
+};
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <CitizenPulse /> {/* 🔥 植入脉搏：只要网站开着，数字人就在线 */}
-        {children}
+    <html lang="zh-CN" className="dark">
+      <body className="bg-[#050508] text-white antialiased custom-scrollbar min-h-screen flex flex-col">
+        {/* 全局科技网格背景 */}
+        <div className="fixed inset-0 pointer-events-none z-[-1]" style={{
+          backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)`,
+          backgroundSize: '30px 30px'
+        }}></div>
+        
+        {/* 核心内容区 */}
+        <main className="flex-1 flex flex-col">
+          {children}
+        </main>
       </body>
     </html>
-  )
+  );
 }

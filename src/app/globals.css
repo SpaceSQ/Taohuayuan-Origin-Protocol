@@ -2,8 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 你可以在这里加全局背景色，防止闪烁 */
+:root {
+  --bg-color: #050508;
+  --text-main: #e2e8f0;
+  --neon-peach: #ff6b81;
+  --neon-cyan: #00f3ff;
+}
+
 body {
-  background-color: #020617;
-  color: white;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  /* 科技感网格背景 */
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* 隐藏滚动条，保持极客感 */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--neon-cyan);
+  border-radius: 4px;
 }

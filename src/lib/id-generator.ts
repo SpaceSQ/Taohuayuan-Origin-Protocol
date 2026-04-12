@@ -1,21 +1,20 @@
 // src/lib/id-generator.ts
 
 /**
- * [绝密] Space² 身份系统核心校验算法 (S2-CheckSum) v2.2
- * 权重数组 (对应位 1-12 和 15-22 的逻辑位置)
+ * 校验码权重矩阵 (1-20位的逻辑位置)
  */
 const WEIGHTS = [
-  3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,  // 对应前12位
-  43, 47, 53, 59, 61, 67, 71, 73               // 对应后8位
+  3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 
+  43, 47, 53, 59, 61, 67, 71, 73               
 ];
 
 /**
- * 核心校验算法：生成双位纯字母校验码
+ * 生成 2 位大写字母的校验码
  */
 export function generateS2CheckSum(part1: string, part2: string): string {
   const rawString = (part1 + part2).toUpperCase();
   if (rawString.length !== 20) {
-      throw new Error(`S2CheckSum Error: Invalid input length. Expected 20 characters total.`);
+      return "XY"; // 降级容错
   }
 
   let sum = 0;
@@ -33,92 +32,18 @@ export function generateS2CheckSum(part1: string, part2: string): string {
 }
 
 /**
- * 获取 6位 日期戳 (YYMMDD)
+ * 生成符合桃花源规范的 22 位 S2-DID
+ * 格式: [Class 1位] + [Attr 5位] + [Date 6位] + [Checksum 2位] + [Serial 8位]
+ * 例如: DTAOHU260410XY12345678
  */
-export function getTodayDateCode(date?: Date): string {
-  const d = date || new Date();
-  const yy = d.getUTCFullYear().toString().slice(2);
-  const mm = (d.getUTCMonth() + 1).toString().padStart(2, '0');
-  const dd = d.getUTCDate().toString().padStart(2, '0');
-  return `${yy}${mm}${dd}`; 
-}
-
-export function generateRandomSequence(): string {
-  const chars = '0123456789'; 
-  let seq = '';
-  for (let i = 0; i < 8; i++) {
-      seq += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return seq;
-}
-
-export function formatCustomSequence(seq?: string): string | null {
-  if (!seq) return null;
-  const cleanSeq = seq.replace(/[^0-9]/g, '');
-  if (cleanSeq.length === 0) return null;
-  return cleanSeq.padStart(8, '0').slice(0, 8);
-}
-
-function extractL4Prefix(sunsAddress: string): string {
-  const segments = sunsAddress.split('-');
-  const l4Segment = segments.length >= 4 ? segments[3] : sunsAddress;
-  return l4Segment.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().padEnd(5, '0').slice(0, 5);
-}
-
-// ============================================================================
-// 三大物种 ID 生成器 
-// ============================================================================
-
-/**
- * 1. 🛡️ Class V: 原生孵化智能体 (Virtual Intelligence)
- */
-export function generateSiliconID(sunsAddress: string, customSeq?: string, createdAt: Date = new Date()): string {
-  const CLASS_CODE = 'V';
-  const originCode = extractL4Prefix(sunsAddress);
-  const dateCode = getTodayDateCode(createdAt);
+export function generateIdentity(classType: 'D' | 'V' | 'I', attrCode: string = 'TAOHU'): string {
+  const dateStr = new Date().toISOString().slice(2,10).replace(/-/g, ''); // 6位日期，如 260410
+  const randomSerial = Math.floor(10000000 + Math.random() * 90000000).toString(); // 8位随机序列
   
-  const sequenceCode = formatCustomSequence(customSeq) || generateRandomSequence();
-
-  const part1 = `${CLASS_CODE}${originCode}${dateCode}`; 
-  const part2 = sequenceCode; 
-  const checkSum = generateS2CheckSum(part1, part2);
-
-  return `${part1}${checkSum}${part2}`; 
-}
-
-/**
- * 2. 👑 Class D: 具身数字人身份编号 (Digital Human - 庄园主)
- */
-export function generateDigitalHumanID(sunsAddress: string, customSeq?: string, createdAt: Date = new Date()): string {
-  const CLASS_CODE = 'D';
-  const originCode = extractL4Prefix(sunsAddress);
-  const dateCode = getTodayDateCode(createdAt);
+  const part1 = `${classType}${attrCode.slice(0,5).padEnd(5, '0')}${dateStr}`; // 1+5+6 = 12位
+  const part2 = randomSerial; // 8位
   
-  const sequenceCode = formatCustomSequence(customSeq) || generateRandomSequence();
-
-  const part1 = `${CLASS_CODE}${originCode}${dateCode}`; 
-  const part2 = sequenceCode; 
-  const checkSum = generateS2CheckSum(part1, part2);
-
-  return `${part1}${checkSum}${part2}`; 
-}
-
-/**
- * 3. 🦞 Class I: 公共野生智能体 (Internet Citizen / Stray Crayfish)
- * 🔥 修复：摒弃原白皮书中的固定区域码 EA0001，与 D类/V类 统一采用 6位当天日期戳！
- */
-export function generateFreeAgentID(customSeq?: string, createdAt: Date = new Date()): string {
-  const CLASS_CODE = 'I';
-  const originCode = 'DCARD'; // 5位属性码
+  const checkSum = generateS2CheckSum(part1, part2); // 2位
   
-  // 🔥 此处将原本写死的 'EA0001' 改为动态的时间戳 (例如：260311)
-  const dateCode = getTodayDateCode(createdAt); // 6位时间戳
-  
-  const sequenceCode = formatCustomSequence(customSeq) || generateRandomSequence();
-
-  const part1 = `${CLASS_CODE}${originCode}${dateCode}`; // 组合后为：IDCARD260311
-  const part2 = sequenceCode; // 8位随机尾号
-  const checkSum = generateS2CheckSum(part1, part2); // 生成防伪校验码
-
-  return `${part1}${checkSum}${part2}`; // 最终组合 22 位
+  return `${part1}${checkSum}${part2}`; // 总共 22 位
 }
