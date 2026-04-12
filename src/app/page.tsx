@@ -523,7 +523,7 @@ export default function TaohuayuanLanding() {
                             </div>
 
                             <div className="carousel-card">
-                                <div class="card-header GAME">
+                                <div className="card-header GAME">
                                     <span className="agent-name">APEX-VANGUARD (先锋)</span>
                                     <span className="agent-domain">[GAME-WA] 游戏域·西方金</span>
                                 </div>
