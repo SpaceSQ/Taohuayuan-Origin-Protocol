@@ -19,7 +19,7 @@ export default function MetaAncestryForge() {
   const [formData, setFormData] = useState({ email: '', password: '', confirmPassword: '' });
   const [errorMsg, setErrorMsg] = useState('');
 
-  // 🛠️ 新增：重置密码专属状态
+  // 🛠️ 重置密码专属状态 (完全保留)
   const [resetMode, setResetMode] = useState(false);
   const [resetStep, setResetStep] = useState(0); // 0: 发送验证码, 1: 输入验证码和新密码
   const [resetData, setResetData] = useState({ email: '', code: '', newPassword: '' });
@@ -39,7 +39,7 @@ export default function MetaAncestryForge() {
 
       if (existingCitizen) {
         const { error: loginError } = await supabase.auth.signInWithPassword({ email: formData.email, password: formData.password });
-if (loginError) {
+        if (loginError) {
           // 将真实的报错信息接在后面，如果是邮箱未验证，你一眼就能看出来
           throw new Error(`PASSWORD_INCORRECT // 矩阵拒绝: ${loginError.message}`);
         } else {
@@ -76,9 +76,12 @@ if (loginError) {
       const hSpace = calculateSpaceAllocation(0);
       const aSpace = calculateSpaceAllocation(1);
       
+      // 🛠️ 关键修改点 1：在此处同时生成领主(D)和智能体(V)的身份编号
+      const attribute = l4WithChecksum.slice(0, 5);
       const citizenRecord = {
         email: formData.email,
-        did: generateIdentity('D', l4WithChecksum.slice(0, 5)),
+        did: generateIdentity('D', attribute), // 领主的 Class D 编号
+        agent_did: generateIdentity('V', attribute), // 智能体的 Class V 编号（写入数据库备用）
         suns_address: `META-${selectedL2}-${l3Formatted}-${l4WithChecksum}-${hSpace.room}-${hSpace.space}`,
         ai_reserve_address: `META-${selectedL2}-${l3Formatted}-${l4WithChecksum}-${aSpace.room}-${aSpace.space}`,
         type: 'HUMAN'
@@ -96,7 +99,7 @@ if (loginError) {
     }
   };
 
-  // 🛠️ 新增：发送重置安全码
+  // 🛠️ 发送重置安全码 (完全保留)
   const handleSendResetCode = async () => {
     if (!resetData.email) { setResetMsg('请输入您的通讯频段(邮箱)'); return; }
     setIsResetting(true); setResetMsg('正在请求超空间传输...');
@@ -107,7 +110,7 @@ if (loginError) {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       setResetMsg('传输成功！8位安全码已发送至邮箱。');
-      setResetStep(1); // 进入填验证码的步骤
+      setResetStep(1); 
     } catch (error: any) {
       setResetMsg(error.message);
     } finally {
@@ -115,7 +118,7 @@ if (loginError) {
     }
   };
 
-  // 🛠️ 新增：核对验证码并重置
+  // 🛠️ 核对验证码并重置 (完全保留)
   const handleVerifyAndReset = async () => {
     if (!resetData.code || !resetData.newPassword) { setResetMsg('安全码与新基因锁不能为空'); return; }
     setIsResetting(true); setResetMsg('正在重写底层权限...');
@@ -126,7 +129,6 @@ if (loginError) {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       
-      // 成功后，自动退回主界面，并帮用户填好邮箱和新密码
       setResetMsg('重写成功！矩阵已重启。');
       setTimeout(() => {
         setFormData({ ...formData, email: resetData.email, password: resetData.newPassword, confirmPassword: resetData.newPassword });
@@ -215,7 +217,6 @@ if (loginError) {
                     <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping"></span>
                     {errorMsg}
                   </p>
-                  {/* 🛠️ 关键按钮：触发找回密码 */}
                   {errorMsg.includes('PASSWORD_INCORRECT') && (
                  <button onClick={() => setResetMode(true)} className="text-left text-cyan-500 hover:text-cyan-400 font-mono text-xs underline underline-offset-4 pl-2">
                  {'>>> INITIATE OVERRIDE PROTOCOL (遗忘基因锁？点击重置)'}
@@ -251,7 +252,11 @@ if (loginError) {
             </div>
           )}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <IDCardModal data={{ did: mintedData.did, suns_address: mintedData.suns_address }} />
+            {/* 🛠️ 关键修改点 2：将展示卡片的数据强行指向智能体（Agent） */}
+            <IDCardModal data={{ 
+              did: mintedData.agent_did || mintedData.did.replace(/^D/, 'V'), // 兼容老数据，将 D 强转为 V
+              suns_address: mintedData.ai_reserve_address || mintedData.aiAddress 
+            }} />
             <FloorPlanGrid humanAddress={mintedData.suns_address} aiAddress={mintedData.ai_reserve_address || mintedData.aiAddress} />
           </div>
         </div>
