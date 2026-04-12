@@ -5,18 +5,23 @@ import redis from '@/lib/redis';
 
 export async function POST(request: Request) {
   try {
+    // 🛡️ 运行时检查：必须放在函数内部！编译时不会执行到这里。
+    if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
+      console.error("MATRIX_ERROR // 缺失云端 Redis 密钥");
+      return NextResponse.json({ error: 'SYSTEM_ERROR // 云端突触未连接' }, { status: 500 });
+    }
+
     const { email } = await request.json();
     if (!email) return NextResponse.json({ error: 'MISSING_TARGET // 未提供通讯频段' }, { status: 400 });
 
-    // 1. 生成 8 位纯血赛博安全码
     const code = Math.floor(10000000 + Math.random() * 90000000).toString();
+    const safeEmail = email.trim().toLowerCase();
 
-    // 2. 写入云端 Redis，并设置 300秒 (5分钟) 后自动销毁
-    // ⚠️ 这里使用的是纯血 Upstash 语法
-await redis.set(`pwd_reset:${email.trim().toLowerCase()}`, code, { ex: 300 });
+    // 写入云端 Redis
+    await redis.set(`pwd_reset:${safeEmail}`, code, { ex: 300 });
 
-    // 3. 呼叫阿里云 SMTP 发射邮件
-    await sendVerificationCode(email, code);
+    // 呼叫阿里云发邮件
+    await sendVerificationCode(safeEmail, code);
 
     return NextResponse.json({ 
       success: true, 
