@@ -2,345 +2,342 @@ import os
 import sqlite3
 import markdown
 import json
-import hashlib
+import shutil
 from datetime import datetime
-from fastapi import FastAPI, File, UploadFile, Form, Request, HTTPException, Response
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Environment, FileSystemLoader
 
-app = FastAPI(title="Taohuayuan CMS v3.0")
+app = FastAPI(title="Taohuayuan CMS v1.4")
 
 # ==========================================
 # ⚙️ 核心路径配置
 # ==========================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 NEXT_PUBLIC_DIR = os.path.abspath(os.path.join(BASE_DIR, '..', 'public'))
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+UPLOAD_DIR = os.path.join(NEXT_PUBLIC_DIR, 'uploads', 'news')
 DB_FILE = os.path.join(BASE_DIR, 'taohuayuan_news.db')
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 CATEGORIES = ['news', 'release', 'whitepaper', 'resource']
 
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 for cat in CATEGORIES: os.makedirs(os.path.join(NEXT_PUBLIC_DIR, cat), exist_ok=True)
 os.makedirs(os.path.join(NEXT_PUBLIC_DIR, 'api'), exist_ok=True)
 
-def hash_password(password: str) -> str:
-    return hashlib.sha256((password + "thy_salt_2026").encode('utf-8')).hexdigest()
+conn = sqlite3.connect(DB_FILE)
+conn.execute('''CREATE TABLE IF NOT EXISTS articles (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, slug TEXT UNIQUE, 
+    category TEXT, content_md TEXT, content_html TEXT, 
+    seo_keywords TEXT, seo_desc TEXT, published_at DATETIME)''')
+conn.commit()
+conn.close()
 
-def get_db():
+# ==========================================
+# 🔄 核心刷新逻辑
+# ==========================================
+def update_latest_json():
+    latest_data = {cat: [] for cat in CATEGORIES}
     conn = sqlite3.connect(DB_FILE)
     conn.row_factory = sqlite3.Row
-    return conn
-
-# ==========================================
-# 🗄️ 数据库初始化
-# ==========================================
-with get_db() as db:
-    db.execute('''CREATE TABLE IF NOT EXISTS articles (
-        id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, slug TEXT UNIQUE, 
-        category TEXT, content_md TEXT, content_html TEXT, 
-        keywords TEXT, seo_desc TEXT, views INTEGER DEFAULT 0, published_at DATETIME)''')
-    db.execute('''CREATE TABLE IF NOT EXISTS admin_users (
-        email TEXT PRIMARY KEY, password_hash TEXT, must_change_pwd INTEGER DEFAULT 1)''')
-    # 预置管理员
-    admin_email = "david.xiang@robot0.com"
-    db.execute("INSERT OR IGNORE INTO admin_users (email, password_hash, must_change_pwd) VALUES (?, ?, 1)", 
-               (admin_email, hash_password("12345678")))
-    db.commit()
-
-def get_current_user(request: Request):
-    user_email = request.cookies.get("cms_session")
-    if not user_email: return None
-    with get_db() as db:
-        user = db.execute("SELECT * FROM admin_users WHERE email=?", (user_email,)).fetchone()
-        return dict(user) if user else None
-
-# ==========================================
-# 📡 业务 API 接口 (包含编辑回填 API)
-# ==========================================
-@app.post("/api/login")
-async def login(response: Response, email: str = Form(...), password: str = Form(...)):
-    with get_db() as db:
-        user = db.execute("SELECT * FROM admin_users WHERE email=?", (email,)).fetchone()
-        if user and user["password_hash"] == hash_password(password):
-            response.set_cookie(key="cms_session", value=email, httponly=True)
-            return {"status": "success", "must_change_pwd": user["must_change_pwd"]}
-    return JSONResponse(status_code=401, content={"error": "身份认证失败"})
-
-@app.post("/api/change_password")
-async def change_password(request: Request, new_password: str = Form(...)):
-    user = get_current_user(request)
-    if not user: raise HTTPException(status_code=401)
-    with get_db() as db:
-        db.execute("UPDATE admin_users SET password_hash=?, must_change_pwd=0 WHERE email=?", 
-                   (hash_password(new_password), user['email']))
-        db.commit()
-    return {"status": "success"}
-
-# 拉取单篇文章供编辑使用
-@app.get("/api/article/{id}")
-async def get_single_article(request: Request, id: int):
-    user = get_current_user(request)
-    if not user: raise HTTPException(status_code=401)
-    with get_db() as db:
-        row = db.execute("SELECT * FROM articles WHERE id=?", (id,)).fetchone()
-        if not row: raise HTTPException(status_code=404)
-        return dict(row)
-
-@app.post("/api/publish")
-async def publish(request: Request, id: int = Form(0), title: str=Form(...), category: str=Form(...), content_md: str=Form(...), keywords: str=Form(""), desc: str=Form("")):
-    user = get_current_user(request)
-    if not user or user['must_change_pwd']: raise HTTPException(status_code=401)
-
-    kw_list = [k.strip() for k in keywords.replace('，', ',').split(',') if k.strip()]
-    clean_keywords = ",".join(kw_list[:5])
-    html_body = markdown.markdown(content_md, extensions=['extra', 'tables', 'fenced_code', 'nl2br'])
-    pub_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    with get_db() as db:
-        if id == 0: # 新增
-            slug = f"thy-{datetime.now().strftime('%Y%m%d')}-{int(datetime.now().timestamp())}"
-            db.execute('INSERT INTO articles (title, slug, category, content_md, content_html, keywords, seo_desc, published_at, views) VALUES (?,?,?,?,?,?,?,?,0)',
-                       (title, slug, category, content_md, html_body, clean_keywords, desc, pub_at))
-        else: # 更新
-            row = db.execute('SELECT slug FROM articles WHERE id=?', (id,)).fetchone()
-            slug = row['slug']
-            db.execute('UPDATE articles SET title=?, category=?, content_md=?, content_html=?, keywords=?, seo_desc=? WHERE id=?',
-                       (title, category, content_md, html_body, clean_keywords, desc, id))
-        db.commit()
-
-    # 渲染华丽的静态页面
-    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
     try:
-        template = env.get_template('article_template.html')
-        final_html = template.render(title=title, category=category, slug=slug, content_html=html_body, keywords=clean_keywords, seo_desc=desc, published_at=pub_at)
-    except:
-        final_html = "<div><h1>" + title + "</h1>" + html_body + "</div>"
-
-    category_path = os.path.join(NEXT_PUBLIC_DIR, category)
-    with open(os.path.join(category_path, f"{slug}.html"), 'w', encoding='utf-8') as f: f.write(final_html)
-    with open(os.path.join(category_path, f"{slug}.md"), 'w', encoding='utf-8') as f: f.write(content_md)
-
-    update_latest_api()
-    return {"status": "success", "message": "矩阵数据已同步！"}
-
-def update_latest_api():
-    latest_data = {cat: [] for cat in CATEGORIES}
-    with get_db() as db:
         for cat in CATEGORIES:
-            rows = db.execute('SELECT title, slug, published_at FROM articles WHERE category=? ORDER BY published_at DESC LIMIT 5', (cat,)).fetchall()
-            for r in rows: latest_data[cat].append({"title": r["title"], "slug": r["slug"], "date": r["published_at"][:10]})
+            rows = conn.execute('SELECT title, slug, published_at FROM articles WHERE category=? ORDER BY published_at DESC LIMIT 5', (cat,)).fetchall()
+            for r in rows:
+                latest_data[cat].append({"title": r["title"], "slug": r["slug"], "date": r["published_at"][:10]})
+    finally:
+        conn.close()
+        
     with open(os.path.join(NEXT_PUBLIC_DIR, 'api', 'latest.json'), 'w', encoding='utf-8') as f:
         json.dump(latest_data, f, ensure_ascii=False, indent=2)
 
-@app.get("/api/articles")
-async def get_articles(request: Request, keyword: str = ""):
-    user = get_current_user(request)
-    if not user: raise HTTPException(status_code=401)
-    with get_db() as db:
-        query = "SELECT id, title, category, keywords, views, published_at FROM articles "
-        params = []
-        if keyword:
-            query += "WHERE keywords LIKE ? "
-            params.append(f"%{keyword}%")
-        query += "ORDER BY id DESC"
-        rows = db.execute(query, params).fetchall()
-        return [dict(r) for r in rows]
-
-@app.post("/api/delete/{id}")
-async def delete_article(request: Request, id: int):
-    user = get_current_user(request)
-    if not user: raise HTTPException(status_code=401)
-    with get_db() as db:
-        db.execute('DELETE FROM articles WHERE id=?', (id,))
-        db.commit()
-    update_latest_api()
-    return {"status": "success"}
-
-@app.get("/api/track_view/{slug}")
-async def track_view(slug: str):
-    with get_db() as db:
-        db.execute("UPDATE articles SET views = views + 1 WHERE slug = ?", (slug,))
-        db.commit()
-        row = db.execute("SELECT views FROM articles WHERE slug = ?", (slug,)).fetchone()
-        return {"slug": slug, "views": row['views'] if row else 0}
+def update_api_and_files(article_data):
+    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
+    template = env.get_template('article_template.html')
+    final_html = template.render(**article_data)
+    
+    category_path = os.path.join(NEXT_PUBLIC_DIR, article_data['category'])
+    with open(os.path.join(category_path, f"{article_data['slug']}.html"), 'w', encoding='utf-8') as f:
+        f.write(final_html)
+    with open(os.path.join(category_path, f"{article_data['slug']}.md"), 'w', encoding='utf-8') as f:
+        f.write(article_data['content_md'])
+    update_latest_json()
 
 # ==========================================
-# 🖥️ 后台管理 UI (全功能版)
+# 🚀 接口定义
+# ==========================================
+@app.post("/api/upload")
+async def upload(image: UploadFile = File(...)):
+    filename = f"{datetime.now().strftime('%Y%m%d%H%M%S')}_{image.filename}"
+    file_path = os.path.join(UPLOAD_DIR, filename)
+    with open(file_path, "wb") as f: shutil.copyfileobj(image.file, f)
+    return {"data": {"filePath": f"/uploads/news/{filename}"}}
+
+@app.post("/api/publish")
+async def publish(
+    title: str = Form(...), category: str = Form(...), content_md: str = Form(...), 
+    seo_keywords: str = Form(""), seo_desc: str = Form(""), edit_slug: str = Form("")
+):
+    print(f"📥 [后端雷达] 收到发布/更新请求: {title}")
+    is_edit = bool(edit_slug and edit_slug.strip())
+    conn = sqlite3.connect(DB_FILE)
+    conn.row_factory = sqlite3.Row
+    
+    try:
+        if is_edit:
+            slug = edit_slug
+            old_row = conn.execute('SELECT published_at, category FROM articles WHERE slug=?', (slug,)).fetchone()
+            if not old_row: return {"status": "error", "message": "找不到该文章"}
+            pub_at = old_row['published_at']
+            
+            if old_row['category'] != category:
+                for ext in ['.html', '.md']:
+                    old_path = os.path.join(NEXT_PUBLIC_DIR, old_row['category'], f"{slug}{ext}")
+                    if os.path.exists(old_path): os.remove(old_path)
+        else:
+            slug = f"thy-{datetime.now().strftime('%Y%m%d')}-{int(datetime.now().timestamp())}"
+            pub_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        html_body = markdown.markdown(content_md, extensions=['extra', 'tables', 'fenced_code'])
+        
+        if is_edit:
+            conn.execute('''UPDATE articles SET title=?, category=?, content_md=?, content_html=?, seo_keywords=?, seo_desc=? WHERE slug=?''',
+                       (title, category, content_md, html_body, seo_keywords, seo_desc, slug))
+        else:
+            conn.execute('''INSERT INTO articles (title, slug, category, content_md, content_html, seo_keywords, seo_desc, published_at) 
+                          VALUES (?,?,?,?,?,?,?,?)''', (title, slug, category, content_md, html_body, seo_keywords, seo_desc, pub_at))
+        conn.commit()
+    finally:
+        conn.close()
+            
+    article_data = {"title": title, "slug": slug, "category": category, "content_md": content_md, "content_html": html_body, "seo_keywords": seo_keywords, "seo_desc": seo_desc, "published_at": pub_at}
+    update_api_and_files(article_data)
+    action_text = "更新" if is_edit else "发布"
+    print(f"✅ [后端雷达] {action_text}成功!")
+    return {"status": "success", "message": f"{action_text}成功！路径: /{category}/{slug}.html"}
+
+@app.get("/api/articles")
+async def get_all_articles():
+    conn = sqlite3.connect(DB_FILE)
+    conn.row_factory = sqlite3.Row
+    try:
+        rows = conn.execute('SELECT title, slug, category, published_at FROM articles ORDER BY published_at DESC').fetchall()
+        return [{"title": r["title"], "slug": r["slug"], "category": r["category"], "date": r["published_at"]} for r in rows]
+    finally:
+        conn.close()
+
+@app.get("/api/article/{slug}")
+async def get_single_article(slug: str):
+    conn = sqlite3.connect(DB_FILE)
+    conn.row_factory = sqlite3.Row
+    try:
+        row = conn.execute('SELECT * FROM articles WHERE slug=?', (slug,)).fetchone()
+        if not row: raise HTTPException(404)
+        return dict(row)
+    finally:
+        conn.close()
+
+# 👉 改用 POST 请求，彻底绕过 GET 缓存
+@app.post("/api/delete/{slug}")
+async def delete(slug: str):
+    print(f"🔥 [后端雷达] 收到强力粉碎请求，目标标识: {slug}")
+    conn = sqlite3.connect(DB_FILE)
+    conn.row_factory = sqlite3.Row
+    try:
+        row = conn.execute('SELECT category FROM articles WHERE slug=?', (slug,)).fetchone()
+        if not row: 
+            print("⚠️ [后端雷达] 数据不存在")
+            return {"status": "error", "message": "不存在的节点"}
+        
+        conn.execute('DELETE FROM articles WHERE slug=?', (slug,))
+        conn.commit()
+        
+        # 物理删除文件 (加入容错机制)
+        for ext in ['.html', '.md']:
+            p = os.path.join(NEXT_PUBLIC_DIR, row['category'], f"{slug}{ext}")
+            try:
+                if os.path.exists(p): 
+                    os.remove(p)
+                    print(f"🗑️ [后端雷达] 已物理粉碎: {p}")
+            except Exception as e:
+                print(f"⚠️ [后端雷达] 文件删除权限受限: {e}")
+                
+    finally:
+        conn.close()
+        
+    update_latest_json() 
+    print("✅ [后端雷达] 抹除流程全量完成")
+    return {"status": "success", "message": f"[{slug}] 数据基质已彻底清除。"}
+
+# ==========================================
+# 🖥️ 强制缓存刷新与内嵌提示 UI (完全抛弃 alert)
 # ==========================================
 @app.get("/", response_class=HTMLResponse)
-async def admin_ui(request: Request):
-    user = get_current_user(request)
-    js_logged = 'true' if user else 'false'
-    js_must_change = 'true' if (user and user.get('must_change_pwd')) else 'false'
-    
-    html = f"""
+async def admin_page():
+    html = """
     <!DOCTYPE html>
     <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
-        <title>S2 Matrix | 新闻发布中枢</title>
+        <title>S2 Matrix CMS v1.4</title>
         <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
         <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
         <style>
-            :root {{ --bg: #050508; --cyan: #00f3ff; --peach: #ff6b81; --text: #e2e8f0; --panel: #111; }}
-            body {{ background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; padding: 40px; margin: 0; }}
-            .container {{ max-width: 1400px; margin: 0 auto; }}
-            .panel {{ background: var(--panel); padding: 30px; border: 1px solid #333; border-radius: 8px; }}
-            h1, h2 {{ color: var(--cyan); letter-spacing: 2px; }}
-            input, select, button, textarea {{ width: 100%; padding: 12px; margin-bottom: 15px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; }}
-            button {{ background: var(--cyan); color: #000; font-weight: bold; cursor: pointer; border: none; transition: 0.3s; }}
-            button:hover {{ box-shadow: 0 0 15px var(--cyan); background: #fff; }}
-            .danger-btn {{ background: transparent; border: 1px solid var(--peach); color: var(--peach); }}
-            .danger-btn:hover {{ background: var(--peach); color: #000; }}
-            .kw-tag {{ display: inline-block; background: rgba(0,243,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; margin-right: 5px; cursor: pointer; }}
-            table {{ width: 100%; border-collapse: collapse; }}
-            th, td {{ padding: 15px; text-align: left; border-bottom: 1px solid #222; }}
-            tr:hover {{ background: #161616; }}
-            #login-view, #force-pwd-view, #dashboard-view {{ display: none; }}
-            .flex-grid {{ display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; }}
-            .edit-btn {{ background: rgba(0,243,255,0.1); color: var(--cyan); border: 1px solid var(--cyan); padding: 5px 10px; cursor: pointer; border-radius: 4px; font-size: 0.8rem; }}
+            body { background: #050508; color: #e2e8f0; font-family: monospace; padding: 20px; display: flex; gap: 20px; }
+            .sidebar { width: 300px; background: #111; padding: 20px; border: 1px solid #333; border-radius: 8px; overflow-y: auto; height: 90vh; }
+            .main { flex: 1; background: #111; padding: 30px; border: 1px solid #333; border-radius: 8px; position: relative; }
+            h1, h2 { color: #00f3ff; border-bottom: 1px dashed #333; padding-bottom: 10px; }
+            .form-group { margin-bottom: 20px; }
+            label { display: block; margin-bottom: 8px; color: #ff6b81; }
+            input, select { width: 100%; padding: 10px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; box-sizing: border-box; }
+            button { background: #00f3ff; color: #000; padding: 12px 24px; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.3s; width: 100%; }
+            button:hover { background: #fff; box-shadow: 0 0 15px #00f3ff; }
+            .article-item { background: #000; border: 1px solid #333; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+            .article-item h4 { margin: 0 0 5px 0; color: #fff; font-size: 14px; }
+            .article-item p { margin: 0 0 10px 0; color: #666; font-size: 12px; }
+            .btn-edit { background: transparent; border: 1px solid #ffbd2e; color: #ffbd2e; width: 48%; padding: 5px; }
+            .btn-del { background: transparent; border: 1px solid #ff6b81; color: #ff6b81; width: 48%; padding: 5px; }
+            .CodeMirror { background: #000; color: #00f3ff; border-color: #333; }
+            .editor-toolbar { background: #222; border-color: #333; }
+            .editor-toolbar button { color: #fff !important; }
+            
+            /* ✨ 新增：内嵌提示框 (取代 alert) */
+            #status-box { 
+                padding: 15px; margin-bottom: 20px; border-radius: 4px; font-weight: bold; 
+                display: none; text-align: center; font-size: 16px;
+            }
         </style>
     </head>
     <body>
-        <div class="container">
-            <div id="login-view" class="panel" style="max-width: 400px; margin: 100px auto;">
-                <h2>SYSTEM LOGIN</h2>
-                <input type="email" id="login-email" placeholder="ADMIN ID" value="david.xiang@robot0.com">
-                <input type="password" id="login-pwd" placeholder="PASSWORD">
-                <button onclick="doLogin()">AUTHENTICATE</button>
-            </div>
+        <div class="sidebar">
+            <h2>📜 历史脉络 v1.4</h2>
+            <button onclick="clearForm()" style="margin-bottom: 20px; background: transparent; border: 1px solid #00f3ff; color: #00f3ff;">+ 新建撰写 (New)</button>
+            <div id="article-list">加载中...</div>
+        </div>
+        <div class="main">
+            <h1 id="mode-title">📡 S2 Matrix CMS v1.4 - 新建广播</h1>
+            
+            <div id="status-box"></div>
 
-            <div id="force-pwd-view" class="panel" style="max-width: 400px; margin: 100px auto; border-color: var(--peach);">
-                <h2 style="color: var(--peach);">SECURITY ALERT</h2>
-                <input type="password" id="new-pwd" placeholder="新密码 (至少8位)">
-                <button onclick="doChangePwd()" style="background: var(--peach);">OVERRIDE LOCK</button>
-            </div>
-
-            <div id="dashboard-view">
-                <h1>📡 桃花源内容中枢 (Matrix CMS)</h1>
-                <div class="flex-grid">
-                    <div class="panel">
-                        <h2>DATA STREAM</h2>
-                        <table id="article-table">
-                            <thead><tr><th>Title / Category</th><th>Views</th><th>Action</th></tr></thead>
-                            <tbody id="article-list"></tbody>
-                        </table>
-                    </div>
-
-                    <div class="panel">
-                        <h2 id="editor-title">INJECT NEW DATA</h2>
-                        <input type="hidden" id="edit-id" value="0">
-                        <input type="text" id="title" placeholder="标题">
-                        <select id="category">
-                            <option value="news">📺 桃花源新闻</option><option value="release">🚀 版本发布</option>
-                            <option value="whitepaper">📜 白皮书</option><option value="resource">💾 资料站</option>
-                        </select>
-                        <input type="text" id="keywords" placeholder="关键词 (用逗号分隔)">
-                        <input type="text" id="seo_desc" placeholder="一句话摘要 (SEO)">
-                        <textarea id="editor"></textarea>
-                        <button onclick="saveArticle()">⚡ EXECUTE (发布/更新)</button>
-                        <button onclick="resetForm()" class="danger-btn">RESET (重置表单)</button>
-                    </div>
+            <form id="publish-form">
+                <input type="hidden" id="edit_slug" value="">
+                <div class="form-group"><label>标题 (Title)</label><input type="text" id="title" required></div>
+                <div class="form-group">
+                    <label>频道 (Category)</label>
+                    <select id="category">
+                        <option value="news">📺 桃花源新闻</option>
+                        <option value="release">🚀 版本发布</option>
+                        <option value="whitepaper">📜 白皮书</option>
+                        <option value="resource">💾 资料站</option>
+                    </select>
                 </div>
-            </div>
+                <div style="display: flex; gap: 20px;">
+                    <div class="form-group" style="flex: 1;"><label>SEO 关键词</label><input type="text" id="seo_keywords"></div>
+                    <div class="form-group" style="flex: 1;"><label>SEO 描述</label><input type="text" id="seo_desc"></div>
+                </div>
+                <div class="form-group">
+                    <label>正文内容</label>
+                    <textarea id="editor"></textarea>
+                </div>
+                <button type="button" onclick="submitArticle()">⚡ 注入基质 (Execute)</button>
+            </form>
         </div>
 
         <script>
-            const userLogged = {js_logged};
-            const mustChange = {js_must_change};
-            
-            if (!userLogged) {{ document.getElementById('login-view').style.display = 'block'; }}
-            else if (mustChange) {{ document.getElementById('force-pwd-view').style.display = 'block'; }}
-            else {{ document.getElementById('dashboard-view').style.display = 'block'; loadArticles(); }}
+            const easyMDE = new EasyMDE({ element: document.getElementById('editor'), spellChecker: false, uploadImage: true, imageUploadEndpoint: "/api/upload", imageCSRFToken: "" });
 
-            const easyMDE = new EasyMDE({{ element: document.getElementById('editor'), spellChecker: false }});
+            // ✨ 显示屏显信息，绕过弹窗屏蔽
+            function showStatus(msg, isError=false) {
+                const box = document.getElementById('status-box');
+                box.style.display = 'block';
+                box.style.backgroundColor = isError ? 'rgba(255,107,129,0.2)' : 'rgba(39,201,63,0.2)';
+                box.style.color = isError ? '#ff6b81' : '#27c93f';
+                box.style.border = `1px solid ${isError ? '#ff6b81' : '#27c93f'}`;
+                box.innerText = msg;
+                setTimeout(() => box.style.display = 'none', 4000);
+            }
 
-            async function doLogin() {{
-                const fd = new FormData();
-                fd.append('email', document.getElementById('login-email').value);
-                fd.append('password', document.getElementById('login-pwd').value);
-                const res = await fetch('/api/login', {{ method: 'POST', body: fd }});
-                if(res.ok) location.reload(); else alert("认证失败");
-            }}
+            async function loadArticles() {
+                try {
+                    // 加入时间戳强制穿透 GET 缓存
+                    const res = await fetch('/api/articles?t=' + new Date().getTime());
+                    const articles = await res.json();
+                    const html = articles.map(a => `
+                        <div class="article-item">
+                            <h4>${a.title}</h4>
+                            <p>[${a.category.toUpperCase()}] ${a.date}</p>
+                            <button class="btn-edit" onclick="editArticle('${a.slug}')">编辑</button>
+                            <button class="btn-del" onclick="deleteArticle('${a.slug}')">清除</button>
+                        </div>
+                    `).join('');
+                    document.getElementById('article-list').innerHTML = html;
+                } catch (e) {
+                    showStatus("历史脉络加载失败！", true);
+                }
+            }
 
-            async function doChangePwd() {{
-                const fd = new FormData();
-                fd.append('new_password', document.getElementById('new-pwd').value);
-                const res = await fetch('/api/change_password', {{ method: 'POST', body: fd }});
-                if(res.ok) location.reload(); else alert("密码不符合要求");
-            }}
-
-            async function loadArticles(keyword = "") {{
-                const res = await fetch(`/api/articles?keyword=${{encodeURIComponent(keyword)}}`);
+            async function editArticle(slug) {
+                const res = await fetch(`/api/article/${slug}?t=` + new Date().getTime());
                 const data = await res.json();
-                const tbody = document.getElementById('article-list');
-                tbody.innerHTML = '';
-                data.forEach(art => {{
-                    tbody.innerHTML += `
-                        <tr>
-                            <td>
-                                <b>${{art.title}}</b><br>
-                                <span style="font-size:0.7rem; color:#666">${{art.category.toUpperCase()}} | ${{art.published_at.substring(0,10)}}</span>
-                            </td>
-                            <td style="color:var(--peach)">👁 ${{art.views}}</td>
-                            <td>
-                                <button class="edit-btn" onclick="editArticle(${{art.id}})">编辑</button>
-                                <button class="edit-btn danger-btn" style="border:none" onclick="deleteArticle(${{art.id}})">删除</button>
-                            </td>
-                        </tr>
-                    `;
-                }});
-            }}
+                document.getElementById('edit_slug').value = data.slug;
+                document.getElementById('title').value = data.title;
+                document.getElementById('category').value = data.category;
+                document.getElementById('seo_keywords').value = data.seo_keywords;
+                document.getElementById('seo_desc').value = data.seo_desc;
+                easyMDE.value(data.content_md);
+                document.getElementById('mode-title').innerText = "📡 S2 Matrix CMS v1.4 - 编辑广播覆盖";
+                window.scrollTo(0, 0);
+            }
 
-            // 🚀 这里是关键：编辑回填逻辑
-            async function editArticle(id) {{
-                const res = await fetch(`/api/article/${{id}}`);
-                const art = await res.json();
-                document.getElementById('edit-id').value = art.id;
-                document.getElementById('title').value = art.title;
-                document.getElementById('category').value = art.category;
-                document.getElementById('keywords').value = art.keywords || '';
-                document.getElementById('seo_desc').value = art.seo_desc || '';
-                easyMDE.value(art.content_md);
-                document.getElementById('editor-title').innerText = "⚙️ OVERRIDING DATA (正在修改文章)";
-                document.getElementById('editor-title').style.color = 'var(--peach)';
-                window.scrollTo({{top: 0, behavior: 'smooth'}});
-            }}
-
-            async function saveArticle() {{
-                const fd = new FormData();
-                fd.append('id', document.getElementById('edit-id').value);
-                fd.append('title', document.getElementById('title').value);
-                fd.append('category', document.getElementById('category').value);
-                fd.append('keywords', document.getElementById('keywords').value);
-                fd.append('desc', document.getElementById('seo_desc').value);
-                fd.append('content_md', easyMDE.value());
-                
-                try {{
-                    const res = await fetch('/api/publish', {{ method: 'POST', body: fd }});
-                    if(!res.ok) throw new Error("服务器拒绝写入");
-                    const result = await res.json();
-                    alert(result.message);
-                    resetForm();
-                    loadArticles();
-                }} catch(err) {{ alert(err.message); }}
-            }}
-
-            async function deleteArticle(id) {{
-                if(!confirm("⚠️ 确定要抹除该数据节点吗？")) return;
-                await fetch(`/api/delete/${{id}}`, {{ method: 'POST' }});
-                loadArticles();
-            }}
-
-            function resetForm() {{
-                document.getElementById('edit-id').value = '0';
-                document.getElementById('title').value = '';
-                document.getElementById('keywords').value = '';
-                document.getElementById('seo_desc').value = '';
+            function clearForm() {
+                document.getElementById('edit_slug').value = '';
+                document.getElementById('publish-form').reset();
                 easyMDE.value('');
-                document.getElementById('editor-title').innerText = "INJECT NEW DATA";
-                document.getElementById('editor-title').style.color = 'var(--cyan)';
-            }}
+                document.getElementById('mode-title').innerText = "📡 S2 Matrix CMS v1.4 - 新建广播";
+            }
+
+            async function deleteArticle(slug) {
+                if(!confirm('确定抹除此数据吗？')) return;
+                try {
+                    // 👉 强制升级为 POST 请求，绝不缓存
+                    const res = await fetch(`/api/delete/${slug}`, { method: 'POST' });
+                    if (!res.ok) throw new Error("HTTP " + res.status);
+                    const result = await res.json();
+                    showStatus(result.message);
+                    loadArticles();
+                    clearForm();
+                } catch (e) {
+                    showStatus('网络请求崩溃，请看终端红字报错！', true);
+                    console.error(e);
+                }
+            }
+
+            async function submitArticle() {
+                const formData = new FormData();
+                formData.append('title', document.getElementById('title').value);
+                formData.append('category', document.getElementById('category').value);
+                formData.append('seo_keywords', document.getElementById('seo_keywords').value);
+                formData.append('seo_desc', document.getElementById('seo_desc').value);
+                formData.append('content_md', easyMDE.value());
+                formData.append('edit_slug', document.getElementById('edit_slug').value);
+
+                if(!document.getElementById('title').value || !easyMDE.value()) { 
+                    showStatus('核心参数不能为空！', true); 
+                    return; 
+                }
+
+                try {
+                    const response = await fetch('/api/publish', { method: 'POST', body: formData });
+                    const result = await response.json();
+                    showStatus(result.message);
+                    loadArticles();
+                    if(result.status === 'success' && !document.getElementById('edit_slug').value) clearForm();
+                } catch (e) {
+                    showStatus('保存失败，请检查终端！', true);
+                }
+            }
+
+            loadArticles();
         </script>
     </body>
     </html>
@@ -349,4 +346,4 @@ async def admin_ui(request: Request):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("cms_server:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("cms_server:app", host="127.0.0.1", port=8000, reload=False)
