@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桃花源世界模型白皮书：S2-SWM 室内异构空间参考系对齐与原点锚定规范 - 桃花源新闻中心</title>
+    <meta name="description" content="">
+    <meta name="keywords" content=", Taohuayuan, S2-DID">
+    <meta name="geo.region" content="CN-43" />
+    <meta name="geo.placename" content="Taohuayuan, Changde" />
+    <meta name="geo.position" content="28.9;111.4" />
+
+    <style>
+        /* ========================================== */
+        /* 1. 全局变量与核心极客背景 (对齐官网) */
+        /* ========================================== */
+        :root { 
+            --bg-color: #050508; 
+            --peach: #ff6b81; 
+            --cyan: #00f3ff; 
+            --text-main: #e2e8f0; 
+            --glass-bg: rgba(20, 20, 30, 0.6);
+        }
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-attachment: fixed;
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6;
+        }
+        
+        /* 容器布局 */
+        .container { 
+            max-width: 850px; 
+            margin: 60px auto; 
+            padding: 40px; 
+            background: var(--glass-bg); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px; 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* ========================================== */
+        /* 2. 文章头部元数据 */
+        /* ========================================== */
+        header {
+            border-bottom: 2px solid var(--peach);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { 
+            color: #fff; 
+            font-size: 2.5rem; 
+            margin-top: 0;
+            margin-bottom: 15px; 
+            line-height: 1.3;
+        }
+        .meta-info { 
+            color: var(--cyan); 
+            font-family: 'Courier New', monospace; 
+            font-size: 0.95rem; 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .meta-tag {
+            background: rgba(0, 243, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        /* ========================================== */
+        /* 3. 🌟 精修版 Markdown 正文排版 🌟 */
+        /* ========================================== */
+        .markdown-body { 
+            line-height: 1.8; 
+            color: #d1d5db; 
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+        /* 强制段落之间有明显的间距 */
+        .markdown-body p { 
+            margin-bottom: 1.5em; 
+            margin-top: 0;
+        }
+        /* 标题间距与颜色 */
+        .markdown-body h2 { 
+            color: var(--cyan); 
+            margin-top: 2.5em; 
+            margin-bottom: 1em;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            padding-bottom: 8px;
+        }
+        .markdown-body h3 { 
+            color: var(--peach); 
+            margin-top: 2em; 
+            margin-bottom: 0.8em;
+        }
+        /* 列表排版 */
+        .markdown-body ul, .markdown-body ol {
+            margin-bottom: 1.5em;
+            padding-left: 2em;
+        }
+        .markdown-body li {
+            margin-bottom: 0.5em;
+        }
+        /* 保证图片居中且不会超出边界，带发光阴影 */
+        .markdown-body img { 
+            max-width: 100%; 
+            height: auto;
+            border-radius: 8px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            display: block;
+            margin: 2.5em auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        /* 代码块极客化 */
+        .markdown-body code { 
+            background: #000; 
+            color: #ffb86c; 
+            padding: 3px 6px; 
+            border-radius: 4px; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 0.9em;
+        }
+        .markdown-body pre { 
+            background: #050508; 
+            border: 1px solid #333; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            color: #8be9fd; 
+            margin: 2em 0;
+        }
+        .markdown-body pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+        /* 引用块样式 */
+        .markdown-body blockquote {
+            border-left: 4px solid var(--peach);
+            padding-left: 20px;
+            margin: 2em 0;
+            color: #a0aec0;
+            font-style: italic;
+            background: rgba(255,107,129,0.05);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 0 8px 8px 0;
+        }
+        .markdown-body strong {
+            color: #fff;
+        }
+        
+        /* ========================================== */
+        /* 4. 底部导航与 API 链接 */
+        /* ========================================== */
+        .footer-nav {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed #333;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .back-nav { 
+            display: inline-block; 
+            padding: 12px 25px; 
+            border: 1px solid var(--cyan); 
+            color: var(--cyan); 
+            text-decoration: none; 
+            border-radius: 4px; 
+            transition: 0.3s; 
+            font-weight: bold;
+            text-align: center;
+            width: max-content;
+        }
+        .back-nav:hover { 
+            background: var(--cyan); 
+            color: #000; 
+            box-shadow: 0 0 15px var(--cyan); 
+        }
+        .ai-link { 
+            color: #6b7280; 
+            font-family: 'Courier New', monospace; 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-link:hover { color: var(--peach); }
+        
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .container { margin: 20px; padding: 25px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "桃花源世界模型白皮书：S2-SWM 室内异构空间参考系对齐与原点锚定规范",
+      "datePublished": "2026-04-15 10:10:53",
+      "author": {"@type": "Organization", "name": "Taohuayuan World Model"}
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>桃花源世界模型白皮书：S2-SWM 室内异构空间参考系对齐与原点锚定规范</h1>
+            <div class="meta-info">
+                <span class="meta-tag">CHANNEL: WHITEPAPER</span>
+                <span class="meta-tag">DATE: 2026-04-15 10:10:53</span>
+            </div>
+        </header>
+        
+        <article class="markdown-body">
+            <p>(S2-SWM Indoor Spatial Frame Alignment &amp; Origin Anchoring Specification)
+发布日期：2026年4月6日 提出者：Miles Xiang &amp; S2 Open Research Team 领域：空间计算、坐标系对齐、具身智能、空间数字孪生
+摘要 (Abstract)
+随着具身机器人与移动智能硬件的大规模入户，空间治理面临“常态化错位”挑战：空间所有者（领主智能体）预设的 SSSU（智能空间标准单元）坐标系，与外来机器人（客体）临时生成的局部 SLAM 坐标系必然存在偏差。本规范确立了基于“高度降维”与“入户门洞绝对锚定”的 2D 坐标对齐法则。通过规定 SSSU 的物理起始点、坐标原点 (0,0) 与 WGS84/CGCS2000 的映射关系，以及六段式空间地址编码的唯一性，本规范为客体机器人的“强制平移与网格吸附（Grid Snapping）”提供了不可撼动的数学标准。
+1. 空间参考系的常态化错位与降维法则
+进入室内空间的移动型智能产品，为快速获取导航能力，往往会在未知位置开机或通过非主入口进入时，自行建立局部的标准空间网格。这导致客体内部的 SSSU 网格与住宅所有者预设的全局 SSSU 网格发生错位。
+Z轴降维定理（The Z-Axis Reduction）：鉴于室内环境的物理特性，两套独立系统的起算高度（地面基准）始终保持相对一致，且建筑楼层高度恒定。因此，S2 系统将复杂的 3D 空间匹配，合法且高效地降维至 2D 平面坐标 (X,Y) 的差异计算，极大地释放了边缘侧的算力。
+2. 第一标准空间的绝对原点锚定 (The Origin Anchoring Rule)
+为了让异构系统达成共识，必须在物理空间中确立一个无需通讯即可被双向确认的“绝对参照物”——入户门洞（Main Entrance）。
+2.1 创世网格生成规则
+住宅的“第一标准空间（The First SSSU）”严格以此门洞为基准建立，遵循以下拓扑法则：
+1. 边线重合：第一标准空间的其中一条边界线，必须与入户门洞底线完全重合。
+2. 中心重合：该边线的几何中心点，必须与入户门洞底线的几何中心点绝对对齐。
+3. 视域延伸：以进入者正前方的视角，网格仅向正前、左侧、右侧进行空间延伸拓展。正后方（门洞外部）视为 SSSU 管辖权之外的公共域。
+2.2 坐标系定义与全球映射
+设定物理刻度单位为厘米（cm），第一标准空间的基础坐标系定义如下：
+坐标原点 (0,0)：定义为门洞底线重叠边的右侧顶点（距中心点 100cm 处）。
+中心点坐标 (100,0)：门洞底线的中点。
+左侧顶点坐标 (200,0)：确立了 SSSU 标准 2 米边长的几何尺度。
+全球定位映射：坐标原点 (0,0) 必须绑定真实地球的 WGS84 及 CGCS2000（中国2000坐标系）经纬度数据。由此，室内虚拟网格不仅具备了相对尺度，更获得了全球绝对定位锚点。
+3. 六段式空间寻址系统 (6-Segment Spatial Addressing)
+在获得绝对坐标后，每一个 SSSU 及其次级衍生空间，将被赋予全球唯一的六段式地址编码（例：PHSY-CN-001-MYHOME6-1-1）。 该编码将作为智能体之间（数字人、具身机器人、智能家居）进行要素协商（Negotiation API）与路权博弈的唯一身份令牌。
+4. 客体网格强制对齐与平移协议 (Forced Alignment &amp; Translation Protocol)
+当携带异构坐标系的具身机器人进入空间并开始局部建图时，将触发 S2-SWM 空间对齐协议：
+1. 原点捕获：客体机器人在巡航中，通过视觉或雷达识别到“入户门洞”这一绝对物理参照物，或通过局部网格与领主数字人进行加密握手，获取“第一标准空间”的真实地址编码与坐标映射关系。
+2. 偏差计算：计算自身局部网格原点与领主绝对原点在二维平面上的偏移向量 (ΔX,ΔY) 及旋转角 Δθ。
+3. 强制平移（Translation Override）：客体机器人强制将自身的底层导航地图进行全局平移与旋转。
+4. 网格吸附（Grid Snapping）：平移完成后，客体内部的所有标准空间及次标准空间位置，将完全与住宅所有者设定的全局 SSSU 吻合对齐。
+5. 生态价值：同频共振的空间协奏
+对齐完成后，空间不再割裂。具身机器人的 SLAM 导航系与建筑的数字孪生系统完美重合。在此基础上：
+机器人可以直接使用数字人下发的“六段式地址编码”进行精准送物。
+S2 管辖权协商引擎（Jurisdiction Negotiator）能够准确无误地判断机器人的物理侵入范围。
+任何环境变数（TDOG 动态对象）的生成，都将在同一个数学维度上被所有智能体共享与感知。
+<img alt="室内异构空间参考系对齐与原点锚定规范" src="/img/室内异构空间参考系对齐与原点锚定规范.jpg" /></p>
+        </article>
+
+        <div class="footer-nav">
+            <a href="/#news-hub" class="back-nav">&lt; 返回桃花源主脑 (Back to Matrix)</a>
+            <a href="/whitepaper/thy-20260415-1776219053.md" class="ai-link" rel="alternate" type="text/markdown">
+                🤖 [AI Agent] Access raw Markdown data for this node
+            </a>
+        </div>
+    </div>
+</body>
+</html>
