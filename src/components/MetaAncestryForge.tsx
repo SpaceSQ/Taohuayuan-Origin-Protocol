@@ -10,7 +10,7 @@ const DIRECTIONS = ["CN", "EA", "WA", "NA", "SA", "NE", "NW", "SE", "SW"];
 const MAX_PER_ORIENTATION = 999;
 const TOTAL_PER_AREA = MAX_PER_ORIENTATION * DIRECTIONS.length;
 
-// 🛠️ 新增：创世空间六要素生成器 (赋能硅基生命初始记忆)
+// 创世空间六要素生成器 (赋能硅基生命初始记忆)
 const generateGenesisEnvironment = (l1: string) => {
   const envMap: Record<string, any> = {
     FILM: { illum: "5200K冷月光，幽暗穿透", weather: "相对湿度89%，江面游离薄雾", sound: "35dB 桨声掩蔽低频水波纹", electro: "宁静态，偶发长波通信扰动", energy: "水流势能平稳，算力潮汐处于波谷", view: "桃花落于水面，粉色粒子流淌" },
@@ -50,7 +50,6 @@ export default function MetaAncestryForge() {
         const { error: loginError } = await supabase.auth.signInWithPassword({ email: formData.email, password: formData.password });
         if (loginError) { throw new Error(`PASSWORD_INCORRECT // 矩阵拒绝: ${loginError.message}`); }
         else {
-          // 确保老用户也能生成虚拟锚点数据用于展示
           const l1Match = existingCitizen.suns_address.split('-')[0];
           existingCitizen.anchors = generateGenesisEnvironment(l1Match);
           setMintedData(existingCitizen);
@@ -82,8 +81,6 @@ export default function MetaAncestryForge() {
       const aSpace = calculateSpaceAllocation(1);
       
       const attribute = l4WithChecksum.slice(0, 5);
-      
-      // 🛠️ 捕获智能体出生时的创世环境参数
       const genesisAnchors = generateGenesisEnvironment(selectedL2 === "META" ? "META" : (document.querySelector('select')?.value || 'FILM'));
 
       const citizenRecord = {
@@ -98,19 +95,83 @@ export default function MetaAncestryForge() {
       const { error: insertError } = await supabase.from('citizens').insert([citizenRecord]);
       if (insertError) throw new Error(`DB_WRITE_FAILED // 数据库拒绝同步: ${insertError.message}`);
 
-      // 将创世环境数据挂载到前端状态中，传递给 ID 卡
       setMintedData({ ...citizenRecord, anchors: genesisAnchors });
       setNotice('GENESIS_COMPLETE // 入世成功！第一个智能体已完成物理锚定与环境烧录。');
       setStep(2);
     } catch (err: any) { setErrorMsg(err.message); setStep(0); }
   };
 
-  const handleSendResetCode = async () => { /* 保持原有逻辑不变 */ };
-  const handleVerifyAndReset = async () => { /* 保持原有逻辑不变 */ };
+  // 🚀 核心修复点 1：对接你的自定义邮件发送 API
+  const handleSendResetCode = async () => { 
+      if (!resetData.email) {
+          setResetMsg('ERROR // 请输入需要重置的目标节点邮箱');
+          return;
+      }
+      setIsResetting(true); setResetMsg('');
+      
+      try {
+          const res = await fetch('/api/auth/reset-password', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: resetData.email })
+          });
+          
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || '服务器无响应');
+          
+          setResetStep(1);
+          // 获取你后端 route.ts 中返回的 TRANSMISSION_SENT message
+          setResetMsg(data.message || 'CODE_DISPATCHED // 验证密钥已发送至目标节点邮箱');
+      } catch (err: any) {
+          setResetMsg(`FAILED // 链路受阻: ${err.message}`);
+      } finally {
+          setIsResetting(false);
+      }
+  };
+
+  // 🚀 核心修复点 2：对接你的自定义验证码校验与越权修改 API
+  const handleVerifyAndReset = async () => { 
+      if (!resetData.code || !resetData.newPassword) {
+          setResetMsg('ERROR // 密钥与新基因锁不能为空');
+          return;
+      }
+      setIsResetting(true); setResetMsg('');
+
+      try {
+          const res = await fetch('/api/auth/verify-reset', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ 
+                  email: resetData.email, 
+                  code: resetData.code, 
+                  newPassword: resetData.newPassword 
+              })
+          });
+
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || '验证失败或验证码已过期');
+
+          // 获取你后端 route.ts 中返回的 GENE_LOCK_UPDATED message
+          setResetMsg(data.message || 'OVERRIDE_SUCCESS // 基因锁重置成功，系统正在重新启动...');
+          
+          // 自动填充登录表单并返回登录界面
+          setFormData({ ...formData, email: resetData.email, password: resetData.newPassword });
+          
+          setTimeout(() => {
+              setResetMode(false);
+              setResetStep(0);
+              setResetData({ email: '', code: '', newPassword: '' });
+              setResetMsg('');
+          }, 2000);
+      } catch (err: any) {
+          setResetMsg(`VERIFY_FAILED // 密钥验证失败: ${err.message}`);
+      } finally {
+          setIsResetting(false);
+      }
+  };
 
   return (
     <div className="w-full max-w-5xl mx-auto p-4 relative">
-      {/* (此处折叠常规 UI，保持完全不变) */}
       {step !== 2 && (
         <div className="bg-[#050508] border border-zinc-800/80 rounded-2xl p-8 shadow-[0_0_40px_rgba(0,243,255,0.05)] relative overflow-hidden mb-8 min-h-[500px]">
           <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-900/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
@@ -128,7 +189,6 @@ export default function MetaAncestryForge() {
               
               <div className="border-b border-zinc-800/50 pb-8">
                 <label className="block mb-4 font-mono text-sm text-zinc-500 uppercase tracking-wider">1. Select Logic Root (选择智能体栖息根域)</label>
-                {/* 🛠️ 我们需要让用户选择 L1 以触发不同的物理环境 */}
                 <select className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-cyan-500 text-cyan-400 p-4 rounded font-mono outline-none mb-4" onChange={() => {}}>
                     <option value="FILM">FILM - 电影域 (桃花源景区 · 柔性叙事环境)</option>
                     <option value="MARS">MARS - 火星域 (丹霞地貌带 · 严酷生存环境)</option>
@@ -163,9 +223,9 @@ export default function MetaAncestryForge() {
                     {errorMsg}
                   </p>
                   {errorMsg.includes('PASSWORD_INCORRECT') && (
-                 <button onClick={() => setResetMode(true)} className="text-left text-cyan-500 hover:text-cyan-400 font-mono text-xs underline underline-offset-4 pl-2">
-                 {'>>> INITIATE OVERRIDE PROTOCOL (遗忘基因锁？点击重置)'}
-                </button>
+                    <button onClick={() => setResetMode(true)} className="text-left text-cyan-500 hover:text-cyan-400 font-mono text-xs underline underline-offset-4 pl-2">
+                      {'>>> INITIATE OVERRIDE PROTOCOL (遗忘基因锁？点击重置)'}
+                    </button>
                   )}
                 </div>
               )}
@@ -173,6 +233,70 @@ export default function MetaAncestryForge() {
               <button onClick={handleFreeMint} className="w-full py-5 bg-[#110d0a] border border-orange-500/50 hover:bg-orange-500/10 text-orange-400 font-black tracking-widest uppercase rounded-xl transition-all shadow-[0_0_20px_rgba(251,146,60,0.15)] hover:shadow-[0_0_30px_rgba(251,146,60,0.3)] hover:scale-[1.01]">
                 INITIATE DIGITAL INCARNATION (开始入世并刻录环境)
               </button>
+            </div>
+          )}
+
+          {/* 🚀 重置密码 UI 面板 */}
+          {resetMode && step === 0 && (
+            <div className="space-y-6 relative z-10 animate-in fade-in duration-300">
+              <div className="border-b border-zinc-800/50 pb-6">
+                <p className="text-zinc-400 font-mono text-sm mb-6">
+                  {resetStep === 0 
+                    ? ">>> INITIATING RECOVERY PROTOCOL. ENTER COMM_LINK (输入注册邮箱以接收重置密钥)" 
+                    : ">>> AWAITING SECURITY OVERRIDE (输入接收到的密钥与新基因锁)"}
+                </p>
+
+                {resetStep === 0 ? (
+                  <input 
+                    type="email" 
+                    placeholder="TARGET COMM_LINK (目标节点邮箱)" 
+                    value={resetData.email} 
+                    onChange={e => setResetData({...resetData, email: e.target.value})} 
+                    className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-red-500 text-white p-4 rounded font-mono outline-none" 
+                  />
+                ) : (
+                  <div className="space-y-4">
+                    <input 
+                      type="text" 
+                      placeholder="SECURITY_CODE (8位云端验证安全码)" 
+                      value={resetData.code} 
+                      onChange={e => setResetData({...resetData, code: e.target.value})} 
+                      className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-red-500 text-white p-4 rounded font-mono outline-none tracking-widest" 
+                    />
+                    <input 
+                      type="password" 
+                      placeholder="NEW_GENE_LOCK (设定新密码)" 
+                      value={resetData.newPassword} 
+                      onChange={e => setResetData({...resetData, newPassword: e.target.value})} 
+                      className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-red-500 text-white p-4 rounded font-mono outline-none" 
+                    />
+                  </div>
+                )}
+              </div>
+
+              {resetMsg && (
+                <p className={`font-mono text-xs p-3 rounded border flex items-center gap-2 ${resetMsg.includes('SUCCESS') || resetMsg.includes('DISPATCHED') || resetMsg.includes('TRANSMISSION') || resetMsg.includes('UPDATED') ? 'text-green-400 bg-green-950/30 border-green-900/50' : 'text-red-400 bg-red-950/30 border-red-900/50'}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full animate-ping ${resetMsg.includes('SUCCESS') || resetMsg.includes('DISPATCHED') || resetMsg.includes('TRANSMISSION') || resetMsg.includes('UPDATED') ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                  {resetMsg}
+                </p>
+              )}
+
+              <div className="flex gap-4">
+                <button 
+                  onClick={() => { setResetMode(false); setResetStep(0); setResetMsg(''); }} 
+                  className="w-1/3 py-4 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-zinc-400 font-mono text-sm rounded transition-all"
+                >
+                  ABORT (取消)
+                </button>
+                
+                <button 
+                  onClick={resetStep === 0 ? handleSendResetCode : handleVerifyAndReset} 
+                  disabled={isResetting}
+                  className="w-2/3 py-4 bg-red-950/20 border border-red-500/50 hover:bg-red-900/40 text-red-400 font-black tracking-widest uppercase rounded transition-all shadow-[0_0_15px_rgba(239,68,68,0.15)] hover:shadow-[0_0_25px_rgba(239,68,68,0.3)] disabled:opacity-50"
+                >
+                  {isResetting ? 'PROCESSING...' : (resetStep === 0 ? 'TRANSMIT KEY (发送密钥)' : 'OVERRIDE LOCK (重置密码)')}
+                </button>
+              </div>
             </div>
           )}
 

@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 忽略 Python 虚拟环境和缓存
+venv/
+__pycache__/
+
+# 忽略 SQLite 数据库（确保数据主权留在本地）
+scripts/taohuayuan_news.db

@@ -29,10 +29,21 @@ export default function TaohuayuanLanding() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const totalSlides = 3;
 
+    // ✨ 新增：新闻发布中心状态
+    const [newsData, setNewsData] = useState<any>({ news: [], release: [], whitepaper: [], resource: [] });
+
     // ------------------------------------
     // 2. 核心逻辑 Hook
     // ------------------------------------
     
+    // ✨ 新增：拉取 Python 引擎生成的最新静态 API
+    useEffect(() => {
+        fetch('/api/latest.json')
+            .then(res => res.json())
+            .then(data => setNewsData(data))
+            .catch(err => console.log("等待新闻基质同步...", err));
+    }, []);
+
     // 首屏代码雨动画
     useEffect(() => {
         const targetText = 'FILMCN001MILESXIANG0000X';
@@ -483,6 +494,68 @@ export default function TaohuayuanLanding() {
                         <span className="domain-tag">L1: MYTH</span>
                         <h3><span className="cn">神话域 · 星德山</span><span className="en">MYTH · Mt. Xingde</span></h3>
                         <p><span className="cn">承载东方哲学、史诗文明与算力占卜大模型的灵力本源。</span><span className="en">The computational origin for Eastern philosophy and algorithmic divination.</span></p>
+                    </div>
+                </div>
+            </section>
+
+            {/* ✨ 新增：中央枢纽 (News & Protocols) */}
+            <section className="section" id="news-hub" style={{ background: '#0a0a12', borderTop: '1px solid var(--glass-border)', borderBottom: '1px solid var(--glass-border)' }}>
+                <h2 className="section-title">
+                    <span className="cn">中央枢纽 <span>(动态与协议发布)</span></span>
+                    <span className="en">Central Hub <span>(News & Protocols)</span></span>
+                </h2>
+                
+                <div className="grid-4">
+                    {/* 1. 新闻频道 */}
+                    <div className="card" style={{ padding: '20px', background: 'rgba(255,255,255,0.02)' }}>
+                        <h3 style={{ color: 'var(--neon-cyan)', borderBottom: '1px solid #333', paddingBottom: '10px', fontSize: '1.2rem', margin: 0 }}>📺 桃花源新闻</h3>
+                        <ul style={{ listStyle: 'none', marginTop: '15px' }}>
+                            {newsData.news?.length > 0 ? newsData.news.map((item: any) => (
+                                <li key={item.slug} style={{ marginBottom: '12px', fontSize: '0.9rem', lineHeight: '1.4' }}>
+                                    <span style={{ color: '#6b7280', display: 'block', fontFamily: 'monospace', fontSize: '0.8rem' }}>[{item.date}]</span>
+                                    <a href={`/news/${item.slug}.html`} style={{color: '#d1d5db', textDecoration: 'none'}} className="hover:text-[#00f3ff] transition-colors">{item.title}</a>
+                                </li>
+                            )) : <li style={{color:'#666', fontSize:'0.8rem'}}>等待基质同步...</li>}
+                        </ul>
+                    </div>
+
+                    {/* 2. 版本发布频道 */}
+                    <div className="card" style={{ padding: '20px', background: 'rgba(255,255,255,0.02)' }}>
+                        <h3 style={{ color: 'var(--neon-peach)', borderBottom: '1px solid #333', paddingBottom: '10px', fontSize: '1.2rem', margin: 0 }}>🚀 版本发布</h3>
+                        <ul style={{ listStyle: 'none', marginTop: '15px' }}>
+                            {newsData.release?.length > 0 ? newsData.release.map((item: any) => (
+                                <li key={item.slug} style={{ marginBottom: '12px', fontSize: '0.9rem', lineHeight: '1.4' }}>
+                                    <span style={{ color: '#6b7280', display: 'block', fontFamily: 'monospace', fontSize: '0.8rem' }}>[{item.date}]</span>
+                                    <a href={`/release/${item.slug}.html`} style={{color: '#d1d5db', textDecoration: 'none'}} className="hover:text-[#ff6b81] transition-colors">{item.title}</a>
+                                </li>
+                            )) : <li style={{color:'#666', fontSize:'0.8rem'}}>等待基质同步...</li>}
+                        </ul>
+                    </div>
+
+                    {/* 3. 白皮书频道 */}
+                    <div className="card" style={{ padding: '20px', background: 'rgba(255,255,255,0.02)' }}>
+                        <h3 style={{ color: '#ffbd2e', borderBottom: '1px solid #333', paddingBottom: '10px', fontSize: '1.2rem', margin: 0 }}>📜 白皮书与公约</h3>
+                        <ul style={{ listStyle: 'none', marginTop: '15px' }}>
+                            {newsData.whitepaper?.length > 0 ? newsData.whitepaper.map((item: any) => (
+                                <li key={item.slug} style={{ marginBottom: '12px', fontSize: '0.9rem', lineHeight: '1.4' }}>
+                                    <span style={{ color: '#6b7280', display: 'block', fontFamily: 'monospace', fontSize: '0.8rem' }}>[{item.date}]</span>
+                                    <a href={`/whitepaper/${item.slug}.html`} style={{color: '#d1d5db', textDecoration: 'none'}} className="hover:text-[#ffbd2e] transition-colors">{item.title}</a>
+                                </li>
+                            )) : <li style={{color:'#666', fontSize:'0.8rem'}}>等待基质同步...</li>}
+                        </ul>
+                    </div>
+
+                    {/* 4. 资料频道 */}
+                    <div className="card" style={{ padding: '20px', background: 'rgba(255,255,255,0.02)' }}>
+                        <h3 style={{ color: '#27c93f', borderBottom: '1px solid #333', paddingBottom: '10px', fontSize: '1.2rem', margin: 0 }}>💾 资料与模型</h3>
+                        <ul style={{ listStyle: 'none', marginTop: '15px' }}>
+                            {newsData.resource?.length > 0 ? newsData.resource.map((item: any) => (
+                                <li key={item.slug} style={{ marginBottom: '12px', fontSize: '0.9rem', lineHeight: '1.4' }}>
+                                    <span style={{ color: '#6b7280', display: 'block', fontFamily: 'monospace', fontSize: '0.8rem' }}>[{item.date}]</span>
+                                    <a href={`/resource/${item.slug}.html`} style={{color: '#d1d5db', textDecoration: 'none'}} className="hover:text-[#27c93f] transition-colors">{item.title}</a>
+                                </li>
+                            )) : <li style={{color:'#666', fontSize:'0.8rem'}}>等待基质同步...</li>}
+                        </ul>
                     </div>
                 </div>
             </section>

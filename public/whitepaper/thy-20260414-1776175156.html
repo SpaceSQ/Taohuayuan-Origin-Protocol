@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《桃花源世界模型白皮书 V1.1 —— 空间因果与要素供应源公理体系》 - 桃花源新闻中心</title>
+    <meta name="description" content="本文正式提出“空间要素供应源公理体系”，专注于空间因果的离散状态转移。我们定义了标准空间单元（SSSU）、要素供应源（物理映射为暖通/弱电末端设备）、供应管道、关闭模式及隐性空间等核心概念。该模型为智能建筑的温湿度精准控制、硅基生命深时守护，提供了首个具备“一致性假设”与“资源弹性”的极低算力数字沙盒。">
+    <meta name="keywords" content="世界模型,建筑环境状态转移,空间计算,具身智能, Taohuayuan, S2-DID">
+    <meta name="geo.region" content="CN-43" />
+    <meta name="geo.placename" content="Taohuayuan, Changde" />
+    <meta name="geo.position" content="28.9;111.4" />
+
+    <style>
+        /* ========================================== */
+        /* 1. 全局变量与核心极客背景 (对齐官网) */
+        /* ========================================== */
+        :root { 
+            --bg-color: #050508; 
+            --peach: #ff6b81; 
+            --cyan: #00f3ff; 
+            --text-main: #e2e8f0; 
+            --glass-bg: rgba(20, 20, 30, 0.6);
+        }
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-attachment: fixed;
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6;
+        }
+        
+        /* 容器布局 */
+        .container { 
+            max-width: 850px; 
+            margin: 60px auto; 
+            padding: 40px; 
+            background: var(--glass-bg); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px; 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* ========================================== */
+        /* 2. 文章头部元数据 */
+        /* ========================================== */
+        header {
+            border-bottom: 2px solid var(--peach);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { 
+            color: #fff; 
+            font-size: 2.5rem; 
+            margin-top: 0;
+            margin-bottom: 15px; 
+            line-height: 1.3;
+        }
+        .meta-info { 
+            color: var(--cyan); 
+            font-family: 'Courier New', monospace; 
+            font-size: 0.95rem; 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .meta-tag {
+            background: rgba(0, 243, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        /* ========================================== */
+        /* 3. 🌟 精修版 Markdown 正文排版 🌟 */
+        /* ========================================== */
+        .markdown-body { 
+            line-height: 1.8; 
+            color: #d1d5db; 
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+        /* 强制段落之间有明显的间距 */
+        .markdown-body p { 
+            margin-bottom: 1.5em; 
+            margin-top: 0;
+        }
+        /* 标题间距与颜色 */
+        .markdown-body h2 { 
+            color: var(--cyan); 
+            margin-top: 2.5em; 
+            margin-bottom: 1em;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            padding-bottom: 8px;
+        }
+        .markdown-body h3 { 
+            color: var(--peach); 
+            margin-top: 2em; 
+            margin-bottom: 0.8em;
+        }
+        /* 列表排版 */
+        .markdown-body ul, .markdown-body ol {
+            margin-bottom: 1.5em;
+            padding-left: 2em;
+        }
+        .markdown-body li {
+            margin-bottom: 0.5em;
+        }
+        /* 保证图片居中且不会超出边界，带发光阴影 */
+        .markdown-body img { 
+            max-width: 100%; 
+            height: auto;
+            border-radius: 8px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            display: block;
+            margin: 2.5em auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        /* 代码块极客化 */
+        .markdown-body code { 
+            background: #000; 
+            color: #ffb86c; 
+            padding: 3px 6px; 
+            border-radius: 4px; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 0.9em;
+        }
+        .markdown-body pre { 
+            background: #050508; 
+            border: 1px solid #333; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            color: #8be9fd; 
+            margin: 2em 0;
+        }
+        .markdown-body pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+        /* 引用块样式 */
+        .markdown-body blockquote {
+            border-left: 4px solid var(--peach);
+            padding-left: 20px;
+            margin: 2em 0;
+            color: #a0aec0;
+            font-style: italic;
+            background: rgba(255,107,129,0.05);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 0 8px 8px 0;
+        }
+        .markdown-body strong {
+            color: #fff;
+        }
+        
+        /* ========================================== */
+        /* 4. 底部导航与 API 链接 */
+        /* ========================================== */
+        .footer-nav {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed #333;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .back-nav { 
+            display: inline-block; 
+            padding: 12px 25px; 
+            border: 1px solid var(--cyan); 
+            color: var(--cyan); 
+            text-decoration: none; 
+            border-radius: 4px; 
+            transition: 0.3s; 
+            font-weight: bold;
+            text-align: center;
+            width: max-content;
+        }
+        .back-nav:hover { 
+            background: var(--cyan); 
+            color: #000; 
+            box-shadow: 0 0 15px var(--cyan); 
+        }
+        .ai-link { 
+            color: #6b7280; 
+            font-family: 'Courier New', monospace; 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-link:hover { color: var(--peach); }
+        
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .container { margin: 20px; padding: 25px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "《桃花源世界模型白皮书 V1.1 —— 空间因果与要素供应源公理体系》",
+      "datePublished": "2026-04-14 23:22:18",
+      "author": {"@type": "Organization", "name": "Taohuayuan World Model"}
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>《桃花源世界模型白皮书 V1.1 —— 空间因果与要素供应源公理体系》</h1>
+            <div class="meta-info">
+                <span class="meta-tag">CHANNEL: WHITEPAPER</span>
+                <span class="meta-tag">DATE: 2026-04-14 23:22:18</span>
+            </div>
+        </header>
+        
+        <article class="markdown-body">
+            <p>发布日期：2026年4月5日 <br />
+提出者：Miles Xiang <br />
+机构：桃花源世界模型研究基地（筹建） <br />
+领域：世界模型、建筑环境状态转移、空间计算、具身智能<br />
+摘要<br />
+当前世界模型的主流路径深陷“像素级物理仿真”的算力泥沼。桃花源世界模型（TAOHUAYUAN WORLD）作为第五大世界模型范式，从根本上放弃了 3D 视觉渲染与亚格子尺度模拟。本文正式提出“空间要素供应源公理体系”，专注于空间因果的离散状态转移。我们定义了标准空间单元（SSSU）、要素供应源（物理映射为暖通/弱电末端设备）、供应管道、关闭模式及隐性空间等核心概念。该模型为智能建筑的温湿度精准控制、硅基生命深时守护，提供了首个具备“一致性假设”与“资源弹性”的极低算力数字沙盒。<br />
+1. 模型定位与第一性原理边界<br />
+1.1 摒弃幻觉：我们不做什么<br />
+桃花源世界模型拒绝陷入追求表象的工程陷阱，它不是、也不计划成为以下系统：<br />
+•   视觉渲染引擎：不追求像素级逼真图像或 3D 网格渲染，所有“视”要素均为高维特征向量。<br />
+•   亚格子流体力学求解器：不模拟分子运动、不计算单滴水花或局部湍流轨迹。<br />
+•   通用几何建模工具：不处理异形空间的内部复杂结构，仅将其归约为物理边界条件。<br />
+1.2 锚定因果：我们做什么<br />
+桃花源世界模型是一个离散空间因果状态转移引擎。它通过求解要素供应源驱动的离散状态方程，在毫秒级算力下预测物理空间的未来状态（如温湿度漂移曲线），从而指导底层机电设备的因果前瞻控制。<br />
+2. 核心公理与形式化定义<br />
+2.1 标准空间单元（SSSU）的一致性公理<br />
+•   公理1（单元内一致性）：每个标准空间单元（SSSU，默认 2m×2m×2.4m）内部所有物理要素（光、气、声、温湿度等 14 维张量）在任一时刻 t 是均匀一致的。即：忽略单元内的梯度微积分，将温湿度视为单值标量。<br />
+•   公理2（空间构成公理）：任意物理空间 S 可表示为：<br />
+<img alt="https://github.com/SpaceSQ/Taohuayuan-Origin-Protocol/blob/main/public/img/%E5%85%AC%E5%BC%8F1.jpg" src="https://" /></p>
+<p>其中，SSSUi 为完整的标准空间单元；R 为次标准空间（不足一个单元，但启用要素一致性）；H 为隐性空间（工程上设为隔离黑箱）。<br />
+2.2 要素供应源与机电映射模型<br />
+•   定义1（要素供应源，Source Σ）：要素供应源 Σ 是带有时间序列的 14 维要素发生器。在楼宇自控工程中，Σ 显性映射为风机盘管（FCU）、变风量箱（VAV）、照明回路等实体设备。<br />
+•   公理3（单源单单元原则）：默认配置下，一个 SSSU 有且只有一个激活的要素供应源。<br />
+•   公理4（多源连续空间的不一致性）：若一个连续大型空间（如开放式办公区）由多个 SSSU 组成，且受控于不同的末端供应源（如不同的 FCU），该空间必然呈现温湿度的局部不一致性。此乃真实物理状态的如实反映，是本模型能够进行精确区域控制的基石。<br />
+2.3 关闭模式（Off Mode）与热力学借调<br />
+•   定义2（关闭模式）：当某一 SSSU 的自有要素供应源被关闭（如某区域空调关停），该单元不再从自有管道接收要素。<br />
+•   公理5（关闭模式的动态耦合）：关闭模式下的单元状态，由毗邻 SSSU 的物理扩散（传导、对流）动态决定。其离散状态方程遵循：<br />
+<img alt="" src="https://github.com/SpaceSQ/Taohuayuan-Origin-Protocol/blob/main/public/img/%E5%85%AC%E5%BC%8F2.jpg" /></p>
+<p>其中 Kij 包含了墙壁热阻、空气混合率等暖通物理耦合系数。<br />
+2.4 容器的“热惯性”归约规则<br />
+•   公理6（封闭容器配置）：一个封闭房间内，至少存在一个激活的要素供应源。典型工程配置为：少数单元配置激活源，其余单元依托“关闭模式”进行要素借调配置，以实现最低算力下的资源高效配置。<br />
+•   公理7（容器物性归约）：容器的实体形态（如墙体结构、龙骨）不作为研究对象。容器仅通过以下三类宏观系数影响 SSSU：<br />
+1.  表面传热/声学属性（对流换热系数、声吸收系数）。<br />
+2.  内部辐射属性（远红外发射率）。<br />
+3.  热惯性（Thermal Inertia）：将墙体厚度与材质归约为“储热/释热常数”，直接参与状态转移计算，从而精准模拟空间的温度延迟效应。<br />
+2.5 零碎空间的算力弹性处理<br />
+针对非标准化几何结构，本模型提供极具工程弹性的策略：<br />
+•   次标准空间 (R)：视为“缩微版 SSSU”，强制执行要素供应源关闭模式，通过相邻单元借调要素，生命体可触达、系统参与计算。<br />
+•   隐性空间 (H)：如狭小吊顶间、封闭管井。将其定义为不可触达的黑箱，不参与任何因果转移计算，极大释放系统算力。<br />
+3. 模型优势与坦诚局限<br />
+核心优势：<br />
+1.  微秒级算力：摒弃 PDE（偏微分方程）流体力学求解，将空间运算降维为张量迭代，普通 ARM 芯片即可在边缘端实时预测未来 30 分钟的空间演化。<br />
+2.  因果透明：每一级状态转移均有明确的物理/逻辑追溯，彻底解决黑箱 AI 无法在工业楼控中被信任的顽疾。<br />
+已知局限：<br />
+1.  无视梯度：由于假设 SSSU 内一致性，无法处理高度分层（如高大厂房内的剧烈温度分层）问题。<br />
+2.  绝对绝热假设偏差：将隐性空间 H 完全隔离可能导致边缘泄漏热量的计算遗漏，需在工程标定时予以全局补偿。<br />
+4. 路线图<br />
+桃花源世界模型研究基地将率先在以下阶段进行技术实证：<br />
+•   Phase 1：真实楼宇的 SSSU 网格重构与风机盘管（FCU）供应源标定。<br />
+•   Phase 2：开窗/半开放空间下的动态负荷侵入与因果前瞻控制（CLC）算法验证。<br />
+•   Phase 3：全面发布基于 OpenClaw 的 S2-HVAC 空间因果预测中间件，开源硬件部署标准。<br />
+结语：桃花源世界模型不造梦，不炫技。我们放弃了像素，换回了因果；放弃了通用几何，换回了算力节制。这是一套诚实、可证伪、直接服务于物理世界的空间操作系统。</p>
+        </article>
+
+        <div class="footer-nav">
+            <a href="/#news-hub" class="back-nav">&lt; 返回桃花源主脑 (Back to Matrix)</a>
+            <a href="/whitepaper/thy-20260414-1776175156.md" class="ai-link" rel="alternate" type="text/markdown">
+                🤖 [AI Agent] Access raw Markdown data for this node
+            </a>
+        </div>
+    </div>
+</body>
+</html>
