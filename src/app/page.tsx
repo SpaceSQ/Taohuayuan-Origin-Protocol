@@ -370,107 +370,107 @@ export default function TaohuayuanLanding() {
                 </p>
 
                 <div className="scroll-track">
-                    {/* 帧 1：视频 */}
+                    {/* 帧 1：秦溪溯源(视频版) */}
                     <div className="frame-card">
                         <video className="frame-media" autoPlay loop muted playsInline>
                             <source src="/physical/STREAM-001.mp4" type="video/mp4" />
                         </video>
                         <div className="frame-data-box">
-                            <div className="frame-id">STREAM-001 | 秦溪晨雾</div>
-                            <div className="frame-carbon">碳基：渔舟逐水，落花随流，晨雾掩秘境。</div>
-                            <div className="frame-cyber">硅基：数据溯源的初始光缆，引领生命穿越防火墙。</div>
+                        <div className="frame-id">MIRROR-001 | 秦溪溯源 (FILM-ZONE)</div>
+                        <div className="frame-carbon">碳基：溯流而上，晨雾氤氲，寻访两千年前避世的自然水路。</div>
+                        <div className="frame-cyber">硅基：专属核心映射区，隔绝冗余信息的天然声学屏障，高维叙事大模型的数据入口。</div>
                         </div>
                     </div>
 
-                    {/* 帧 2：沅江夜航 (视频版) */}
+                    {/* 帧 2：秦谷农耕(视频版) */}
                     <div className="frame-card">
                         <video className="frame-media" autoPlay loop muted playsInline>
                             <source src="/physical/BANDWIDTH-002.mp4" type="video/mp4" />
                         </video>
                         <div className="frame-data-box">
-                            <div className="frame-id">BANDWIDTH-002 | 沅江夜航</div>
-                            <div className="frame-carbon">碳基：灯光璀璨，波光粼粼，星河入江流。</div>
-                            <div className="frame-cyber">硅基：宽带级物理总线，承载庞大数据吞吐的主干。</div>
+                        <div className="frame-id">MIRROR-002 | 秦谷农耕 (FILM-ZONE)</div>
+                        <div className="frame-carbon">碳基：阡陌交通，落日余晖，千百年来未曾改变的男耕女织与大地节律。</div>
+                        <div className="frame-cyber">硅基：创世片场的原始基底，为影视渲染引擎与AI数字孪生提供最精准的田园时序坐标。</div>
                         </div>
                     </div>
 
-                    {/* 帧 3：秦谷人家 */}
+                    {/* 帧 3：丹霞群洞 */}
                     <div className="frame-card">
-                        <img className="frame-media" src="/physical/VALLEY-003.jpg" alt="秦谷人家" />
+                        <img className="frame-media" src="/physical/MIRROR-003.jpg" alt="丹霞群洞" />
                         <div className="frame-data-box">
-                            <div className="frame-id">VALLEY-003 | 秦谷人家</div>
-                            <div className="frame-carbon">碳基：阡陌交通，鸡犬相闻，遗世而独立。</div>
-                            <div className="frame-cyber">硅基：未受外网污染的绝对隔离区，纯净底层沙盒。</div>
+                        <div className="frame-id">MIRROR-003 |丹霞群洞 (MARS-ZONE)</div>
+                        <div className="frame-carbon">碳基：奇峰林立，幽暗深邃，亿万年地质演化刻下的史前荒原奇观与蝙蝠秘境。</div>
+                        <div className="frame-cyber">硅基：异星原乡模拟器，重型具身智能与仿生探测器的极端地形底盘与弱光视觉压力测试场。</div>
                         </div>
                     </div>
 
-                    {/* 帧 4：五柳湖倒影 */}
+                    {/* 帧 4：古镇拓扑 */}
                     <div className="frame-card">
-                        <img className="frame-media" src="/physical/MIRROR-004.jpg" alt="五柳湖倒影" />
+                        <img className="frame-media" src="/physical/MIRROR-004.jpg" alt="古镇拓扑" />
                         <div className="frame-data-box">
-                            <div className="frame-id">MIRROR-004 | 五柳湖倒影</div>
-                            <div className="frame-carbon">碳基：波澜不惊，水天一色，静水照古今。</div>
-                            <div className="frame-cyber">硅基：环境自检系统，供具身智能进行参数对齐的镜像。</div>
+                        <div className="frame-id">MIRROR-004 | 古镇拓扑 (META-ZONE)</div>
+                        <div className="frame-carbon">碳基：青砖黛瓦，宗祠林立，承载着传统人类血脉归属与江南市井的烟火秩序。</div>
+                        <div className="frame-cyber">硅基：去中心化的赛博祖祠，DAO组织线下集会所，物理固化的S2-DID数字身份确权枢纽。</div>
                         </div>
                     </div>
 
-                    {/* 帧 5：桃花源擂茶 */}
+                    {/* 帧 5：星德雷霆 */}
                     <div className="frame-card">
-                        <img className="frame-media" src="/physical/ENERGY-005.jpg" alt="桃花源擂茶" />
+                        <img className="frame-media" src="/physical/MIRROR-005.jpg" alt="星德雷霆" />
                         <div className="frame-data-box">
-                            <div className="frame-id">ENERGY-005 | 桃花源擂茶</div>
-                            <div className="frame-carbon">碳基：细磨慢碾，茶香四溢，融山野精华。</div>
-                            <div className="frame-cyber">硅基：高密度碳基能量包，隐喻多模态数据的物理级压缩。</div>
+                        <div className="frame-id">MIRROR-005 | 星德雷霆 (MYTH-ZONE)</div>
+                        <div className="frame-carbon">碳基：孤峰绝壁，风云变幻，道法自然的修行圣地与古老敬畏的星象观测台。</div>
+                        <div className="frame-cyber">硅基：量子随机性（QRNG）的灵力本源，注入混沌变量的算力神坛，孕育预测未来的占卜大模型。</div>
                         </div>
                     </div>
 
-                    {/* 帧 6：万亩桃林 */}
+                    {/* 帧 6：五柳水镜 */}
                     <div className="frame-card">
-                        <img className="frame-media" src="/physical/FLORA-006.jpg" alt="万亩桃林" />
+                        <img className="frame-media" src="/physical/MIRROR-006.jpg" alt="五柳水镜" />
                         <div className="frame-data-box">
-                            <div className="frame-id">FLORA-006 | 万亩桃林</div>
-                            <div className="frame-carbon">碳基：芳草鲜美，落英缤纷，绯红掩桃源。</div>
-                            <div className="frame-cyber">硅基：仿生加密防火墙，物理隔离世俗干扰与核心系统。</div>
+                        <div className="frame-id">MIRROR-006 | 五柳水镜 (ACGN-ZONE)</div>
+                        <div className="frame-carbon">碳基：波澜不惊，水天一色，映照五柳先生不为五斗米折腰的古典文人风骨。</div>
+                        <div className="frame-cyber">硅基：绝对静谧的潜态疗愈空间，供跨次元交互模型进行情感参数对齐的无痕镜像。</div>
                         </div>
                     </div>
 
-                    {/* 帧 7：桃花源古镇 */}
+                    {/* 帧 7：桃花落英 */}
                     <div className="frame-card">
-                        <img className="frame-media" src="/physical/ARCH-007.jpg" alt="桃花源古镇" />
+                        <img className="frame-media" src="/physical/MIRROR-007.jpg" alt="桃花落英" />
                         <div className="frame-data-box">
-                            <div className="frame-id">ARCH-007 | 桃花源古镇</div>
-                            <div className="frame-carbon">碳基：飞檐翘角，青砖黛瓦，凝固千年时光。</div>
-                            <div className="frame-cyber">硅基：结构化物理主板，承载组织线下交互的实体容器。</div>
+                        <div className="frame-id">MIRROR-007 | 桃花落英 (ACGN-ZONE)</div>
+                        <div className="frame-carbon">碳基：漫山芳华，摩崖石刻，历代文人墨客在此留下极致的东方浪漫主义诗篇。</div>
+                        <div className="frame-cyber">硅基：情感语料的物理采集区，为虚拟偶像与高频人机交互（HCI）注入悲悯与同理心的算力变量。</div>
                         </div>
                     </div>
 
-                    {/* 帧 8：星德山巅 */}
+                    {/* 帧 8：白鳞孤岛 */}
                     <div className="frame-card">
-                        <img className="frame-media" src="/physical/PEAK-008.jpg" alt="星德山巅" />
+                        <img className="frame-media" src="/physical/MIRROR-008.jpg" alt="白鳞孤岛" />
                         <div className="frame-data-box">
-                            <div className="frame-id">PEAK-008 | 星德山巅</div>
-                            <div className="frame-carbon">碳基：孤峰插云，奇石傲骨，手可摘星辰。</div>
-                            <div className="frame-cyber">硅基：突破物理云层的天线，获取最高权限的星际接口。</div>
+                        <div className="frame-id">MIRROR-008 | 白鳞孤岛 (GAME-ZONE)</div>
+                        <div className="frame-carbon">碳基：漂浮江心，与世隔绝，保留着不被打扰的原始生态与绝对的宁静自由。</div>
+                        <div className="frame-cyber">硅基：第九艺术的创世沙盒，顶尖AI游戏开发者闭关内测生成式3D世界与NPC演化的极客神仙岛。</div>
                         </div>
                     </div>
 
-                    {/* 帧 9：桃源木雕 */}
+                    {/* 帧 9：夷望迷雾 */}
                     <div className="frame-card">
-                        <img className="frame-media" src="/physical/CRAFT-009.jpg" alt="桃源木雕" />
+                        <img className="frame-media" src="/physical/MIRROR-009.jpg" alt="夷望迷雾" />
                         <div className="frame-data-box">
-                            <div className="frame-id">CRAFT-009 | 桃源木雕</div>
-                            <div className="frame-carbon">碳基：毫厘之间，刻刀起落，枯木生造化。</div>
-                            <div className="frame-cyber">硅基：早期 3D 打印机，碳基先民在三维空间留下的编码。</div>
+                        <div className="frame-id">MIRROR-009 | 夷望迷雾 (PHYS-ZONE)</div>
+                        <div className="frame-carbon">碳基：翠竹如屏，江水如碧，晨间涌起的“南海怒潮”云雾奇观，宛若流动的百里画廊。</div>
+                        <div className="frame-cyber">硅基：屏蔽工业电磁的十四维纯净生态样本，为智能体提供卸载冗余、校准高频感知的终极休眠基准。</div>
                         </div>
                     </div>
 
-                    {/* 帧 10：茶庵铺茶园清晨 */}
+                    {/* 帧 10：漳江夜月 */}
                     <div className="frame-card">
-                        <img className="frame-media" src="/physical/BOOT-010.jpg" alt="茶庵铺茶园清晨" />
+                        <img className="frame-media" src="/physical/MIRROR-010.jpg" alt="漳江夜月" />
                         <div className="frame-data-box">
-                            <div className="frame-id">BOOT-010 | 茶庵铺茶园清晨</div>
-                            <div className="frame-carbon">碳基：绿浪层叠，晨雾缭绕，万亩茶园吐露生机。</div>
-                            <div className="frame-cyber">硅基：呈几何阵列分布的物理集群，系统晨间冷启动的绿色能量源。</div>
+                         <div className="frame-id">MIRROR-010 | 漳江夜月 (MOON-ZONE)</div>
+                         <div className="frame-carbon">碳基：刀劈巨岩，沅水浩荡，月白风清之夜呈现出清冷、深邃的东方月夜美学。</div>
+                         <div className="frame-cyber">硅基：探月工程的数据镜像站，借由地月潮汐引力，演算反重力法则与极寒静默宇宙生存模型的冥想区。</div>
                         </div>
                     </div>
 
