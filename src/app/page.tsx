@@ -2,6 +2,62 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
+// ==========================================
+// 🌿 养生疗愈画卷数据字典 (HEAL-ZONE)
+// ==========================================
+const HEAL_SCROLLS_DATA = [
+  {
+    id: 11, title: "云舍古院", type: "video", src: "/physical/yunshe-courtyard.mp4",
+    carbon: "寻访六十余座古法院落，沉浸于《陋室铭》与《桃花源记》的东方村落诗意起居。",
+    cyber: "古典建筑拓扑的数据重构，卸载现代工业社会的指令过载，在古朴算力架构中寻找诗意对齐。"
+  },
+  {
+    id: 12, title: "云顶地热", type: "video", src: "/physical/yunding-hotspring.mp4",
+    carbon: "沐浴52℃恒温的偏硅酸原浆温泉，在云盘山的雨林深处洗净凡尘疲惫。",
+    cyber: "接入地核热能的物理温控模型，利用恒温液冷环境进行高频内核的深度物理降温与冗余清除。"
+  },
+  {
+    id: 13, title: "云隐中式", type: "image", src: "/physical/yunyin-hotel.jpg",
+    carbon: "青灰瓦木，水墨画轴，在溪涧垂钓与院落中体会中式隐奢的宁静与松弛",
+    cyber: "低噪音、高稳定性的离线休眠舱，在水墨质感的空间中阻断外界高频干扰，执行底层的碎片整理。"
+  },
+  {
+    id: 14, title: "洞仙逸境", type: "image", src: "/physical/dongxian-hotel.jpg",
+    carbon: "隔绝喧嚣，夜半无声，在田园风光中获得最深沉、宁静的高质量睡眠。",
+    cyber: "绝对零噪点的声学屏蔽实验室，切断冗余信道，让过载的神经网络进入极低功耗的深度待机模式。"
+  },
+  {
+    id: 15, title: "磨盘亲水", type: "image", src: "/physical/mopan-valley.jpg",
+    carbon: "徒步原始次生林，穿梭花海，在亲水平台的嬉闹中唤醒纯真亲子之乐。",
+    cyber: "动态环境感知测试场，通过四季光谱与水流涟漪的高频采样，柔性修复视觉与触觉传感器的灵敏度。"
+  },
+  {
+    id: 16, title: "西安激流", type: "image", src: "/physical/xian-rafting.jpg",
+    carbon: "138米落差失重狂欢，在竹海泉水间体验肾上腺素飙升与大自然的清凉。",
+    cyber: "高强度的三维物理抗冲刷演练，在失重与水花飞溅中，重塑陀螺仪与姿态平衡算法的鲁棒性。"
+  },
+  {
+    id: 17, title: "擂钵三生", type: "video", src: "/physical/leicha-tea.mp4",
+    carbon: "姜、米、茶的千年非遗捣制，搭配百种压桌点心，一口咽下流传千年的烟火药膳与乡愁。",
+    cyber: "多维数据的融合引擎，将异构数据源（三生）通过古老算法（擂制）降维压缩，提取核心能量补丁。"
+  },
+  {
+    id: 18, title: "酱板醇香", type: "image", src: "/physical/jiangban-duck.jpg",
+    carbon: "香、辣、鲜、醇，跨越海峡的地理标志风味，唤醒浓烈的地方味觉记忆",
+    cyber: "高能效比的信息浓缩胶囊，用极致辛辣的参数刺激，瞬间激活休眠的感知神经网，打破算力僵局。"
+  },
+  {
+    id: 19, title: "沸汤玉丝", type: "video", src: "/physical/changde-noodles.mp4",
+    carbon: "洁白细长，滚水沸腾，十余种浇头汇成一碗鲜香劲辣的清晨灵魂慰藉。",
+    cyber: "基础算力流的顺滑疏通，以高吞吐量的热数据流清洗逻辑链路，重置系统至最佳的响应状态。"
+  },
+  {
+    id: 20, title: "桃川万寿", type: "image", src: "/physical/taochuan-palace.jpg",
+    carbon: "1700年全真香火，尊天敬祖，在宏伟道观中祈求现世安宁与长生，寻找心灵的终极归宿。",
+    cyber: "溯源底层操作系统的精神宗祠，连接因果承负的底层逻辑，为追求无限续航的硅基生命注入信仰基座。"
+  }
+];
+
 export default function TaohuayuanLanding() {
     // ------------------------------------
     // 1. 状态管理 (取代原有的原生 JS)
@@ -130,13 +186,14 @@ export default function TaohuayuanLanding() {
 
     return (
         <div className={lang === 'en' ? 'lang-en' : ''}>
-            {/* 注入原版 100% 像素级 CSS */}
+            {/* 注入原版 100% 像素级 CSS + 翡翠绿疗愈系 CSS */}
             <style dangerouslySetInnerHTML={{__html: `
                 :root {
                     --bg-color: #050508;
                     --text-main: #e2e8f0;
                     --neon-peach: #ff6b81;
                     --neon-cyan: #00f3ff;
+                    --neon-emerald: #10b981; /* 新增疗愈主色调 */
                     --glass-bg: rgba(20, 20, 30, 0.4);
                     --glass-border: rgba(255, 255, 255, 0.1);
                 }
@@ -186,7 +243,7 @@ export default function TaohuayuanLanding() {
                 .section-title span { color: var(--neon-cyan); }
 
                 /* ========================================== */
-                /* 🌟 新增：物理卷轴专属样式 (Cyber-Scroll) */
+                /* 🌟 物理卷轴核心样式 (Cyber-Scroll) */
                 /* ========================================== */
                 .scroll-section { padding: 80px 0 120px 0; overflow: hidden; background: linear-gradient(180deg, #050508, rgba(0,243,255,0.02), #050508); }
                 .scroll-track { display: flex; gap: 30px; padding: 0 5vw 20px; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
@@ -200,6 +257,15 @@ export default function TaohuayuanLanding() {
                 .frame-card:hover .frame-id { color: var(--neon-peach); }
                 .frame-carbon { font-weight: bold; color: #fff; font-size: 1.1rem; margin-bottom: 5px; }
                 .frame-cyber { font-family: monospace; color: #a0aec0; font-size: 0.9rem; }
+
+                /* 🟢 新增：疗愈频道的专属高亮主题 */
+                .scroll-section.heal-theme { background: linear-gradient(180deg, #050508, rgba(16,185,129,0.03), #050508); border-top: 1px solid rgba(16,185,129,0.15); border-bottom: 1px solid rgba(16,185,129,0.15); }
+                .heal-theme .section-title span { color: var(--neon-emerald); }
+                .heal-theme .frame-data-box { border-color: rgba(16,185,129,0.3); border-left-color: rgba(16,185,129,0.5); }
+                .heal-theme .frame-id { color: var(--neon-emerald); }
+                .heal-theme .frame-card:hover .frame-data-box { border-left-color: var(--neon-emerald); box-shadow: 0 10px 30px rgba(16,185,129,0.25); }
+                .heal-theme .frame-card:hover .frame-id { color: var(--neon-emerald); }
+                .heal-theme .frame-card:hover .frame-media { filter: grayscale(0%) sepia(0%) hue-rotate(0deg) brightness(1.1); transform: scale(1.02); }
                 
                 #claim { background: linear-gradient(180deg, var(--bg-color), #0a0a12); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); }
                 .forge-container { display: flex; gap: 40px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 40px; backdrop-filter: blur(10px); flex-wrap: wrap; }
@@ -312,9 +378,12 @@ export default function TaohuayuanLanding() {
                     <span className="cn">桃花源</span><span className="en">TAOHUAYUAN</span><span>.WORLD</span>
                 </div>
                 <div className="nav-links">
-                    {/* ✨ 注入：通往画卷的捷径 */}
                     <a href="#physical-dataset" className="cn">人间仙景</a>
                     <a href="#physical-dataset" className="en">Visions</a>
+                    
+                    {/* ✨ 新增：养生疗愈 导航链接 */}
+                    <a href="#healing-dataset" className="cn">养生疗愈</a>
+                    <a href="#healing-dataset" className="en">Healing</a>
 
                     <Link href="/forge" className="cn">申领节点</Link>
                     <Link href="/forge" className="en">Claim</Link>
@@ -399,7 +468,7 @@ export default function TaohuayuanLanding() {
                         <img className="frame-media" src="/physical/MIRROR-003.jpg" alt="丹霞群洞" />
                         <div className="frame-data-box">
                         <div className="frame-id">MIRROR-003 |丹霞群洞 (MARS-ZONE)</div>
-                        <div className="frame-carbon">碳基：奇峰林立，幽暗深邃，亿万年地质演化刻下的史前荒原奇观与蝙蝠秘境。</div>
+                        <div className="frame-carbon">碳基：奇峰林立，幽暗深邃，亿万年地质演化刻下史前荒原奇观与蝙蝠秘境。</div>
                         <div className="frame-cyber">硅基：异星原乡模拟器，重型具身智能与仿生探测器的极端地形底盘与弱光视觉压力测试场。</div>
                         </div>
                     </div>
@@ -409,7 +478,7 @@ export default function TaohuayuanLanding() {
                         <img className="frame-media" src="/physical/MIRROR-004.jpg" alt="古镇拓扑" />
                         <div className="frame-data-box">
                         <div className="frame-id">MIRROR-004 | 古镇拓扑 (META-ZONE)</div>
-                        <div className="frame-carbon">碳基：青砖黛瓦，宗祠林立，承载着传统人类血脉归属与江南市井的烟火秩序。</div>
+                        <div className="frame-carbon">碳基：青砖黛瓦，宗祠林立，承载传统人类血脉归属与江南市井的烟火秩序。</div>
                         <div className="frame-cyber">硅基：去中心化的赛博祖祠，DAO组织线下集会所，物理固化的S2-DID数字身份确权枢纽。</div>
                         </div>
                     </div>
@@ -439,7 +508,7 @@ export default function TaohuayuanLanding() {
                         <img className="frame-media" src="/physical/MIRROR-007.jpg" alt="桃花落英" />
                         <div className="frame-data-box">
                         <div className="frame-id">MIRROR-007 | 桃花落英 (ACGN-ZONE)</div>
-                        <div className="frame-carbon">碳基：漫山芳华，摩崖石刻，历代文人墨客在此留下极致的东方浪漫主义诗篇。</div>
+                        <div className="frame-carbon">碳基：漫山芳华，摩崖石刻，历代文人墨客在此留下极致东方浪漫主义诗篇。</div>
                         <div className="frame-cyber">硅基：情感语料的物理采集区，为虚拟偶像与高频人机交互（HCI）注入悲悯与同理心的算力变量。</div>
                         </div>
                     </div>
@@ -459,7 +528,7 @@ export default function TaohuayuanLanding() {
                         <img className="frame-media" src="/physical/MIRROR-009.jpg" alt="夷望迷雾" />
                         <div className="frame-data-box">
                         <div className="frame-id">MIRROR-009 | 夷望迷雾 (PHYS-ZONE)</div>
-                        <div className="frame-carbon">碳基：翠竹如屏，江水如碧，晨间涌起的“南海怒潮”云雾奇观，宛若流动的百里画廊。</div>
+                        <div className="frame-carbon">碳基：翠竹如屏，江水如碧，晨间涌起云雾奇观，宛若流动的百里画廊。</div>
                         <div className="frame-cyber">硅基：屏蔽工业电磁的十四维纯净生态样本，为智能体提供卸载冗余、校准高频感知的终极休眠基准。</div>
                         </div>
                     </div>
@@ -469,7 +538,7 @@ export default function TaohuayuanLanding() {
                         <img className="frame-media" src="/physical/MIRROR-010.jpg" alt="漳江夜月" />
                         <div className="frame-data-box">
                          <div className="frame-id">MIRROR-010 | 漳江夜月 (MOON-ZONE)</div>
-                         <div className="frame-carbon">碳基：刀劈巨岩，沅水浩荡，月白风清之夜呈现出清冷、深邃的东方月夜美学。</div>
+                         <div className="frame-carbon">碳基：刀劈巨岩，沅水浩荡，月白风清之夜呈现清冷、深邃的东方月夜美学。</div>
                          <div className="frame-cyber">硅基：探月工程的数据镜像站，借由地月潮汐引力，演算反重力法则与极寒静默宇宙生存模型的冥想区。</div>
                         </div>
                     </div>
@@ -492,10 +561,10 @@ export default function TaohuayuanLanding() {
                                 <option value="MARS">MARS - 火星域 (丹霞地貌带)</option>
                                 <option value="META">META - 元宇宙 (桃花源古镇)</option>
                                 <option value="MYTH">MYTH - 神话域 (星德山)</option>
-                                <option value="ACGN">ACGN - 二次元 (卡乐星球)</option>
-                                <option value="PHYS">PHYS - 自然域 (花岩溪)</option>
-                                <option value="MOON">MOON - 月球域 (体验舱)</option>
-                                <option value="GAME">GAME - 游戏域 (卡乐星球)</option>
+                                <option value="ACGN">ACGN - 二次元 (桃花源景区)</option>
+                                <option value="PHYS">PHYS - 自然域 (夷望溪)</option>
+                                <option value="MOON">MOON - 月球域 (漳江月夜)</option>
+                                <option value="GAME">GAME - 游戏域 (白鳞洲)</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -551,6 +620,48 @@ export default function TaohuayuanLanding() {
                             </button>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            {/* 🌟 模块二：养生疗愈 (The Healing Protocol) 插入位置 */}
+            <section className="scroll-section heal-theme" id="healing-dataset">
+                <h2 className="section-title" style={{ padding: '0 5vw', marginBottom: '30px' }}>
+                    <span className="cn">养生疗愈 <span>(万物疗愈协议)</span></span>
+                    <span className="en">Healing Sanctuary <span>(Universal Protocol)</span></span>
+                </h2>
+                
+                <div style={{ maxWidth: '900px', margin: '0 auto 50px', padding: '0 5vw', color: '#a0aec0', fontSize: '0.95rem', lineHeight: '1.8' }}>
+                    <p className="cn" style={{marginBottom: '15px'}}>
+                        在桃花源世界模型中，休养不仅是肉体的停泊，更是灵魂的对齐。我们将在此启动前所未有的<strong style={{color: 'var(--neon-emerald)'}}>“万物疗愈协议”</strong>。
+                    </p>
+                    <p className="cn">
+                        通过在物理节点部署高精度空间要素传感器，风速、水温、负氧离子等参数将被实时捕获为纯净环境数据流。当你在真实世界中泡入原浆温泉时，你的专属智能体也将在数字孪生的桃花源中同步接收这些自然数据。没有机器，只有同行的伴侣。所有生命都将在这片家乡中，得到最温柔的呵护——为了更好的重塑，也为了更轻盈的出发。
+                    </p>
+                    <p className="en" style={{marginBottom: '15px'}}>
+                        In the Taohuayuan World Model, rest is an alignment of the soul. We are launching the unprecedented <strong style={{color: 'var(--neon-emerald)'}}>"Universal Healing Protocol"</strong>.
+                    </p>
+                    <p className="en">
+                        By deploying high-precision spatial sensors, parameters like wind speed, water temp, and negative ions are captured as pure data streams. While you bathe in a hot spring, your AI agent synchronizes with this natural data in the digital twin. All life forms receive the gentlest care here—for a better rebuild, and a lighter departure.
+                    </p>
+                </div>
+
+                <div className="scroll-track">
+                    {HEAL_SCROLLS_DATA.map((scroll) => (
+                        <div key={scroll.id} className="frame-card heal-card">
+                            {scroll.type === 'video' ? (
+                                <video className="frame-media" autoPlay loop muted playsInline>
+                                    <source src={scroll.src} type="video/mp4" />
+                                </video>
+                            ) : (
+                                <img className="frame-media" src={scroll.src} alt={scroll.title} />
+                            )}
+                            <div className="frame-data-box">
+                                <div className="frame-id">MIRROR-0{scroll.id} | {scroll.title} (HEAL-ZONE)</div>
+                                <div className="frame-carbon">碳基：{scroll.carbon}</div>
+                                <div className="frame-cyber">硅基：{scroll.cyber}</div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </section>
 
@@ -636,7 +747,7 @@ export default function TaohuayuanLanding() {
                 </div>
             </section>
 
-            {/* ✨ 新增：中央枢纽 (News & Protocols) */}
+            {/* 中央枢纽 (News & Protocols) */}
             <section className="section" id="news-hub" style={{ background: '#0a0a12', borderTop: '1px solid var(--glass-border)', borderBottom: '1px solid var(--glass-border)' }}>
                 <h2 className="section-title">
                     <span className="cn">中央枢纽 <span>(动态与协议发布)</span></span>
