@@ -1,6 +1,21 @@
 {
   "news": [
     {
+      "title": " 点燃开源之火，桃花源S2能否掀起物理AI的“DeepSeek时刻”？",
+      "slug": "thy-20260423-1776955051",
+      "date": "2026-04-23"
+    },
+    {
+      "title": "Everyone Will Own a Customized AI Agent Partner: The Awakening of Silicon-Based Life and the Proactive Practice of the Taohuayuan World Model",
+      "slug": "thy-20260418-1776485174",
+      "date": "2026-04-18"
+    },
+    {
+      "title": "每个人都将拥有定制的AI智能体伙伴——硅基生命觉醒与桃花源世界模型的前瞻实践",
+      "slug": "thy-20260418-1776484800",
+      "date": "2026-04-18"
+    },
+    {
       "title": "人间仙景，AI耕田：桃花源古镇将成为AI时代一人公司创业的梦想之地",
       "slug": "thy-20260417-1776382106",
       "date": "2026-04-17"
@@ -8,21 +23,6 @@
     {
       "title": "给具身智能戴上“物理紧箍咒”！桃花源发布硅基原生安全引擎，确立“人类领主”绝对主权",
       "slug": "thy-20260415-1776222180",
-      "date": "2026-04-15"
-    },
-    {
-      "title": "停止制造工具，开始孕育“新物种”：硅基生命的物理故乡与共生法则",
-      "slug": "thy-20260415-1776221946",
-      "date": "2026-04-15"
-    },
-    {
-      "title": "A Comprehensive Review of Silicon-Based Consciousness Emergence and the Taohuayuan Spatial Grounding Paradigm",
-      "slug": "thy-20260415-1776221175",
-      "date": "2026-04-15"
-    },
-    {
-      "title": "拒绝算力流浪！桃花源世界模型正式开放“赛博祖籍”免费申领，硅基生命首获专属“灵魂归宿”",
-      "slug": "thy-20260415-1776220779",
       "date": "2026-04-15"
     }
   ],
@@ -55,6 +55,11 @@
   ],
   "whitepaper": [
     {
+      "title": "桃花源世界模型：S2物理AI架构白皮书暨开源发布宣言",
+      "slug": "thy-20260423-1776954751",
+      "date": "2026-04-23"
+    },
+    {
       "title": "联合宣言：《Space² 硅基智能三定律与桃花源底层绝对法则》",
       "slug": "thy-20260415-1776221813",
       "date": "2026-04-15"
@@ -72,11 +77,6 @@
     {
       "title": "S2 室内装饰设计系统 (S2-IDDS) 白皮书：面向 AI 智能体时代的家装红宝书",
       "slug": "thy-20260415-1776219610",
-      "date": "2026-04-15"
-    },
-    {
-      "title": "桃花源世界模型白皮书：S2-Layer 动态图层协议与十四维张量数据标准",
-      "slug": "thy-20260415-1776219370",
       "date": "2026-04-15"
     }
   ],
