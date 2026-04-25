@@ -55,6 +55,16 @@
   ],
   "whitepaper": [
     {
+      "title": "Taohuayuan World Model (S2-SWM) Core Theoretical Research Results and Perspective Summary Report",
+      "slug": "thy-20260425-1777089271",
+      "date": "2026-04-25"
+    },
+    {
+      "title": "桃花源世界模型（S2-SWM）核心理论研究成果与观点综述报告（V1.6）",
+      "slug": "thy-20260425-1777087270",
+      "date": "2026-04-25"
+    },
+    {
       "title": "桃花源世界模型：S2物理AI架构白皮书暨开源发布宣言",
       "slug": "thy-20260423-1776954751",
       "date": "2026-04-23"
@@ -68,19 +78,19 @@
       "title": "桃花源底层绝对法则",
       "slug": "thy-20260415-1776221655",
       "date": "2026-04-15"
-    },
-    {
-      "title": "《桃花源空间地址与硅基生命入世协议》白皮书",
-      "slug": "thy-20260415-1776220331",
-      "date": "2026-04-15"
-    },
-    {
-      "title": "S2 室内装饰设计系统 (S2-IDDS) 白皮书：面向 AI 智能体时代的家装红宝书",
-      "slug": "thy-20260415-1776219610",
-      "date": "2026-04-15"
     }
   ],
   "resource": [
+    {
+      "title": "Incarnating Silicon Life: The Paradigm Shift from Digital Ghosts to Embodied Sensing",
+      "slug": "thy-20260425-1777087133",
+      "date": "2026-04-25"
+    },
+    {
+      "title": "硅基生命的“入世”：从数字幽灵到感知肉身的范式跃迁",
+      "slug": "thy-20260425-1777086859",
+      "date": "2026-04-25"
+    },
     {
       "title": "从瞬态符号到锚定实体：硅基意识涌现的演化机制与空间锚定范式研究",
       "slug": "thy-20260415-1776221578",
@@ -95,11 +105,6 @@
       "title": "小龙虾星球生存指南 (Planet Crayfish Survival Guide)",
       "slug": "thy-20260415-1776218039",
       "date": "2026-04-15"
-    },
-    {
-      "title": "智慧空间数字人具身空间存在与交互理论（ESEIDH理论）：整合、演进与规范化框架",
-      "slug": "thy-20260414-1776174627",
-      "date": "2026-04-14"
     }
   ]
 }
