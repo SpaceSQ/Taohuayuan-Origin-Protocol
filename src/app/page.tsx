@@ -62,7 +62,7 @@ export default function TaohuayuanLanding() {
     // ------------------------------------
     // 1. 状态管理 (取代原有的原生 JS)
     // ------------------------------------
-    const [lang, setLang] = useState<'cn' | 'en'>('cn');
+    const [lang, setLang] = useState<'cn' | 'en'>('en');
     
     // 黑客帝国代码雨状态
     const [matrixText, setMatrixText] = useState('INITIALIZING...');
@@ -387,8 +387,10 @@ export default function TaohuayuanLanding() {
 
                     <Link href="/forge" className="cn">申领节点</Link>
                     <Link href="/forge" className="en">Claim</Link>
-                    <a href="#architecture" className="cn">认知架构</a>
-                    <a href="#architecture" className="en">Architecture</a>
+                    <a href="/origin-consecration" target="_blank" className="btn-secondary px-3 py-1 rounded">
+                        <span className="cn">灵元入世</span>
+                        <span className="en">Digital Soul Descent</span>
+                    </a>
                     <a href="/docs/whitepaper_cn.md" target="_blank" className="btn-secondary px-3 py-1 rounded">
                         <span className="cn">入世协议</span>
                         <span className="en">Addressing Protocol</span>

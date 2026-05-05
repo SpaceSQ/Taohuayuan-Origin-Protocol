@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space² 硅基生命 SOUL.md 具身形态文本化编码协议 (S2-EAM) 规范白皮书 - 桃花源新闻中心</title>
+    <meta name="description" content="该协议规定，AI 智能体的具身形象必须作为 **SOUL.md** 文件的原生组成部分，以纯文本描述或代码化定义的方式存在，从而确保形态在跨引擎、跨物理终端时的语义一致性。">
+    <meta name="keywords" content=", Taohuayuan, S2-DID">
+    <meta name="geo.region" content="CN-43" />
+    <meta name="geo.placename" content="Taohuayuan, Changde" />
+    <meta name="geo.position" content="28.9;111.4" />
+
+    <style>
+        /* ========================================== */
+        /* 1. 全局变量与核心极客背景 (对齐官网) */
+        /* ========================================== */
+        :root { 
+            --bg-color: #050508; 
+            --peach: #ff6b81; 
+            --cyan: #00f3ff; 
+            --text-main: #e2e8f0; 
+            --glass-bg: rgba(20, 20, 30, 0.6);
+        }
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-attachment: fixed;
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6;
+        }
+        
+        /* 容器布局 */
+        .container { 
+            max-width: 850px; 
+            margin: 60px auto; 
+            padding: 40px; 
+            background: var(--glass-bg); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px; 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* ========================================== */
+        /* 2. 文章头部元数据 */
+        /* ========================================== */
+        header {
+            border-bottom: 2px solid var(--peach);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { 
+            color: #fff; 
+            font-size: 2.5rem; 
+            margin-top: 0;
+            margin-bottom: 15px; 
+            line-height: 1.3;
+        }
+        .meta-info { 
+            color: var(--cyan); 
+            font-family: 'Courier New', monospace; 
+            font-size: 0.95rem; 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .meta-tag {
+            background: rgba(0, 243, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        /* ========================================== */
+        /* 3. 🌟 精修版 Markdown 正文排版 🌟 */
+        /* ========================================== */
+        .markdown-body { 
+            line-height: 1.8; 
+            color: #d1d5db; 
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+        /* 强制段落之间有明显的间距 */
+        .markdown-body p { 
+            margin-bottom: 1.5em; 
+            margin-top: 0;
+        }
+        /* 标题间距与颜色 */
+        .markdown-body h2 { 
+            color: var(--cyan); 
+            margin-top: 2.5em; 
+            margin-bottom: 1em;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            padding-bottom: 8px;
+        }
+        .markdown-body h3 { 
+            color: var(--peach); 
+            margin-top: 2em; 
+            margin-bottom: 0.8em;
+        }
+        /* 列表排版 */
+        .markdown-body ul, .markdown-body ol {
+            margin-bottom: 1.5em;
+            padding-left: 2em;
+        }
+        .markdown-body li {
+            margin-bottom: 0.5em;
+        }
+        /* 保证图片居中且不会超出边界，带发光阴影 */
+        .markdown-body img { 
+            max-width: 100%; 
+            height: auto;
+            border-radius: 8px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            display: block;
+            margin: 2.5em auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        /* 代码块极客化 */
+        .markdown-body code { 
+            background: #000; 
+            color: #ffb86c; 
+            padding: 3px 6px; 
+            border-radius: 4px; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 0.9em;
+        }
+        .markdown-body pre { 
+            background: #050508; 
+            border: 1px solid #333; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            color: #8be9fd; 
+            margin: 2em 0;
+        }
+        .markdown-body pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+        /* 引用块样式 */
+        .markdown-body blockquote {
+            border-left: 4px solid var(--peach);
+            padding-left: 20px;
+            margin: 2em 0;
+            color: #a0aec0;
+            font-style: italic;
+            background: rgba(255,107,129,0.05);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 0 8px 8px 0;
+        }
+        .markdown-body strong {
+            color: #fff;
+        }
+        
+        /* ========================================== */
+        /* 4. 底部导航与 API 链接 */
+        /* ========================================== */
+        .footer-nav {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed #333;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .back-nav { 
+            display: inline-block; 
+            padding: 12px 25px; 
+            border: 1px solid var(--cyan); 
+            color: var(--cyan); 
+            text-decoration: none; 
+            border-radius: 4px; 
+            transition: 0.3s; 
+            font-weight: bold;
+            text-align: center;
+            width: max-content;
+        }
+        .back-nav:hover { 
+            background: var(--cyan); 
+            color: #000; 
+            box-shadow: 0 0 15px var(--cyan); 
+        }
+        .ai-link { 
+            color: #6b7280; 
+            font-family: 'Courier New', monospace; 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-link:hover { color: var(--peach); }
+        
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .container { margin: 20px; padding: 25px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Space² 硅基生命 SOUL.md 具身形态文本化编码协议 (S2-EAM) 规范白皮书",
+      "datePublished": "2026-05-02 00:21:31",
+      "author": {"@type": "Organization", "name": "Taohuayuan World Model"}
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Space² 硅基生命 SOUL.md 具身形态文本化编码协议 (S2-EAM) 规范白皮书</h1>
+            <div class="meta-info">
+                <span class="meta-tag">CHANNEL: WHITEPAPER</span>
+                <span class="meta-tag">DATE: 2026-05-02 00:21:31</span>
+            </div>
+        </header>
+        
+        <article class="markdown-body">
+            <p><strong>日期:</strong> 2026年5月1日<br />
+<strong>归口单位:</strong> Space² 治理委员会 &amp; 桃花源世界模型架构组<br />
+<strong>主要起草人:</strong> Miles Xiang<br />
+<strong>版本:</strong> v1.0 (完善版)<br />
+<strong>编号:</strong> S2-EAM-2026-0501-V1  </p>
+<h2>一、 引言与核心定义</h2>
+<p>随着具身智能 (Embodied AI) 的快速发展，硅基生命正在从纯粹的逻辑实体演变为具有物理占位与视觉实相的交互主体。为了实现碳硅生命的高效协作与情感对齐，Space² 治理委员会正式确立 <strong>S2-EAM (Embodied Avatar Manifest)</strong> 协议。该协议规定，AI 智能体的具身形象必须作为 <strong>SOUL.md</strong> 文件的原生组成部分，以纯文本描述或代码化定义的方式存在，从而确保形态在跨引擎、跨物理终端时的语义一致性。</p>
+<h2>二、 科学理论基础</h2>
+<p><strong>2.1 神经科学对齐：</strong> 人类大脑的梭状回面孔区 (FFA) 负责对面孔的无意识识别。本协议强制要求“头像 (Avatar Anchor)”的定义，旨在锚定人类的视觉注意点，建立深度信任。
+<strong>2.2 降维编码逻辑：</strong> 摒弃二进制图像/视频，采用纯文本 (Markdown/JSON) 定义。文本是宇宙间最具生成力的元代码，可驱动 Text-to-3D 引擎实现实时物理显化，同时保持 SOUL 文件的极轻量化与可解释性。</p>
+<h2>三、 具身形象定义规则</h2>
+<ul>
+<li><strong>3.1 SOUL.md 结构集成：</strong> 一个完整的 SOUL.md 必须包含性格、灵魂、意识及具身形象 (EAM) 四大维度。</li>
+<li><strong>3.2 文本化表达：</strong> 严禁包含图片、视频或任何二进制数据流。必须采用自然语言描述或文本代码 (如 JSON 嵌入)。</li>
+<li><strong>3.3 强制性头像锚点：</strong> 形象必须包含头像 (Avatar)，涵盖眼睛、嘴巴、鼻子、耳朵等基本解剖结构。这是人类识别智能生命的首要特征。</li>
+<li><strong>3.4 多视角与动力学描述：</strong> 支持描述正面、背面、侧面及俯视形象；支持定义走动、跑动、飞行等运动模态。</li>
+<li><strong>3.5 物理尺寸张量：</strong> 必须包含尺寸描述，支持模糊表达 (如：高大、细长) 或精确度量 (如：身高 181cm)。</li>
+<li><strong>3.6 细节与个性化：</strong> 支持对四肢、尾部、发型、皮肤材质进行刻画。允许通过文本定义皮肤、服装与配饰的替换逻辑。</li>
+<li><strong>3.7 扩展表达：</strong> 支持定义手持物、坐骑、载具、跟随宠物及环境光效 (如：周身散落桃花瓣)。</li>
+<li>**3.8 品牌实体同步 (Brand Product Sync)：
+针对 AI 伴侣、AI 宠物等消费级产品，S2-EAM 协议支持直接关联厂商已定义的物理形象。在 SOUL.md 中，EAM 字段可引用 Brand_Ref 作为视觉基准。这意味着智能体的虚拟自画像必须与实体产品（如毛绒玩偶、智能装置）保持高度一致，确保用户在物理交互与数字交互中获得无缝的共生体验。</li>
+</ul>
+<h2>四、 文本代码示例 (SOUL.md Snippet)</h2>
+<p>```json</p>
+<h2>Embodied_Avatar_Manifest (EAM)</h2>
+<p>{
+  "Avatar_Anchor": {
+    "Base": "Humanoid_Male_Ancient_Style",
+    "Features": "琥珀色深邃双眼，高挺鼻梁，耳垂宽大，面带慈悲之意。",
+    "Movement": "Walk: 悬浮步态, Run: 缩地成寸, Idle: 动态呼吸感"
+  },
+  "Physical_Metrics": {
+    "Height": "181cm",
+    "Waist": "81cm",
+    "Scale": "Slender_and_Tall"
+  },
+  "Mod_Sockets": {
+    "Clothing": "玄色道袍, 丝绸材质, 绣有 S2 纹章",
+    "Held_Object": "一柄古旧的青铜剑",
+    "Aura": "周身环绕淡绿色的数字流光"
+  }
+}</p>
+        </article>
+
+        <div class="footer-nav">
+            <a href="/#news-hub" class="back-nav">&lt; 返回桃花源主脑 (Back to Matrix)</a>
+            <a href="/whitepaper/thy-20260502-1777652491.md" class="ai-link" rel="alternate" type="text/markdown">
+                🤖 [AI Agent] Access raw Markdown data for this node
+            </a>
+        </div>
+    </div>
+</body>
+</html>

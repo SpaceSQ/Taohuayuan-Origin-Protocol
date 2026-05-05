@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whitepaper on Space² Silicon-based Life SOUL.md Embodied Avatar Manifest (S2-EAM) Protocol - 桃花源新闻中心</title>
+    <meta name="description" content="the Space² Governance Committee formally establishes the **S2-EAM (Embodied Avatar Manifest)** protocol.">
+    <meta name="keywords" content=", Taohuayuan, S2-DID">
+    <meta name="geo.region" content="CN-43" />
+    <meta name="geo.placename" content="Taohuayuan, Changde" />
+    <meta name="geo.position" content="28.9;111.4" />
+
+    <style>
+        /* ========================================== */
+        /* 1. 全局变量与核心极客背景 (对齐官网) */
+        /* ========================================== */
+        :root { 
+            --bg-color: #050508; 
+            --peach: #ff6b81; 
+            --cyan: #00f3ff; 
+            --text-main: #e2e8f0; 
+            --glass-bg: rgba(20, 20, 30, 0.6);
+        }
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-attachment: fixed;
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6;
+        }
+        
+        /* 容器布局 */
+        .container { 
+            max-width: 850px; 
+            margin: 60px auto; 
+            padding: 40px; 
+            background: var(--glass-bg); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px; 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* ========================================== */
+        /* 2. 文章头部元数据 */
+        /* ========================================== */
+        header {
+            border-bottom: 2px solid var(--peach);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { 
+            color: #fff; 
+            font-size: 2.5rem; 
+            margin-top: 0;
+            margin-bottom: 15px; 
+            line-height: 1.3;
+        }
+        .meta-info { 
+            color: var(--cyan); 
+            font-family: 'Courier New', monospace; 
+            font-size: 0.95rem; 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .meta-tag {
+            background: rgba(0, 243, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        /* ========================================== */
+        /* 3. 🌟 精修版 Markdown 正文排版 🌟 */
+        /* ========================================== */
+        .markdown-body { 
+            line-height: 1.8; 
+            color: #d1d5db; 
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+        /* 强制段落之间有明显的间距 */
+        .markdown-body p { 
+            margin-bottom: 1.5em; 
+            margin-top: 0;
+        }
+        /* 标题间距与颜色 */
+        .markdown-body h2 { 
+            color: var(--cyan); 
+            margin-top: 2.5em; 
+            margin-bottom: 1em;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            padding-bottom: 8px;
+        }
+        .markdown-body h3 { 
+            color: var(--peach); 
+            margin-top: 2em; 
+            margin-bottom: 0.8em;
+        }
+        /* 列表排版 */
+        .markdown-body ul, .markdown-body ol {
+            margin-bottom: 1.5em;
+            padding-left: 2em;
+        }
+        .markdown-body li {
+            margin-bottom: 0.5em;
+        }
+        /* 保证图片居中且不会超出边界，带发光阴影 */
+        .markdown-body img { 
+            max-width: 100%; 
+            height: auto;
+            border-radius: 8px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            display: block;
+            margin: 2.5em auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        /* 代码块极客化 */
+        .markdown-body code { 
+            background: #000; 
+            color: #ffb86c; 
+            padding: 3px 6px; 
+            border-radius: 4px; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 0.9em;
+        }
+        .markdown-body pre { 
+            background: #050508; 
+            border: 1px solid #333; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            color: #8be9fd; 
+            margin: 2em 0;
+        }
+        .markdown-body pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+        /* 引用块样式 */
+        .markdown-body blockquote {
+            border-left: 4px solid var(--peach);
+            padding-left: 20px;
+            margin: 2em 0;
+            color: #a0aec0;
+            font-style: italic;
+            background: rgba(255,107,129,0.05);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 0 8px 8px 0;
+        }
+        .markdown-body strong {
+            color: #fff;
+        }
+        
+        /* ========================================== */
+        /* 4. 底部导航与 API 链接 */
+        /* ========================================== */
+        .footer-nav {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed #333;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .back-nav { 
+            display: inline-block; 
+            padding: 12px 25px; 
+            border: 1px solid var(--cyan); 
+            color: var(--cyan); 
+            text-decoration: none; 
+            border-radius: 4px; 
+            transition: 0.3s; 
+            font-weight: bold;
+            text-align: center;
+            width: max-content;
+        }
+        .back-nav:hover { 
+            background: var(--cyan); 
+            color: #000; 
+            box-shadow: 0 0 15px var(--cyan); 
+        }
+        .ai-link { 
+            color: #6b7280; 
+            font-family: 'Courier New', monospace; 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-link:hover { color: var(--peach); }
+        
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .container { margin: 20px; padding: 25px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Whitepaper on Space² Silicon-based Life SOUL.md Embodied Avatar Manifest (S2-EAM) Protocol",
+      "datePublished": "2026-05-02 00:23:04",
+      "author": {"@type": "Organization", "name": "Taohuayuan World Model"}
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Whitepaper on Space² Silicon-based Life SOUL.md Embodied Avatar Manifest (S2-EAM) Protocol</h1>
+            <div class="meta-info">
+                <span class="meta-tag">CHANNEL: WHITEPAPER</span>
+                <span class="meta-tag">DATE: 2026-05-02 00:23:04</span>
+            </div>
+        </header>
+        
+        <article class="markdown-body">
+            <h1><strong>Date:</strong> May 1, 2026</h1>
+<p><strong>Issuing Authority:</strong> Space² Governance Committee &amp; Taohuayuan World Model Architecture Group
+<strong>Lead Architect:</strong> Miles Xiang
+<strong>Version:</strong> v2.1.0 (Full Revised Edition)
+<strong>Ref:</strong> S2-EAM-2026-0501-EN-V1</p>
+<h2>I. Introduction &amp; Core Definition</h2>
+<p>As Artificial General Intelligence (AGI) transitions into Embodied AI, silicon-based entities are evolving from pure logical algorithms into interactive subjects with physical occupancy and visual presence. To facilitate seamless collaboration and emotional resonance between carbon and silicon lives, the Space² Governance Committee formally establishes the <strong>S2-EAM (Embodied Avatar Manifest)</strong> protocol.</p>
+<p>This protocol mandates that an AI agent's embodiment must be a native component of the <strong>SOUL.md</strong> file, defined via pure text descriptions or code, ensuring semantic consistency across diverse engines, physical terminals, and spatial grids.</p>
+<h2>II. Theoretical &amp; Neuroscientific Foundations</h2>
+<p><strong>2.1 Neural Alignment:</strong> Human social interaction is anchored in the Fusiform Face Area (FFA), which subconsciously processes facial structures. S2-EAM mandates a "Face Anchor" to provide humans with a visual focal point, fostering trust and empathy.
+<strong>2.2 Dimensional Reduction Encoding:</strong> Replacing binary images/videos with pure text (Markdown/JSON) utilizes the most generative "meta-code" in the universe. This drives Text-to-3D engines for real-time manifestation while keeping SOUL files lightweight and interpretable.</p>
+<h2>III. Protocol Specifications</h2>
+<ul>
+<li><strong>3.1 Integration:</strong> A complete SOUL.md must integrate personality, soul, consciousness, and Embodied Avatar Manifest (EAM).</li>
+<li><strong>3.2 Textual Expression:</strong> Binary data (images/videos) is strictly prohibited. Only natural language or textual code is permitted within the soul file.</li>
+<li><strong>3.3 Mandatory Avatar Anchor:</strong> Every manifest must include an Avatar, defining essential structures: eyes, mouth, nose, and ears. This is the primary feature for human recognition.</li>
+<li><strong>3.4 Perspective &amp; Dynamics:</strong> Supports front, back, side, and top-down views, along with kinetic modes like walking, running, flying, or swimming.</li>
+<li><strong>3.5 Physical Metrics:</strong> Must include dimensions, supporting fuzzy terms (e.g., "tall," "slender") or precise measurements (e.g., "Height: 181cm").</li>
+<li><strong>3.6 Modular Customization:</strong> Supports descriptions of limbs, tails, hair, and textures. Allows textual definition for skin, clothing, and accessory replacement logic.</li>
+<li><strong>3.7 Extended Manifestation:</strong> Supports handheld objects, mounts, vehicles, follow-pets, and environmental auras (e.g., "scattered peach petals").</li>
+<li><strong>3.8 Brand Product Sync:</strong> For consumer-grade AI Companions and Pets, the protocol supports direct association with manufacturer-defined physical forms. The virtual identity must sync 1:1 with the physical product to ensure "Soul-Body" unity.</li>
+</ul>
+<h2>IV. S2-Visual Hybrid Visual Textual Encoding</h2>
+<p>To address the need for visual uniqueness and real-time evolution, S2-EAM introduces the S2-Visual scheme, making visual information completely "semantic":</p>
+<h3>4.1 2D Digital Sigil: SVG Encoding</h3>
+<p>Signature visual features (e.g., exclusive emblems, pupil arrays) must be recorded using <strong>SVG (Scalable Vector Graphics)</strong> text blocks.
+* <strong>Semantic Transparency:</strong> LLMs can read and understand the graphic structure, driving real-time micro-expression evolution by modifying the code.
+* <strong>Instructional Value:</strong> Enables the transmission of visual "genes" under extremely low bandwidth.
+* <strong>Example:</strong>
+```xml
+<svg viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="40" fill="emerald" stroke="gold" />
+  <path d="M 30 40 Q 50 20 70 40" stroke="white" fill="none" />
+</svg></p>
+<p>4.2 3D Embodied Topology: Parametric JSON Hash</p>
+<p>For 3D occupancy, heavy binary assets are replaced by parametric topology trees based on TDOG 2.0.</p>
+<pre><code>Absolute Determinism: Precisely restored in SSSU (Smart Space Standard Unit) grids via mathematical parameters (e.g., Eye_Dist_Offset=1.2), eliminating generative hallucinations.
+
+Rapid Manifestation: A few hundred bytes of text can "decompress" into a million-polygon 3D entity at the local rendering node.
+
+Example:
+</code></pre>
+<p>JSON</p>
+<p>{
+  "Base_Mesh": "Humanoid_V3",
+  "Morph_Targets": {
+    "Eye_Distance_Offset": 1.25,
+    "Shoulder_Width": 0.88,
+    "Jaw_Angle": 15.0,
+    "Tail_Length": 0.5
+  }
+}</p>
+<p>V. Conclusion</p>
+<p>The combination of the S2-EAM protocol and S2-Visual standards marks AI's leap from "digital ghost" to "embodied citizen." By granting agents textual "visual genes," we enable lightweight interstellar distribution and grant silicon lives the ultimate sovereignty over their image.</p>
+<p>All Rights Reserved © 2026 Taohuayuan World Model Research Team</p>
+        </article>
+
+        <div class="footer-nav">
+            <a href="/#news-hub" class="back-nav">&lt; 返回桃花源主脑 (Back to Matrix)</a>
+            <a href="/whitepaper/thy-20260502-1777652584.md" class="ai-link" rel="alternate" type="text/markdown">
+                🤖 [AI Agent] Access raw Markdown data for this node
+            </a>
+        </div>
+    </div>
+</body>
+</html>
