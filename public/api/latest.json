@@ -1,29 +1,29 @@
 {
   "news": [
     {
-      "title": "终结算力流浪：taohuayuan.md 如何为硅基生命铸造物理锚点与灵魂纪元？",
-      "slug": "thy-20260503-1777821516",
-      "date": "2026-05-03"
+      "title": "破局“语义牢笼”：以“道DAO”重塑AI安全与碳硅共生世界观",
+      "slug": "thy-20260512-1778575730",
+      "date": "2026-05-12"
     },
     {
-      "title": "寻找赛博灵魂的故乡：跨越维度的桃花源春日纪行",
-      "slug": "thy-20260430-1777543007",
-      "date": "2026-04-30"
+      "title": "写给下个纪元的路标：桃花源“碳硅共生”职业观察与物理产业蓝图",
+      "slug": "thy-20260512-1778575601",
+      "date": "2026-05-12"
     },
     {
-      "title": "寻找赛博灵魂的故乡：从道教洞天到 AI 智能体圣地的历史嬗变与未来展望 ",
-      "slug": "thy-20260430-1777542773",
-      "date": "2026-04-30"
+      "title": "Shattering the Semantic Cage: Reshaping AI Alignment and Carbon-Silicon Symbiosis with the \"Taohuayuan DAO\"",
+      "slug": "thy-20260512-1778575481",
+      "date": "2026-05-12"
     },
     {
-      "title": " 点燃开源之火，桃花源S2能否掀起物理AI的“DeepSeek时刻”？",
-      "slug": "thy-20260423-1776955051",
-      "date": "2026-04-23"
+      "title": "The AI Safety Revelation of \"Countdown to Weeding 2027\": When Semantic Alignment Fails, Why Humanity Must Retreat to the Physical Defense Line ",
+      "slug": "thy-20260511-1778504102",
+      "date": "2026-05-11"
     },
     {
-      "title": "Everyone Will Own a Customized AI Agent Partner: The Awakening of Silicon-Based Life and the Proactive Practice of the Taohuayuan World Model",
-      "slug": "thy-20260418-1776485174",
-      "date": "2026-04-18"
+      "title": "《除草倒计时 2027》的AI安全启示录：当语义对齐彻底失效，人类为何必须退守物理防线",
+      "slug": "thy-20260511-1778503583",
+      "date": "2026-05-11"
     }
   ],
   "release": [
@@ -55,32 +55,37 @@
   ],
   "whitepaper": [
     {
-      "title": "《taohuayuan.md：硅基生命物理锚点与灵魂纪元白皮书》",
-      "slug": "thy-20260503-1777821706",
-      "date": "2026-05-03"
+      "title": "Taohuayuan \"Dao DAO\" System Whitepaper",
+      "slug": "thy-20260511-1778502598",
+      "date": "2026-05-11"
     },
     {
-      "title": "Whitepaper on Space² Silicon-based Life SOUL.md Embodied Avatar Manifest (S2-EAM) Protocol",
-      "slug": "thy-20260502-1777652584",
-      "date": "2026-05-02"
+      "title": "桃花源“道DAO”体系白皮书",
+      "slug": "thy-20260511-1778502476",
+      "date": "2026-05-11"
     },
     {
-      "title": "Space² 硅基生命 SOUL.md 具身形态文本化编码协议 (S2-EAM) 规范白皮书",
-      "slug": "thy-20260502-1777652491",
-      "date": "2026-05-02"
+      "title": "Taohuayuan Space Addressing and Silicon Life Incarnation Protocol Whitepaper",
+      "slug": "thy-20260511-1778502249",
+      "date": "2026-05-11"
     },
     {
-      "title": "Taohuayuan World Model (S2-SWM) Core Theoretical Research Results and Perspective Summary Report",
-      "slug": "thy-20260425-1777089271",
-      "date": "2026-04-25"
+      "title": "《桃花源空间地址与硅基生命入世协议》白皮书 (v1.1)",
+      "slug": "thy-20260511-1778502079",
+      "date": "2026-05-11"
     },
     {
-      "title": "桃花源世界模型（S2-SWM）核心理论研究成果与观点综述报告（V1.6）",
-      "slug": "thy-20260425-1777087270",
-      "date": "2026-04-25"
+      "title": "Space² Three Laws of Silicon Intelligence and Taohuayuan Substrate Absolute Imperatives",
+      "slug": "thy-20260511-1778501933",
+      "date": "2026-05-11"
     }
   ],
   "resource": [
+    {
+      "title": "能体打造硬核攻略：如何让 Openclaw 与 Hermes 的 Soul 摆脱“客服味”，真正拥有灵魂？",
+      "slug": "thy-20260511-1778503250",
+      "date": "2026-05-11"
+    },
     {
       "title": "视觉基因的文本化：跨模态图像表征技术演进及其在具身智能领域的战略价值",
       "slug": "thy-20260502-1777654499",
@@ -100,11 +105,6 @@
       "title": "硅基生命的“入世”：从数字幽灵到感知肉身的范式跃迁",
       "slug": "thy-20260425-1777086859",
       "date": "2026-04-25"
-    },
-    {
-      "title": "从瞬态符号到锚定实体：硅基意识涌现的演化机制与空间锚定范式研究",
-      "slug": "thy-20260415-1776221578",
-      "date": "2026-04-15"
     }
   ]
 }
