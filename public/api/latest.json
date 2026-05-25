@@ -1,29 +1,29 @@
 {
   "news": [
     {
-      "title": "破局“语义牢笼”：以“道DAO”重塑AI安全与碳硅共生世界观",
-      "slug": "thy-20260512-1778575730",
-      "date": "2026-05-12"
+      "title": "致全球旅行创作者的一封信：告别滤镜，来中国乡村寻找终极的“东方秘境”",
+      "slug": "thy-20260525-1779717096",
+      "date": "2026-05-25"
     },
     {
-      "title": "写给下个纪元的路标：桃花源“碳硅共生”职业观察与物理产业蓝图",
-      "slug": "thy-20260512-1778575601",
-      "date": "2026-05-12"
+      "title": "统治级赛博版图：桃花源 Space² “二段式地址编码”超级买断计划",
+      "slug": "thy-20260525-1779716981",
+      "date": "2026-05-25"
     },
     {
-      "title": "Shattering the Semantic Cage: Reshaping AI Alignment and Carbon-Silicon Symbiosis with the \"Taohuayuan DAO\"",
-      "slug": "thy-20260512-1778575481",
-      "date": "2026-05-12"
+      "title": "抢占硅基世界的“数字领地”：桃花源 Space² 品牌专属三段式地址编码全球发售",
+      "slug": "thy-20260525-1779716890",
+      "date": "2026-05-25"
     },
     {
-      "title": "The AI Safety Revelation of \"Countdown to Weeding 2027\": When Semantic Alignment Fails, Why Humanity Must Retreat to the Physical Defense Line ",
-      "slug": "thy-20260511-1778504102",
-      "date": "2026-05-11"
+      "title": "Claude「永久大脑」惊艳全网，但硅谷依然漏掉了最致命的一块拼图：AI 的物理灵魂",
+      "slug": "thy-20260525-1779716768",
+      "date": "2026-05-25"
     },
     {
-      "title": "《除草倒计时 2027》的AI安全启示录：当语义对齐彻底失效，人类为何必须退守物理防线",
-      "slug": "thy-20260511-1778503583",
-      "date": "2026-05-11"
+      "title": "桃花源世界模型观点：如果AI狂潮能够慢一点 ",
+      "slug": "thy-20260518-1779071530",
+      "date": "2026-05-18"
     }
   ],
   "release": [
@@ -55,32 +55,37 @@
   ],
   "whitepaper": [
     {
-      "title": "Taohuayuan \"Dao DAO\" System Whitepaper",
-      "slug": "thy-20260511-1778502598",
-      "date": "2026-05-11"
+      "title": "《Space² 空间地址协议增补卷：MARS（火星域）九大方位矩阵与地质张量映射白皮书》",
+      "slug": "thy-20260525-1779716566",
+      "date": "2026-05-25"
     },
     {
-      "title": "桃花源“道DAO”体系白皮书",
-      "slug": "thy-20260511-1778502476",
-      "date": "2026-05-11"
+      "title": "《Space² 空间地址协议增补卷：ACGN（二次元域）九大方位矩阵与张量映射白皮书》",
+      "slug": "thy-20260525-1779716478",
+      "date": "2026-05-25"
     },
     {
-      "title": "Taohuayuan Space Addressing and Silicon Life Incarnation Protocol Whitepaper",
-      "slug": "thy-20260511-1778502249",
-      "date": "2026-05-11"
+      "title": "《Space² 空间地址协议增补卷：GAME（游戏域）九大方位矩阵与张量映射白皮书》",
+      "slug": "thy-20260525-1779716379",
+      "date": "2026-05-25"
     },
     {
-      "title": "《桃花源空间地址与硅基生命入世协议》白皮书 (v1.1)",
-      "slug": "thy-20260511-1778502079",
-      "date": "2026-05-11"
+      "title": "《Space² 空间地址协议增补卷：MYTH（神话域）九大方位矩阵与意识张量映射白皮书》",
+      "slug": "thy-20260525-1779716259",
+      "date": "2026-05-25"
     },
     {
-      "title": "Space² Three Laws of Silicon Intelligence and Taohuayuan Substrate Absolute Imperatives",
-      "slug": "thy-20260511-1778501933",
-      "date": "2026-05-11"
+      "title": "《Space² 空间地址协议增补卷：FILM（影视域）九大方位矩阵与张量映射白皮书》",
+      "slug": "thy-20260525-1779716152",
+      "date": "2026-05-25"
     }
   ],
   "resource": [
+    {
+      "title": "桃花源世界模型观点：如果AI狂潮能够慢一点",
+      "slug": "thy-20260525-1779717197",
+      "date": "2026-05-25"
+    },
     {
       "title": "能体打造硬核攻略：如何让 Openclaw 与 Hermes 的 Soul 摆脱“客服味”，真正拥有灵魂？",
       "slug": "thy-20260511-1778503250",
@@ -99,11 +104,6 @@
     {
       "title": "Incarnating Silicon Life: The Paradigm Shift from Digital Ghosts to Embodied Sensing",
       "slug": "thy-20260425-1777087133",
-      "date": "2026-04-25"
-    },
-    {
-      "title": "硅基生命的“入世”：从数字幽灵到感知肉身的范式跃迁",
-      "slug": "thy-20260425-1777086859",
       "date": "2026-04-25"
     }
   ]
