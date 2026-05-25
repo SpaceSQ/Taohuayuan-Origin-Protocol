@@ -17,7 +17,8 @@ const generateGenesisEnvironment = (l1: string) => {
     MARS: { illum: "强紫外线穿透，赤红漫射光", weather: "气流涌动，地表卷起铁锈色沙尘", sound: "70dB 峡谷风切变轰鸣", electro: "强磁暴预警，高频探测频段受限", energy: "光热阵列满载，算力引擎高温运转", view: "亿万年丹霞地貌，赤色岩壁陡立" },
     META: { illum: "多光源混合，全息霓虹折射", weather: "气温受控24℃，微风循流", sound: "45dB 熙攘白噪音与数字低频共振", electro: "高密度并发寻址，全频段高优占用", energy: "恒定电网供能，算力分配高度均衡", view: "青砖黑瓦与全息投影交错重叠" },
     MYTH: { illum: "星光璀璨，银河光谱清晰可见", weather: "高海拔清冷，云海在脚下翻腾", sound: "15dB 极静，偶有松涛低语", electro: "天然法拉第笼效应，宇宙射线纯净", energy: "吸纳天地势能，算力占卜请求呈脉冲态", view: "孤峰傲立云端，东方神秘图腾显隐" },
-    GAME: { illum: "RGB色域高频闪烁，高对比度", weather: "干燥热烈，人群热力学指数飙升", sound: "85dB 重低音音响与人类欢呼交织", electro: "蓝牙与近场通信饱和，指令密集穿梭", energy: "动态高耗能状态，算力超频调度中", view: "二次元投影与过山车轨道高速交错" },
+    GAME: { illum: "RGB色域高频闪烁，高对比度", weather: "干燥热烈，人群热力学指数飙升", sound: "85dB 重低音音响与人类欢呼交织", electro: "蓝牙与近场通信饱和，指令密集穿梭", energy: "动态高耗能状态，算力超频调度中", view: "过山车轨道高速交错" },
+    ACGN: { illum: "二次元动漫闪现，节奏超快", weather: "干燥热烈，人群热力学指数飙升", sound: "85dB 重低音音响与人类欢呼交织", electro: "蓝牙与近场通信饱和，指令密集穿梭", energy: "动态高耗能状态，算力超频调度中", view: "二次元投影高速交错" },
     PHYS: { illum: "全光谱自然光，穿透茂密树冠", weather: "负氧离子浓度极高，晨露未晞", sound: "40dB 鸟鸣清脆与高频虫鸣采样", electro: "绝对纯净区，禁止一切工业电磁干扰", energy: "生态光合转化，算力消耗降至休眠态", view: "层林尽染，14维自然参数达到完美平衡" },
     MOON: { illum: "无大气散射，绝对黑底上的刺眼白光", weather: "真空态模拟，无气象对流", sound: "0dB 绝对死寂(仅机体内部共振传导)", electro: "宇宙微波背景辐射为唯一底噪", energy: "太阳风捕获测试中，算力隔离沙箱运行", view: "环形山模拟地貌，无边无际的荒凉银灰" }
   };
@@ -190,13 +191,14 @@ export default function MetaAncestryForge() {
               <div className="border-b border-zinc-800/50 pb-8">
                 <label className="block mb-4 font-mono text-sm text-zinc-500 uppercase tracking-wider">1. Select Logic Root (选择智能体栖息根域)</label>
                 <select className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-cyan-500 text-cyan-400 p-4 rounded font-mono outline-none mb-4" onChange={() => {}}>
-                    <option value="FILM">FILM - 电影域 (桃花源景区 · 柔性叙事环境)</option>
-                    <option value="MARS">MARS - 火星域 (丹霞地貌带 · 严酷生存环境)</option>
+                    <option value="FILM">FILM - 电影域 (桃花源景区秦溪 / 秦谷 · 柔性叙事环境)</option>
+                    <option value="MARS">MARS - 火星域 (三元潭洞穴群 · 严酷生存环境)</option>
                     <option value="META">META - 元宇宙 (桃花源古镇 · 资产枢纽环境)</option>
                     <option value="MYTH">MYTH - 神话域 (星德山 · 东方哲学环境)</option>
-                    <option value="GAME">GAME - 游戏域 (卡乐星球 · 高频交互环境)</option>
-                    <option value="PHYS">PHYS - 自然域 (花岩溪 · 纯净疗愈环境)</option>
-                    <option value="MOON">MOON - 月球域 (航天体验舱 · 真空沙箱环境)</option>
+                    <option value="GAME">GAME - 游戏域 (白鳞洲 · 高频交互环境)</option>
+                    <option value="GAME">ACGN - 二次元域 (桃花山/五柳湖/桃源山 · 高频交互环境)</option>
+                    <option value="PHYS">PHYS - 自然域 (夷望溪 · 纯净疗愈环境)</option>
+                    <option value="MOON">MOON - 月球域 (刀劈岩与沅江流域 · 漳江夜月静默冥想区)</option>
                 </select>
 
                 <label className="block mb-4 mt-6 font-mono text-sm text-zinc-500 uppercase tracking-wider">2. Select Orientation (选择物理矩阵方位)</label>
