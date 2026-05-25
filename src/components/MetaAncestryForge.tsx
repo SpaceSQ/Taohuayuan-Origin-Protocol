@@ -6,7 +6,7 @@ import { generateIdentity } from '@/lib/id-generator';
 import { IDCardModal } from './IDCardModal';
 import { FloorPlanGrid } from './FloorPlanGrid';
 
-const DIRECTIONS = ["CN", "EA", "WA", "NA", "SA", "NE", "NW", "SE", "SW"];
+const DIRECTIONS = ["CN"];
 const MAX_PER_ORIENTATION = 999;
 const TOTAL_PER_AREA = MAX_PER_ORIENTATION * DIRECTIONS.length;
 
