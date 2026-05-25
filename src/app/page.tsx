@@ -391,6 +391,10 @@ export default function TaohuayuanLanding() {
                         <span className="cn">灵元入世</span>
                         <span className="en">Digital Soul Descent</span>
                     </a>
+                   <a href="/buyout-address" target="_blank" className="btn-secondary px-3 py-1 rounded">
+                        <span className="cn">买断地址</span>
+                        <span className="en">Buyout Address</span>
+                    </a>
                     <a href="/docs/whitepaper_cn.md" target="_blank" className="btn-secondary px-3 py-1 rounded">
                         <span className="cn">入世协议</span>
                         <span className="en">Addressing Protocol</span>
