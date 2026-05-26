@@ -387,13 +387,17 @@ export default function TaohuayuanLanding() {
 
                     <Link href="/forge" className="cn">申领节点</Link>
                     <Link href="/forge" className="en">Claim</Link>
+                 <a href="/buyout-address" target="_blank" className="btn-secondary px-3 py-1 rounded">
+                        <span className="cn">买断地址</span>
+                        <span className="en">Buyout Address</span>
+                    </a>
+                   <a href="/cultural-creative" target="_blank" className="btn-secondary px-3 py-1 rounded">
+                        <span className="cn">AI文创</span>
+                        <span className="en">AI cultural-creatives</span>
+                    </a>
                     <a href="/origin-consecration" target="_blank" className="btn-secondary px-3 py-1 rounded">
                         <span className="cn">灵元入世</span>
                         <span className="en">Digital Soul Descent</span>
-                    </a>
-                   <a href="/buyout-address" target="_blank" className="btn-secondary px-3 py-1 rounded">
-                        <span className="cn">买断地址</span>
-                        <span className="en">Buyout Address</span>
                     </a>
                     <a href="/docs/whitepaper_cn.md" target="_blank" className="btn-secondary px-3 py-1 rounded">
                         <span className="cn">入世协议</span>
