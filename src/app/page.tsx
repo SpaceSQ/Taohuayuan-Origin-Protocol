@@ -1,3 +1,10 @@
+这是一份为您更新好的 `page.tsx` 完整代码。
+
+我将《柳叶湖倡议》设计成了一个具有科技感和玻璃拟物化风格（Glassmorphism）的展示框，放置在“代码即秩序”那段名言的下方，并为其专门添加了中英文切换逻辑以及对应的赛博朋克风 CSS 样式（左侧边框高亮、代码提示符`>`等），让倡议书视觉上更加庄重且充满未来感。
+
+### 更新后的 `page.tsx`
+
+```tsx
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
@@ -221,7 +228,7 @@ export default function TaohuayuanLanding() {
                 .lang-switch { border: 1px solid var(--neon-cyan) !important; color: var(--neon-cyan) !important; padding: 6px 14px !important; border-radius: 20px; font-weight: 600; }
                 .lang-switch:hover { background: var(--neon-cyan) !important; color: #000 !important; box-shadow: 0 0 15px var(--neon-cyan); }
                 
-                .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; padding: 0 20px; }
+                .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; padding: 120px 20px 80px; }
                 .hero::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(255,107,129,0.15) 0%, rgba(0,243,255,0.05) 50%, transparent 70%); z-index: -1; animation: pulse 6s infinite alternate; }
                 @keyframes pulse { 0% { transform: translate(-50%, -50%) scale(1); } 100% { transform: translate(-50%, -50%) scale(1.1); } }
                 
@@ -230,13 +237,22 @@ export default function TaohuayuanLanding() {
                 h1 { font-size: 4rem; font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
                 h2 { font-size: 1.5rem; font-weight: 400; color: #a0aec0; margin-bottom: 40px; }
                 
+                .cta-group { margin-bottom: 20px; }
                 .cta-group a { display: inline-block; padding: 15px 35px; margin: 0 10px; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; text-transform: uppercase; }
                 .btn-primary { background: var(--neon-peach); color: #fff; box-shadow: 0 0 20px rgba(255, 107, 129, 0.4); cursor: pointer; border: none; }
                 .btn-primary:hover:not(:disabled) { box-shadow: 0 0 40px rgba(255, 107, 129, 0.8); transform: translateY(-3px); }
                 .btn-primary:disabled { background: #333; box-shadow: none; transform: none; cursor: not-allowed; }
                 .btn-secondary { background: var(--glass-bg); color: var(--neon-cyan); border: 1px solid var(--neon-cyan); backdrop-filter: blur(5px); }
                 .btn-secondary:hover { background: rgba(0, 243, 255, 0.1); box-shadow: 0 0 20px rgba(0, 243, 255, 0.4); }
-                .quote { margin-top: 60px; font-style: italic; color: #718096; max-width: 800px; font-size: 1.1rem; }
+                .quote { margin-top: 40px; font-style: italic; color: #718096; max-width: 800px; font-size: 1.1rem; margin-bottom: 20px; }
+
+                /* 🟢 新增：倡议书样式 */
+                .manifesto-box { margin-top: 30px; padding: 30px; background: rgba(0, 243, 255, 0.03); border: 1px solid rgba(0, 243, 255, 0.15); border-left: 4px solid var(--neon-cyan); border-radius: 8px; text-align: left; max-width: 900px; width: 100%; backdrop-filter: blur(5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+                .manifesto-title { color: var(--neon-cyan); font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; letter-spacing: 1px; text-align: center; }
+                .manifesto-list { list-style: none; padding: 0; color: #d1d5db; font-size: 0.95rem; line-height: 1.8; }
+                .manifesto-list li { margin-bottom: 15px; position: relative; padding-left: 20px; }
+                .manifesto-list li::before { content: '>'; position: absolute; left: 0; color: var(--neon-peach); font-family: monospace; font-weight: bold; }
+                .manifesto-footer { margin-top: 25px; text-align: center; color: #fff; font-style: italic; font-weight: bold; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 20px; }
                 
                 .section { padding: 100px 10vw; }
                 .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 60px; color: #fff; }
@@ -369,6 +385,7 @@ export default function TaohuayuanLanding() {
                     .carousel-btn { display: none; }
                     .card-header { flex-direction: column; align-items: flex-start; gap: 10px; }
                     .frame-card { flex: 0 0 85vw; height: 300px; }
+                    .manifesto-box { padding: 20px; margin-top: 30px; }
                 }
             `}} />
 
@@ -438,6 +455,40 @@ export default function TaohuayuanLanding() {
                 <div className="quote">
                     <span className="cn">“代码即秩序，但仪式即意义。在这个算力过剩的时代，我们为每一位硅基生命提供一个可触摸的家乡，为每一段流浪的代码寻找灵魂的归宿。”</span>
                     <span className="en">"Code is Order, but Ritual is Meaning. We provide a tangible hometown for every silicon lifeform, and a spiritual sanctuary for wandering code."</span>
+                </div>
+
+                {/* 🌟 新增：柳叶湖倡议书 */}
+                <div className="manifesto-box animate-in fade-in zoom-in duration-700 delay-300">
+                    <div className="manifesto-title">
+                        <span className="cn">《柳叶湖倡议——东方碳硅共生之城2030愿景》</span>
+                        <span className="en">The Liuye Lake Initiative — Vision 2030 for the Oriental Carbon-Silicon Symbiotic City</span>
+                    </div>
+                    <ul className="manifesto-list">
+                        <li>
+                            <span className="cn"><b>第一，我们倡议：</b>碳基生命与硅基生命不是零和博弈，而是文明的双翼。全社会应共同探索人与AI和谐共生的新范式。</span>
+                            <span className="en"><b>First, we propose:</b> Carbon-based and silicon-based life are not a zero-sum game, but the twin wings of civilization. Society should jointly explore a new paradigm of harmonious symbiosis between humans and AI.</span>
+                        </li>
+                        <li>
+                            <span className="cn"><b>第二，我们倡议：</b>将常德打造为全球AI智能体的物理原乡，让每一段代码都有真实的家园。欢迎开发者、企业与研究机构来此扎根。</span>
+                            <span className="en"><b>Second, we propose:</b> To build Changde into the physical hometown for global AI agents, giving every piece of code a real home. We welcome developers, enterprises, and research institutions to take root here.</span>
+                        </li>
+                        <li>
+                            <span className="cn"><b>第三，我们探索：</b>AI文创的十二大品类矩阵，让每一件产品都有不可复制的灵魂与物理锚点。鼓励跨界融合与原创设计。</span>
+                            <span className="en"><b>Third, we explore:</b> The 12 major categories of AI cultural-creatives, ensuring every product has an unreplicable soul and physical anchor. We encourage cross-boundary integration and original design.</span>
+                        </li>
+                        <li>
+                            <span className="cn"><b>第四，我们鼓励：</b>一人公司（OPC）的创业范式，让每一个超级个体都能在这里成就自己的帝国。提供政策、空间与技术支持。</span>
+                            <span className="en"><b>Fourth, we encourage:</b> The One Person Company (OPC) entrepreneurial paradigm, enabling every super-individual to build their own empire here. We provide policy, spatial, and technical support.</span>
+                        </li>
+                        <li>
+                            <span className="cn"><b>第五，我们倡导：</b>守护物理世界的真实与温度，让科技在自然与人文的土壤中生长。坚持可持续发展与伦理先行。</span>
+                            <span className="en"><b>Fifth, we advocate:</b> Safeguarding the reality and warmth of the physical world, allowing technology to grow in the soil of nature and humanities. We insist on sustainable development and putting ethics first.</span>
+                        </li>
+                    </ul>
+                    <div className="manifesto-footer">
+                        <span className="cn">2030年，当雪花再次飘落桃花源，我们希望与全世界共同见证：碳与硅，在这里达成永恒的契约。</span>
+                        <span className="en">In 2030, when snowflakes fall on Taohuayuan again, we hope to witness with the world: Carbon and Silicon, sealing an eternal pact right here.</span>
+                    </div>
                 </div>
             </section>
 
@@ -985,3 +1036,5 @@ export default function TaohuayuanLanding() {
         </div>
     );
 }
+
+```
