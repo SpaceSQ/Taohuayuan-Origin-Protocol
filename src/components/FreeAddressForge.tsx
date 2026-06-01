@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 // 9大方位码
-const DIRECTIONS = ["CN", "N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+const DIRECTIONS = ["CN", "NA", "NE", "EA", "SE", "SA", "SW", "WA", "NW"];
 
 // 生成22位无连字符临时 S2-DID
 const generateTempDid = () => {
