@@ -463,8 +463,8 @@ export default function TaohuayuanLanding() {
                             <span className="en"><b>First, we propose:</b> Carbon-based and silicon-based life are not a zero-sum game, but the twin wings of civilization. Society should jointly explore a new paradigm of harmonious symbiosis between humans and AI.</span>
                         </li>
                         <li>
-                            <span className="cn"><b>第二，我们倡议：</b>将常德打造为全球AI智能体的物理原乡，让每一段代码都有真实的家园。欢迎开发者、企业与研究机构来此扎根。</span>
-                            <span className="en"><b>Second, we propose:</b> To build Changde into the physical hometown for global AI agents, giving every piece of code a real home. We welcome developers, enterprises, and research institutions to take root here.</span>
+                            <span className="cn"><b>第二，我们倡议：</b>将常德打造为东方碳硅共生之城市，将桃花源打造成为全球AI智能体的物理原乡，让每一段代码都有真实的家园。欢迎开发者、企业与研究机构来此扎根。</span>
+                            <span className="en"><b>Second, we propose:</b> To build Changde into the Oriental Carbon-Silicon Symbiotic City，To Build TAOHUAYUAN to the physical hometown for global AI agents, giving every piece of code a real home. We welcome developers, enterprises, and research institutions to take root here.</span>
                         </li>
                         <li>
                             <span className="cn"><b>第三，我们探索：</b>AI文创的十二大品类矩阵，让每一件产品都有不可复制的灵魂与物理锚点。鼓励跨界融合与原创设计。</span>
