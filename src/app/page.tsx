@@ -385,7 +385,7 @@ export default function TaohuayuanLanding() {
                     <a href="#healing-dataset" className="cn">养生疗愈</a>
                     <a href="#healing-dataset" className="en">Healing</a>
 
-                    <Link href="/Freeaddress" className="cn">d</Link>
+                    <Link href="/Freeaddress" className="cn">免费地址</Link>
                     <Link href="/Freeaddress" className="en">Free Address</Link>
                    <Link href="/forge" className="cn">申领节点</Link>
                     <Link href="/forge" className="en">Claim</Link>
