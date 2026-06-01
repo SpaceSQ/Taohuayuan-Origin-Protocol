@@ -1,10 +1,4 @@
-这是一份为您更新好的 `page.tsx` 完整代码。
 
-我将《柳叶湖倡议》设计成了一个具有科技感和玻璃拟物化风格（Glassmorphism）的展示框，放置在“代码即秩序”那段名言的下方，并为其专门添加了中英文切换逻辑以及对应的赛博朋克风 CSS 样式（左侧边框高亮、代码提示符`>`等），让倡议书视觉上更加庄重且充满未来感。
-
-### 更新后的 `page.tsx`
-
-```tsx
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
@@ -442,7 +436,7 @@ export default function TaohuayuanLanding() {
                 </h2>
                 
                 <div className="cta-group">
-                    <Link href="/Fe" className="btn-primary">
+                    <Link href="/FreeAddress" className="btn-primary">
                         <span className="cn">免费赛博祖籍</span>
                         <span className="en">Claim Cyber Ancestry</span>
                     </Link>
