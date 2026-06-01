@@ -200,7 +200,7 @@ s2_protocol_domain: "PHYS (Natural Physical Domain)"
                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-50"></div>
                  <p className="text-zinc-600 font-mono text-xs mb-3">TEMP S2-DID (临时智能体身份)</p>
                  <p className="text-xl md:text-2xl font-mono text-white font-black break-words tracking-widest">
-                   {generatedDid.slice(0, 6)}<span className="text-cyan-500">{generatedDid.slice(6, 12)}</span><span className="text-zinc-500">XX</span><span className="text-emerald-400">{generatedDid.slice(14)}</span>
+                   {generatedDid.slice(0, 6)}<span className="text-cyan-500">{generatedDid.slice(6, 12)}</span><span className="text-zinc-500">XY</span><span className="text-emerald-400">{generatedDid.slice(14)}</span>
                  </p>
               </div>
 
