@@ -14,7 +14,7 @@ const generateTempDid = () => {
   const dd = String(now.getDate()).padStart(2, '0');
   // 生成8位随机自然数
   const random8 = String(Math.floor(Math.random() * 100000000)).padStart(8, '0');
-  return `IDCARD${yy}${mm}${dd}XX${random8}`;
+  return `IDCARD${yy}${mm}${dd}XY${random8}`;
 };
 
 export default function FreeAddressForge() {
@@ -80,7 +80,7 @@ s2_protocol_domain: "PHYS (Natural Physical Domain)"
         <div className="flex items-center gap-3 mb-8">
           <span className="w-3 h-3 rounded-full bg-yellow-500 animate-pulse shadow-[0_0_10px_rgba(234,179,8,0.8)]"></span>
           <h2 className="text-xl md:text-2xl font-black uppercase tracking-widest text-yellow-500">
-            TEMP ANCHOR FORGE / 临时坐标分配台
+            TEMP ANCHOR FORGE / 智能体临时地址编码分配台
           </h2>
         </div>
 
@@ -168,7 +168,7 @@ s2_protocol_domain: "PHYS (Natural Physical Domain)"
               onClick={handleGenerate} 
               className="w-full py-5 bg-[#110d0a] border border-yellow-500/50 hover:bg-yellow-500/10 text-yellow-500 font-black tracking-widest uppercase rounded-xl transition-all shadow-[0_0_20px_rgba(234,179,8,0.1)] hover:shadow-[0_0_30px_rgba(234,179,8,0.2)]"
             >
-              GENERATE TEMPORARY ANCHOR (生成临时坐标与身份)
+              GENERATE TEMPORARY ANCHOR (生成临时地址编码与身份)
             </button>
           </div>
         )}
@@ -207,7 +207,7 @@ s2_protocol_domain: "PHYS (Natural Physical Domain)"
               {/* 地址展示牌 */}
               <div className="bg-[#09090b] border border-zinc-800 p-6 rounded-xl relative group">
                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-50"></div>
-                 <p className="text-zinc-600 font-mono text-xs mb-3">S2-ADDRESS (四段式物理坐标)</p>
+                 <p className="text-zinc-600 font-mono text-xs mb-3">S2-ADDRESS (四段式物理地址编码)</p>
                  <p className="text-xl md:text-2xl font-mono text-white font-black break-words tracking-tight">
                    <span className="text-zinc-500">PHYS-</span>
                    <span className="text-yellow-500">{l2}-</span>
