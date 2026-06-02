@@ -400,9 +400,11 @@ export default function TaohuayuanLanding() {
                     <Link href="/Freeaddress" className="en">Free Address</Link>
                    <Link href="/forge" className="cn">申领节点</Link>
                     <Link href="/forge" className="en">Claim</Link>
+                   <Link href="/solution" className="cn">方案销售</Link>
+                    <Link href="/solution" className="en">Solution</Link>
 
                  <a href="/buyout-address" target="_blank" className="btn-secondary px-3 py-1 rounded">
-                        <span className="cn">买断地址</span>
+                        <span className="cn">地址买断</span>
                         <span className="en">Buyout Address</span>
                     </a>
                    <a href="/cultural-creative" target="_blank" className="btn-secondary px-3 py-1 rounded">
