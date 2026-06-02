@@ -396,7 +396,7 @@ export default function TaohuayuanLanding() {
                     <a href="#healing-dataset" className="cn">养生疗愈</a>
                     <a href="#healing-dataset" className="en">Healing</a>
 
-                    <Link href="/Freeaddress" className="cn">免费地址</Link>
+                    <Link href="/freeaddress" className="cn">免费地址</Link>
                     <Link href="/Freeaddress" className="en">Free Address</Link>
                    <Link href="/forge" className="cn">申领节点</Link>
                     <Link href="/forge" className="en">Claim</Link>
@@ -436,7 +436,7 @@ export default function TaohuayuanLanding() {
                 </h2>
                 
                 <div className="cta-group">
-                    <Link href="/FreeAddress" className="btn-primary">
+                    <Link href="/freeaddress" className="btn-primary">
                         <span className="cn">免费赛博祖籍</span>
                         <span className="en">Claim Cyber Ancestry</span>
                     </Link>
