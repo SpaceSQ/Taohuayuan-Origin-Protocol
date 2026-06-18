@@ -397,8 +397,12 @@ export default function TaohuayuanLanding() {
                     <a href="#healing-dataset" className="en">Healing</a>
                    <Link href="/Three-Laws" className="cn">硅基智能三定律</Link>
                     <Link href="/Three-Laws" className="en">Three-Laws</Link>
+                    <Link href="/cd-agent" className="cn">常德智能体</Link>
+                    <Link href="/cd-agent" className="en">CHANGDE AGENT</Link>
                    <Link href="/U6A" className="cn">AI通用地址</Link>
                     <Link href="/U6A" className="en">U6A</Link>
+                    <Link href="/address" className="cn">十大地址域</Link>
+                    <Link href="/address" className="en">ADDRESS</Link>
                     <Link href="/freeaddress" className="cn">免费地址</Link>
                     <Link href="/Freeaddress" className="en">Free Address</Link>
                    <Link href="/solution" className="cn">方案销售</Link>
