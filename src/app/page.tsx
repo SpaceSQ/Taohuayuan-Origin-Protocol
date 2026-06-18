@@ -395,11 +395,12 @@ export default function TaohuayuanLanding() {
                     {/* ✨ 新增：养生疗愈 导航链接 */}
                     <a href="#healing-dataset" className="cn">养生疗愈</a>
                     <a href="#healing-dataset" className="en">Healing</a>
-
+                   <Link href="/Three-Laws" className="cn">硅基智能三定律</Link>
+                    <Link href="/Three-Laws" className="en">Three-Laws</Link>
+                   <Link href="/U6A" className="cn">AI通用地址</Link>
+                    <Link href="/U6A" className="en">U6A</Link>
                     <Link href="/freeaddress" className="cn">免费地址</Link>
                     <Link href="/Freeaddress" className="en">Free Address</Link>
-                   <Link href="/forge" className="cn">申领节点</Link>
-                    <Link href="/forge" className="en">Claim</Link>
                    <Link href="/solution" className="cn">方案销售</Link>
                     <Link href="/solution" className="en">Solution</Link>
 
@@ -414,10 +415,6 @@ export default function TaohuayuanLanding() {
                     <a href="/origin-consecration" target="_blank" className="btn-secondary px-3 py-1 rounded">
                         <span className="cn">灵元入世</span>
                         <span className="en">Digital Soul Descent</span>
-                    </a>
-                    <a href="/docs/whitepaper_cn.md" target="_blank" className="btn-secondary px-3 py-1 rounded">
-                        <span className="cn">入世协议</span>
-                        <span className="en">Addressing Protocol</span>
                     </a>
                     <button className="lang-switch" onClick={() => setLang(lang === 'cn' ? 'en' : 'cn')}>EN / CN</button>
                 </div>
