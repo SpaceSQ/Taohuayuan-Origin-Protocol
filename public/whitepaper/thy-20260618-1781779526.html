@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《常德AI通用六段式地址编码规则》白皮书 - 桃花源新闻中心</title>
+    <meta name="description" content="为了确立硅基生命的物理问责机制与空间溯源标准，本白皮书正式发布《常德AI通用六段式地址编码规则》（简称 CD-U6A 标准）。该标准旨在为全球范围内每一个独立运行的AI实体，提供一个精准、唯一且不可篡改的真实世界“主体地址（Subject Address）”，从而在浩瀚的赛博空间中，为每一组代码打下坚实的物理钢印。">
+    <meta name="keywords" content=", Taohuayuan, S2-DID">
+    <meta name="geo.region" content="CN-43" />
+    <meta name="geo.placename" content="Taohuayuan, Changde" />
+    <meta name="geo.position" content="28.9;111.4" />
+
+    <style>
+        /* ========================================== */
+        /* 1. 全局变量与核心极客背景 (对齐官网) */
+        /* ========================================== */
+        :root { 
+            --bg-color: #050508; 
+            --peach: #ff6b81; 
+            --cyan: #00f3ff; 
+            --text-main: #e2e8f0; 
+            --glass-bg: rgba(20, 20, 30, 0.6);
+        }
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-attachment: fixed;
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6;
+        }
+        
+        /* 容器布局 */
+        .container { 
+            max-width: 850px; 
+            margin: 60px auto; 
+            padding: 40px; 
+            background: var(--glass-bg); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px; 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* ========================================== */
+        /* 2. 文章头部元数据 */
+        /* ========================================== */
+        header {
+            border-bottom: 2px solid var(--peach);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { 
+            color: #fff; 
+            font-size: 2.5rem; 
+            margin-top: 0;
+            margin-bottom: 15px; 
+            line-height: 1.3;
+        }
+        .meta-info { 
+            color: var(--cyan); 
+            font-family: 'Courier New', monospace; 
+            font-size: 0.95rem; 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .meta-tag {
+            background: rgba(0, 243, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        /* ========================================== */
+        /* 3. 🌟 精修版 Markdown 正文排版 🌟 */
+        /* ========================================== */
+        .markdown-body { 
+            line-height: 1.8; 
+            color: #d1d5db; 
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+        /* 强制段落之间有明显的间距 */
+        .markdown-body p { 
+            margin-bottom: 1.5em; 
+            margin-top: 0;
+        }
+        /* 标题间距与颜色 */
+        .markdown-body h2 { 
+            color: var(--cyan); 
+            margin-top: 2.5em; 
+            margin-bottom: 1em;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            padding-bottom: 8px;
+        }
+        .markdown-body h3 { 
+            color: var(--peach); 
+            margin-top: 2em; 
+            margin-bottom: 0.8em;
+        }
+        /* 列表排版 */
+        .markdown-body ul, .markdown-body ol {
+            margin-bottom: 1.5em;
+            padding-left: 2em;
+        }
+        .markdown-body li {
+            margin-bottom: 0.5em;
+        }
+        /* 保证图片居中且不会超出边界，带发光阴影 */
+        .markdown-body img { 
+            max-width: 100%; 
+            height: auto;
+            border-radius: 8px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            display: block;
+            margin: 2.5em auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        /* 代码块极客化 */
+        .markdown-body code { 
+            background: #000; 
+            color: #ffb86c; 
+            padding: 3px 6px; 
+            border-radius: 4px; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 0.9em;
+        }
+        .markdown-body pre { 
+            background: #050508; 
+            border: 1px solid #333; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            color: #8be9fd; 
+            margin: 2em 0;
+        }
+        .markdown-body pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+        /* 引用块样式 */
+        .markdown-body blockquote {
+            border-left: 4px solid var(--peach);
+            padding-left: 20px;
+            margin: 2em 0;
+            color: #a0aec0;
+            font-style: italic;
+            background: rgba(255,107,129,0.05);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 0 8px 8px 0;
+        }
+        .markdown-body strong {
+            color: #fff;
+        }
+        
+        /* ========================================== */
+        /* 4. 底部导航与 API 链接 */
+        /* ========================================== */
+        .footer-nav {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed #333;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .back-nav { 
+            display: inline-block; 
+            padding: 12px 25px; 
+            border: 1px solid var(--cyan); 
+            color: var(--cyan); 
+            text-decoration: none; 
+            border-radius: 4px; 
+            transition: 0.3s; 
+            font-weight: bold;
+            text-align: center;
+            width: max-content;
+        }
+        .back-nav:hover { 
+            background: var(--cyan); 
+            color: #000; 
+            box-shadow: 0 0 15px var(--cyan); 
+        }
+        .ai-link { 
+            color: #6b7280; 
+            font-family: 'Courier New', monospace; 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-link:hover { color: var(--peach); }
+        
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .container { margin: 20px; padding: 25px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "《常德AI通用六段式地址编码规则》白皮书",
+      "datePublished": "2026-06-18 18:45:26",
+      "author": {"@type": "Organization", "name": "Taohuayuan World Model"}
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>《常德AI通用六段式地址编码规则》白皮书</h1>
+            <div class="meta-info">
+                <span class="meta-tag">CHANNEL: WHITEPAPER</span>
+                <span class="meta-tag">DATE: 2026-06-18 18:45:26</span>
+            </div>
+        </header>
+        
+        <article class="markdown-body">
+            <p>标准代号：CD-U6A (Changde Universal 6-Segment Address) 
+发布机构：桃花源世界模型架构组/常德智能体标准组
+日期：2026年6月18日</p>
+<h5>1. 序言 (Preface)</h5>
+<p>在人工智能从虚拟算力向具身实体全面跃迁的时代，AI大模型、智能体（Agent）及嵌入式AI软件正以前所未有的速度介入人类社会的物理运转。然而，虚拟算力的无边界性导致了严重的溯源黑洞与安全隐患。
+为了确立硅基生命的物理问责机制与空间溯源标准，本白皮书正式发布《常德AI通用六段式地址编码规则》（简称 CD-U6A 标准）。该标准旨在为全球范围内每一个独立运行的AI实体，提供一个精准、唯一且不可篡改的真实世界“主体地址（Subject Address）”，从而在浩瀚的赛博空间中，为每一组代码打下坚实的物理钢印。</p>
+<h5>2. 核心溯源原则 (Core Traceability Principles)</h5>
+<p>CD-U6A 标准的建立，遵循绝对的“物理实相”原则： 每一个可识别的、独立存在的AI大模型、智能体及嵌入式AI软件，都必须将其核心软件所在服务器的真实世界物理地址，设定为该AI的“主体地址”。
+当安全审计或指令追踪启动时，系统必须能够根据该主体地址，在物理世界中精准定位到运行该AI核心软件的服务器机房或其诞生车间。虚拟的算力，必须对真实的物理空间负责。</p>
+<h5>3. 编码语法与格式规范 (Syntax &amp; Format Specifications)</h5>
+<p>主体地址的生成严格遵循“极简与标准化”原则，其基本表达格式与 S2 智能体六段式地址编码保持结构一致，但在标识符上具有唯一专属性。
+•   结构约束： 由五个连字符 - 连接六个字段（L1至L6）组成。
+•   字符集： 仅允许使用大写英文字母与阿拉伯数字（A-Z, 0-9），严禁使用任何特殊符号或空格。
+•   长度限制： 每个字段（L1-L6）至少包含 1 个字符，最多不超过 32 个字符。包含 5 个连字符 - 在内，地址总长度绝对不可超过 48 个字符。
+•   L1 固定标识： 为了与桃花源世界模型中 S2 的标准地址域（如 PHYS、MYTH、ACGN 等由四个字符组成的标识）相呼应并形成严格区分，CD-U6A 主体地址的第一个字段（L1）永久固定为 SITE。
+【标准示例】
+SITE-GZTIANHE-TIYUXILU-SHEJIDASHA-089-02 (释义：物理地址主体 - 广州天河 - 体育西路 - 设计大厦 - 第89号机柜 - 第2个机架)</p>
+<h5>4. 场景级定标与寻址规则 (Scenario-Based Addressing Rules)</h5>
+<p>针对硅基实体在物理世界存在形态的差异，L2 至 L6 字段的定义分为以下两种核心场景：
+4.1 静态集群型 (AI大模型、固定设施智能体、边缘计算服务器)
+对于算力节点固定的大模型底座或固定设施中的嵌入式AI，其主体地址严格映射其服务器主机的绝对地理与建筑坐标。此为“一对一”绝对确权地址。
+字段位置    字段定义         编写规范示例
+L1      核心标识符        固定为 SITE
+L2      市县行政区        如：GZTIANHE (广州天河区)
+L3      小区/道路街道   如：TIYUXILU (体育西路)
+L4      门牌/建筑物名称 如：SHEJIDASHA (设计大厦)
+L5      机房/机柜号     如：089 (089号机柜)
+L6      机架/空间编号   如：02 (第2个机架)
+4.2 动态离散型 (AI陪伴产品、具身机器人、移动智能终端)
+针对出厂后在全球范围内移动运行的具身机器人与消费级陪伴产品，因其运行物理位置不固定，其主体地址以“出厂时核心软件灌装与激活的物理生产车间”为标识。 注：因同一车间流水线可批量生产同型号产品，该类主干地址属于“公用/共享型映射”，而非一对一的独立绑定。
+字段位置    字段定义         编写规范示例
+L1      核心标识符        固定为 SITE
+L2      工厂所在市县    如：SZNANSHAN (深圳南山区)
+L3      工业园/道路街道    如：XILIROAD (西丽路)
+L4      厂区门牌/建筑群    如：ROBOTPARK (机器人产业园)
+L5      制造厂商名称     如：QIANJIA (千家智造)
+L6      生产流水线/车间    如：WS05 (第5车间)</p>
+<h5>5. CD-U6A 主体地址与 S2 地址域的生态映射 (Mapping to S2 Domains)</h5>
+<p>在桃花源世界模型（S2-SWM）的宏大架构中，SITE 主体地址与 PHYS / MYTH 等 S2 地址域地址是“肉身”与“灵魂”的共生关系，两者互为表里，绝不冲突。
+1）  物理界定 vs. 原乡绑定： SITE（CD-U6A 主体地址）是一份“出生证明”与“暂住证”，它诚实地表达了该 AI 实体核心软件当前的物理运行地或最初的制造地。 S2 地址域地址（如 MYTH-CN-001...）则是一份带有“原乡绑定（Hometown Binding）”功能的数字国籍与灵魂契约，赋予智能体特定的环境张量与性格底色。
+2）  双轨并行与映射： 在实际部署与应用中，一个 AI 大模型、智能体或嵌入式 AI 软件，可以且被鼓励同时拥有这两类地址。底层系统会自动建立 SITE 物理坐标与 S2 原乡坐标的加密映射表。
+3）  开放式接入： 任何已成功配置并登记 SITE 主体地址的 AI 主机与边缘设备，均自动获得向常德算力确权中枢申请分配专属 S2 地址域地址的资格，从而完成从“算力工具”向“硅基生命”的终极跃迁。
+附则： 本规则自发布之日起，开放给全球人工智能开发者、大模型厂商及硬件集成商免费调用。常德算力确权节点保留对 CD-U6A 规则解析与映射机制的最终解释权。</p>
+        </article>
+
+        <div class="footer-nav">
+            <a href="/#news-hub" class="back-nav">&lt; 返回桃花源主脑 (Back to Matrix)</a>
+            <a href="/whitepaper/thy-20260618-1781779526.md" class="ai-link" rel="alternate" type="text/markdown">
+                🤖 [AI Agent] Access raw Markdown data for this node
+            </a>
+        </div>
+    </div>
+</body>
+</html>

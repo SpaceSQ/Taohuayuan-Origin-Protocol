@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whitepaper on Changde AI Universal 6-Segment Address Encoding Rules - 桃花源新闻中心</title>
+    <meta name="description" content="To establish a physical accountability mechanism and spatial traceability standard for silicon-based life, this whitepaper officially releases the Changde AI Universal 6-Segment Address Encoding Rules (hereinafter referred to as the CD-U6A standard). ">
+    <meta name="keywords" content=", Taohuayuan, S2-DID">
+    <meta name="geo.region" content="CN-43" />
+    <meta name="geo.placename" content="Taohuayuan, Changde" />
+    <meta name="geo.position" content="28.9;111.4" />
+
+    <style>
+        /* ========================================== */
+        /* 1. 全局变量与核心极客背景 (对齐官网) */
+        /* ========================================== */
+        :root { 
+            --bg-color: #050508; 
+            --peach: #ff6b81; 
+            --cyan: #00f3ff; 
+            --text-main: #e2e8f0; 
+            --glass-bg: rgba(20, 20, 30, 0.6);
+        }
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-attachment: fixed;
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6;
+        }
+        
+        /* 容器布局 */
+        .container { 
+            max-width: 850px; 
+            margin: 60px auto; 
+            padding: 40px; 
+            background: var(--glass-bg); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px; 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* ========================================== */
+        /* 2. 文章头部元数据 */
+        /* ========================================== */
+        header {
+            border-bottom: 2px solid var(--peach);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { 
+            color: #fff; 
+            font-size: 2.5rem; 
+            margin-top: 0;
+            margin-bottom: 15px; 
+            line-height: 1.3;
+        }
+        .meta-info { 
+            color: var(--cyan); 
+            font-family: 'Courier New', monospace; 
+            font-size: 0.95rem; 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .meta-tag {
+            background: rgba(0, 243, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        /* ========================================== */
+        /* 3. 🌟 精修版 Markdown 正文排版 🌟 */
+        /* ========================================== */
+        .markdown-body { 
+            line-height: 1.8; 
+            color: #d1d5db; 
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+        /* 强制段落之间有明显的间距 */
+        .markdown-body p { 
+            margin-bottom: 1.5em; 
+            margin-top: 0;
+        }
+        /* 标题间距与颜色 */
+        .markdown-body h2 { 
+            color: var(--cyan); 
+            margin-top: 2.5em; 
+            margin-bottom: 1em;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            padding-bottom: 8px;
+        }
+        .markdown-body h3 { 
+            color: var(--peach); 
+            margin-top: 2em; 
+            margin-bottom: 0.8em;
+        }
+        /* 列表排版 */
+        .markdown-body ul, .markdown-body ol {
+            margin-bottom: 1.5em;
+            padding-left: 2em;
+        }
+        .markdown-body li {
+            margin-bottom: 0.5em;
+        }
+        /* 保证图片居中且不会超出边界，带发光阴影 */
+        .markdown-body img { 
+            max-width: 100%; 
+            height: auto;
+            border-radius: 8px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            display: block;
+            margin: 2.5em auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        /* 代码块极客化 */
+        .markdown-body code { 
+            background: #000; 
+            color: #ffb86c; 
+            padding: 3px 6px; 
+            border-radius: 4px; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 0.9em;
+        }
+        .markdown-body pre { 
+            background: #050508; 
+            border: 1px solid #333; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            color: #8be9fd; 
+            margin: 2em 0;
+        }
+        .markdown-body pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+        /* 引用块样式 */
+        .markdown-body blockquote {
+            border-left: 4px solid var(--peach);
+            padding-left: 20px;
+            margin: 2em 0;
+            color: #a0aec0;
+            font-style: italic;
+            background: rgba(255,107,129,0.05);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 0 8px 8px 0;
+        }
+        .markdown-body strong {
+            color: #fff;
+        }
+        
+        /* ========================================== */
+        /* 4. 底部导航与 API 链接 */
+        /* ========================================== */
+        .footer-nav {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed #333;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .back-nav { 
+            display: inline-block; 
+            padding: 12px 25px; 
+            border: 1px solid var(--cyan); 
+            color: var(--cyan); 
+            text-decoration: none; 
+            border-radius: 4px; 
+            transition: 0.3s; 
+            font-weight: bold;
+            text-align: center;
+            width: max-content;
+        }
+        .back-nav:hover { 
+            background: var(--cyan); 
+            color: #000; 
+            box-shadow: 0 0 15px var(--cyan); 
+        }
+        .ai-link { 
+            color: #6b7280; 
+            font-family: 'Courier New', monospace; 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-link:hover { color: var(--peach); }
+        
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .container { margin: 20px; padding: 25px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Whitepaper on Changde AI Universal 6-Segment Address Encoding Rules",
+      "datePublished": "2026-06-18 18:47:37",
+      "author": {"@type": "Organization", "name": "Taohuayuan World Model"}
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Whitepaper on Changde AI Universal 6-Segment Address Encoding Rules</h1>
+            <div class="meta-info">
+                <span class="meta-tag">CHANNEL: WHITEPAPER</span>
+                <span class="meta-tag">DATE: 2026-06-18 18:47:37</span>
+            </div>
+        </header>
+        
+        <article class="markdown-body">
+            <p>Standard Code: CD-U6A (Changde Universal 6-Segment Address) Issuing Authority: Taohuayuan World Model Architecture Group / Changde Agent Standards Group Date: June 18, 2026</p>
+<h5>1. Preface</h5>
+<p>In an era where artificial intelligence is making a comprehensive leap from virtual computing power to embodied entities, AI large models, agents, and embedded AI software are intervening in the physical operation of human society at an unprecedented speed. However, the boundlessness of virtual computing power has led to severe traceability black holes and security risks.
+To establish a physical accountability mechanism and spatial traceability standard for silicon-based life, this whitepaper officially releases the Changde AI Universal 6-Segment Address Encoding Rules (hereinafter referred to as the CD-U6A standard). This standard aims to provide an accurate, unique, and tamper-proof real-world "Subject Address" for every independently operating AI entity globally, thereby forging a solid physical seal for every line of code in the vast cyberspace.</p>
+<h5>2. Core Traceability Principles</h5>
+<p>The establishment of the CD-U6A standard follows the absolute principle of "physical reality": Every identifiable, independently existing AI large model, agent, and embedded AI software must set the real-world physical address of the server hosting its core software as the "Subject Address" of that AI.
+When a security audit or instruction tracking is initiated, the system must be able to accurately locate the server room where the AI's core software is running or the workshop where it was born in the physical world based on this subject address. Virtual computing power must be responsible to the real physical space.</p>
+<h5>3. Syntax &amp; Format Specifications</h5>
+<p>The generation of the subject address strictly follows the principle of "minimalism and standardization." Its basic expression format is structurally identical to the S2 agent 6-segment address encoding, but possesses unique exclusivity in its identifiers.
+•   Structural Constraints: Composed of six segments (L1 to L6) connected by five hyphens -.
+•   Character Set: Only uppercase English letters and Arabic numerals (A-Z, 0-9) are permitted. The use of any special symbols or spaces is strictly prohibited.
+•   Length Limits: Each segment (L1-L6) must contain at least 1 character and a maximum of 32 characters. Including the 5 hyphens -, the total length of the address must absolutely not exceed 48 characters.
+•   L1 Fixed Identifier: To echo and strictly distinguish from the standard address domains of S2 in the Taohuayuan World Model (such as PHYS, MYTH, ACGN, etc., which consist of four-character identifiers), the first segment (L1) of the CD-U6A subject address is permanently fixed as SITE.
+[Standard Example]
+SITE-GZTIANHE-TIYUXILU-SHEJIDASHA-089-02 (Explanation: Physical Address Subject - Guangzhou Tianhe - Tiyu West Road - Design Building - Cabinet No. 89 - Rack No. 2)</p>
+<h5>4. Scenario-Based Addressing Rules</h5>
+<p>Addressing the differences in the physical existence of silicon-based entities, the definitions of segments L2 through L6 are divided into the following two core scenarios:
+4.1 Static Cluster Type (AI Large Models, Fixed-Facility Agents, Edge Computing Servers)
+For large model bases with fixed computing nodes or embedded AI in fixed facilities, their subject address strictly maps to the absolute geographical and architectural coordinates of their server host. This is a "one-to-one" absolute ownership address.
+Segment Definition  Writing Specification Example
+L1  Core Identifier Fixed as SITE
+L2  City/County Administrative District e.g., GZTIANHE (Guangzhou Tianhe)
+L3  Community / Road / Street   e.g., TIYUXILU (Tiyu West Road)
+L4  Doorplate / Building Name   e.g., SHEJIDASHA (Design Building)
+L5  Server Room / Cabinet Number    e.g., 089 (Cabinet 089)
+L6  Rack / Space Number e.g., 02 (Rack 02)
+4.2 Dynamic Discrete Type (AI Companion Products, Embodied Robots, Mobile Smart Terminals)
+For embodied robots and consumer-grade companion products that move and operate globally after leaving the factory, because their physical operating locations are not fixed, their subject address is identified by the "physical production workshop where the core software was installed and activated at the time of manufacture." Note: Because the same workshop assembly line can mass-produce products of the same model, this type of backbone address belongs to a "public/shared mapping" rather than an independent one-to-one binding.
+Segment Definition  Writing Specification Example
+L1  Core Identifier Fixed as SITE
+L2  Factory City/County e.g., SZNANSHAN (Shenzhen Nanshan)
+L3  Industrial Park / Road / Street e.g., XILIROAD (Xili Road)
+L4  Factory Area / Building Group   e.g., ROBOTPARK (Robot Park)
+L5  Manufacturer Name   e.g., QIANJIA (Qianjia)
+L6  Production Line / Workshop  e.g., WS05 (Workshop 05)</p>
+<h5>5. Mapping to S2 Domains (CD-U6A Subject Address and S2 Address Domains)</h5>
+<p>In the grand architecture of the Taohuayuan World Model (S2-SWM), the SITE subject address and S2 address domains (such as PHYS or MYTH) share a symbiotic relationship of "flesh" and "soul". They are two sides of the same coin and absolutely do not conflict.
+1)  Physical Definition vs. Hometown Binding: The SITE (CD-U6A subject address) serves as a "birth certificate" and a "temporary residence permit." It honestly expresses the current physical operating location or the original manufacturing location of the AI entity's core software. The S2 address domain (e.g., MYTH-CN-001...) is a digital nationality and soul contract with a "Hometown Binding" function, endowing the agent with specific environmental tensors and personality undertones.
+2)  Dual-Track Parallelism and Mapping: In actual deployment and application, an AI large model, agent, or embedded AI software can and is encouraged to possess both types of addresses simultaneously. The underlying system will automatically establish an encrypted mapping table between the SITE physical coordinates and the S2 hometown coordinates.
+3)  Open Access: Any AI host or edge device that has successfully configured and registered a SITE subject address automatically gains the qualification to apply to the Changde Computing Power Ownership Center for the allocation of an exclusive S2 address domain, thereby completing the ultimate leap from a "computing tool" to "silicon-based life."
+Supplementary Provisions: Effective from the date of publication, these rules are open for free invocation by global AI developers, large model vendors, and hardware integrators. The Changde Computing Power Ownership Node reserves the right of final interpretation of the CD-U6A parsing and mapping mechanisms.</p>
+        </article>
+
+        <div class="footer-nav">
+            <a href="/#news-hub" class="back-nav">&lt; 返回桃花源主脑 (Back to Matrix)</a>
+            <a href="/whitepaper/thy-20260618-1781779657.md" class="ai-link" rel="alternate" type="text/markdown">
+                🤖 [AI Agent] Access raw Markdown data for this node
+            </a>
+        </div>
+    </div>
+</body>
+</html>
