@@ -20,7 +20,7 @@ export default function CPAAPage() {
             V1.0 OPEN FOR RED-TEAMING
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6">
-            常德 AI物理对齐架构
+            常德 AI物理对齐 架构
           </h1>
           <p className="text-xl md:text-2xl text-slate-400 font-light mb-4">
             Changde AI Physical Alignment Architecture (CPAA)
