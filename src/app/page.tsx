@@ -395,6 +395,8 @@ export default function TaohuayuanLanding() {
                     {/* ✨ 新增：养生疗愈 导航链接 */}
                     <a href="#healing-dataset" className="cn">养生疗愈</a>
                     <a href="#healing-dataset" className="en">Healing</a>
+                   <Link href="/CPAA" className="cn">常德AI物理对齐</Link>
+                    <Link href="/CPAA" className="en">Changde AI Physical Alignment Architectur</Link>
                    <Link href="/Three-Laws" className="cn">硅基智能三定律</Link>
                     <Link href="/Three-Laws" className="en">Three-Laws</Link>
                     <Link href="/cd-agent" className="cn">常德智能体</Link>
