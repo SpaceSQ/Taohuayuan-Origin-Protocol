@@ -63,7 +63,7 @@ export default function TaohuayuanLanding() {
     // ------------------------------------
     // 1. 状态管理 (取代原有的原生 JS)
     // ------------------------------------
-    const [lang, setLang] = useState<'cn' | 'en'>('cn');
+    const [lang, setLang] = useState<'en' | 'en'>('cn');
     
     // 黑客帝国代码雨状态
     const [matrixText, setMatrixText] = useState('INITIALIZING...');
@@ -420,7 +420,7 @@ export default function TaohuayuanLanding() {
                         <span className="cn">灵元入世</span>
                         <span className="en">Digital Soul Descent</span>
                     </a>
-                    <button className="lang-switch" onClick={() => setLang(lang === 'cn' ? 'en' : 'en')}>EN / CN</button>
+                    <button className="lang-switch" onClick={() => setLang(lang === 'cn' ? 'en' : 'cn')}>EN / CN</button>
                 </div>
             </nav>
 
