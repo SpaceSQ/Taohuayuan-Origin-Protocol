@@ -420,7 +420,7 @@ export default function TaohuayuanLanding() {
                         <span className="cn">灵元入世</span>
                         <span className="en">Digital Soul Descent</span>
                     </a>
-                    <button className="lang-switch" onClick={() => setLang(lang === 'cn' ? 'en' : 'cn')}>EN / CN</button>
+                    <button className="lang-switch" onClick={() => setLang(lang === 'cn' ? 'en' : 'en')}>EN / CN</button>
                 </div>
             </nav>
 
