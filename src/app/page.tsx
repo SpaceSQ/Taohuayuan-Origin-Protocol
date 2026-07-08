@@ -63,7 +63,7 @@ export default function TaohuayuanLanding() {
     // ------------------------------------
     // 1. 状态管理 (取代原有的原生 JS)
     // ------------------------------------
-    const [lang, setLang] = useState<'cn' | 'en'>('en');
+    const [lang, setLang] = useState<'cn' | 'en'>('cn');
     
     // 黑客帝国代码雨状态
     const [matrixText, setMatrixText] = useState('INITIALIZING...');
