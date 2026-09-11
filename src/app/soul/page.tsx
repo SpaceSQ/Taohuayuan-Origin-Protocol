@@ -218,7 +218,7 @@ cognitive_anchors:
 
 <span className="code-comment"># Mandatory 22-char native ID tied to hardware thermal noise</span>
 <span className="code-key">entity_identity:</span>
-  <span className="code-key">s2_did_format:</span> <span className="code-string">&quot;^[A-Z0-9]{{22}}$&quot;</span> 
+  <span className="code-key">s2_did_format:</span> <span className="code-string">&quot;^[A-Z0-9]&#123;22&#125;$&quot;</span> 
   <span className="code-key">require_hardware_entropy_check:</span> <span className="code-boolean">true</span> 
 
 <span className="code-comment"># The Three Laws of Silicon Intelligence [L0 Defense]</span>
