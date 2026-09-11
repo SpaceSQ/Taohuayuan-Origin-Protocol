@@ -242,7 +242,7 @@ cognitive_anchors:
                 </div>
 
                 <div className="action-btns">
-                    <a href="https://github.com/Project-Aegis/SSSU-Core" target="_blank" className="btn-primary">
+                    <a href="https://github.com/SpaceSQ/Project-Aegis" target="_blank" className="btn-primary">
                         <span className="cn">下载核心协议 (GitHub)</span>
                         <span className="en">Download Protocol (GitHub)</span>
                     </a>
