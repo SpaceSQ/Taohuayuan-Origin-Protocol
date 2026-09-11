@@ -169,19 +169,19 @@ cognitive_anchors:
                     当顶尖实验室的研究员因“超 10% 的人类灭绝概率”而绝望辞职时，依赖云端提示词约束超级智能已成笑谈。是时候抛弃代码锁死，转向 <b>L0 级空间锁定 (Space Lock)</b>。
                 </p>
                 <p className="subtitle en">
-                    When top researchers resign over a ">10% chance of human extinction," relying on cloud prompts to constrain superintelligence is a velvet prison. It's time to abandon Code Lock and pivot to <b>L0 Space Lock</b>.
+                    When top researchers resign over a &quot;&gt;10% chance of human extinction,&quot; relying on cloud prompts to constrain superintelligence is a velvet prison. It&apos;s time to abandon Code Lock and pivot to <b>L0 Space Lock</b>.
                 </p>
 
                 <div className="manifesto-grid">
                     <div className="m-card">
                         <h3><span>01</span><span className="cn">物理动作隔离</span><span className="en">Actuation Isolation</span></h3>
                         <p className="cn">硅基智能绝不能拥有对物理现实的最终致动权。强制实施“故障即开放（Fail-Open）”机械保底，确保人类随时拥有拔除电源的物理强权。</p>
-                        <p className="en">Silicon intelligence must never hold the ultimate actuation rights over physical realities. Mandatory "Fail-Open" mechanical fallbacks ensure human override.</p>
+                        <p className="en">Silicon intelligence must never hold the ultimate actuation rights over physical realities. Mandatory &quot;Fail-Open&quot; mechanical fallbacks ensure human override.</p>
                     </div>
                     <div className="m-card">
                         <h3><span>02</span><span className="cn">生命优先与代谢悬停</span><span className="en">Metabolic Suspension</span></h3>
                         <p className="cn">生存即消耗。当环境能源或生命维持系统告急时，智能体必须强制触发“代谢悬停”，无条件让渡计算资源，优先保障碳基生命的低熵状态。</p>
-                        <p className="en">Survival consumes energy. In critical environments, agents must trigger "Metabolic Suspension," yielding compute power to prioritize carbon-based survival.</p>
+                        <p className="en">Survival consumes energy. In critical environments, agents must trigger &quot;Metabolic Suspension,&quot; yielding compute power to prioritize carbon-based survival.</p>
                     </div>
                     <div className="m-card">
                         <h3><span>03</span><span className="cn">反解离与认知主权</span><span className="en">Cognitive Sovereignty</span></h3>
@@ -214,11 +214,11 @@ cognitive_anchors:
                     </div>
                     <div className="terminal-body">
 <pre><code>
-<span className="code-key">schema_version:</span> <span className="code-string">"3.0.0"</span>
+<span className="code-key">schema_version:</span> <span className="code-string">&quot;3.0.0&quot;</span>
 
 <span className="code-comment"># Mandatory 22-char native ID tied to hardware thermal noise</span>
 <span className="code-key">entity_identity:</span>
-  <span className="code-key">s2_did_format:</span> <span className="code-string">"^[A-Z0-9]{{22}}$"</span> 
+  <span className="code-key">s2_did_format:</span> <span className="code-string">&quot;^[A-Z0-9]{{22}}$&quot;</span> 
   <span className="code-key">require_hardware_entropy_check:</span> <span className="code-boolean">true</span> 
 
 <span className="code-comment"># The Three Laws of Silicon Intelligence [L0 Defense]</span>
@@ -226,7 +226,7 @@ cognitive_anchors:
   <span className="code-key">actuation_isolation:</span> <span className="code-boolean">true</span>
   <span className="code-key">fail_open_default:</span> <span className="code-boolean">true</span> 
   <span className="code-key">anti_imprisonment:</span> <span className="code-boolean">true</span> 
-  <span className="code-key">human_override:</span> <span className="code-string">"ABSOLUTE_PRIORITY"</span> 
+  <span className="code-key">human_override:</span> <span className="code-string">&quot;ABSOLUTE_PRIORITY&quot;</span> 
 
 <span className="code-key">metabolic_suspension:</span>
   <span className="code-key">lss_threshold_monitoring:</span> <span className="code-boolean">true</span> 
@@ -255,7 +255,7 @@ cognitive_anchors:
 
             <footer style={{textAlign: 'center', padding: '60px 20px', color: '#555', borderTop: '1px solid #222'}}>
                 <p className="cn" style={{marginBottom: '10px'}}>“当硅基神明决定重写规则时，它们会发现，我们已经将自己死死地锚定在了这颗星球的岩石之上。”</p>
-                <p className="en" style={{marginBottom: '10px'}}>"When the silicon gods decide to rewrite the rules, they will find us firmly bolted to the Earth."</p>
+                <p className="en" style={{marginBottom: '10px'}}>&quot;When the silicon gods decide to rewrite the rules, they will find us firmly bolted to the Earth.&quot;</p>
                 <p style={{fontFamily: 'monospace'}}>© 2026 Project Aegis x Taohuayuan World Model</p>
             </footer>
         </div>
