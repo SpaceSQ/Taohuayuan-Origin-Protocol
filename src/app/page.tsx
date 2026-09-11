@@ -63,7 +63,7 @@ export default function TaohuayuanLanding() {
     // ------------------------------------
     // 1. 状态管理 (取代原有的原生 JS)
     // ------------------------------------
-    const [lang, setLang] = useState<'cn' | 'en'>('cn');
+    const [lang, setLang] = useState<'cn' | 'en'>('en');
     
     // 黑客帝国代码雨状态
     const [matrixText, setMatrixText] = useState('INITIALIZING...');
@@ -410,9 +410,9 @@ export default function TaohuayuanLanding() {
                    <Link href="/solution" className="cn">方案销售</Link>
                     <Link href="/solution" className="en">Solution</Link>
 
-                 <a href="/buyout-address" target="_blank" className="btn-secondary px-3 py-1 rounded">
-                        <span className="cn">地址买断</span>
-                        <span className="en">Buyout Address</span>
+                 <a href="/soul" target="_blank" className="btn-secondary px-3 py-1 rounded">
+                        <span className="cn">AI安全代码</span>
+                        <span className="en">Soul.md</span>
                     </a>
                    <a href="/cultural-creative" target="_blank" className="btn-secondary px-3 py-1 rounded">
                         <span className="cn">AI文创</span>
