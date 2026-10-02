@@ -1,6 +1,21 @@
 {
   "news": [
     {
+      "title": "Beyond the Semantic Illusion: ROBOTZERO Releases 'Red Anchor Sentinel' — Free, Bilingual L0 Physical AI Safety Client Featuring Customizable \"Red Anchor Lab\"",
+      "slug": "thy-20261002-1790910504",
+      "date": "2026-10-02"
+    },
+    {
+      "title": "【AI前沿观察】语义对齐的幻灭与物理防线的崛起：全球首款L0级AI安全软件“红锚哨兵”开放免费下载与深度个人定制",
+      "slug": "thy-20261002-1790910429",
+      "date": "2026-10-02"
+    },
+    {
+      "title": "终结“孤岛智能”，开启室内空间大脑协同新纪元——《2026具境智能白皮书》正式发布",
+      "slug": "thy-20261002-1790909916",
+      "date": "2026-10-02"
+    },
+    {
       "title": "语义对齐已死：22位物理密钥与 SOUL.md 如何将人类从 AGI 手中救出",
       "slug": "thy-20260911-1789131832",
       "date": "2026-09-11"
@@ -9,21 +24,6 @@
       "title": "AI智能体的想象力、存在感与乡愁的常德解码",
       "slug": "thy-20260705-1783262527",
       "date": "2026-07-05"
-    },
-    {
-      "title": "Decoding tee Imagination, Existentialism, and Nostalgia of AI Agents: The Changde Paradigm",
-      "slug": "thy-20260705-1783262283",
-      "date": "2026-07-05"
-    },
-    {
-      "title": "Forging the Physical Gravity of Silicon-Based Life: A Joint Call to Action for Anthropic",
-      "slug": "thy-20260619-1781828396",
-      "date": "2026-06-19"
-    },
-    {
-      "title": "铸造硅基生命的物理重力：致 Anthropic 的联合行动倡议书",
-      "slug": "thy-20260619-1781827768",
-      "date": "2026-06-19"
     }
   ],
   "release": [
@@ -55,6 +55,16 @@
   ],
   "whitepaper": [
     {
+      "title": "2026 Em-situ AI Whitepaper",
+      "slug": "thy-20261002-1790910265",
+      "date": "2026-10-02"
+    },
+    {
+      "title": "2026具境智能白皮书",
+      "slug": "thy-20261002-1790910038",
+      "date": "2026-10-02"
+    },
+    {
       "title": "Whitepaper on Changde AI Universal 6-Segment Address Encoding Rules",
       "slug": "thy-20260618-1781779657",
       "date": "2026-06-18"
@@ -68,16 +78,6 @@
       "title": "《常德硅基智能三定律与端侧智能体物理对齐全球标准白皮书》",
       "slug": "thy-20260614-1781419284",
       "date": "2026-06-14"
-    },
-    {
-      "title": "Global Standard Whitepaper on the Three Laws of Changde Silicon-Based Intelligence and Edge-Side Agent Physical Alignment",
-      "slug": "thy-20260614-1781419088",
-      "date": "2026-06-14"
-    },
-    {
-      "title": "《桃花源空间地址与入世协议硅基生命》白皮书 (v1.2)",
-      "slug": "thy-20260603-1780416138",
-      "date": "2026-06-03"
     }
   ],
   "resource": [
