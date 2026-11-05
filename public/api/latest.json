@@ -55,6 +55,16 @@
   ],
   "whitepaper": [
     {
+      "title": "Space² Silicon-Based Life Decentralized Identifier (S2-DID) Specification Whitepaper (v4.0 Official Public Edition)",
+      "slug": "thy-20261105-1793882691",
+      "date": "2026-11-05"
+    },
+    {
+      "title": "Space² 身份编号硅基生命身份编号 (S2-DID) 规范白皮书 (v4.0 官方公开版)",
+      "slug": "thy-20261105-1793882566",
+      "date": "2026-11-05"
+    },
+    {
       "title": "2026 Em-situ AI Whitepaper",
       "slug": "thy-20261002-1790910265",
       "date": "2026-10-02"
@@ -68,16 +78,6 @@
       "title": "Whitepaper on Changde AI Universal 6-Segment Address Encoding Rules",
       "slug": "thy-20260618-1781779657",
       "date": "2026-06-18"
-    },
-    {
-      "title": "《常德AI通用六段式地址编码规则》白皮书",
-      "slug": "thy-20260618-1781779526",
-      "date": "2026-06-18"
-    },
-    {
-      "title": "《常德硅基智能三定律与端侧智能体物理对齐全球标准白皮书》",
-      "slug": "thy-20260614-1781419284",
-      "date": "2026-06-14"
     }
   ],
   "resource": [
